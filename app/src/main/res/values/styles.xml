@@ -255,4 +255,6 @@
     <style name="groupStyleblue_100cornerRadius">
         <item name="android:background">@drawable/rectangle_bg_blue_100_radius_25</item>
     </style>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    </style>
 </resources>
