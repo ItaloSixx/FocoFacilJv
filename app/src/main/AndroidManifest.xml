@@ -10,10 +10,15 @@
         android:label="FocoFacil"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
+            android:name=".CadastrarActivity"
+            android:theme="@style/Theme.NoBar"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
+            android:theme="@style/Theme.NoBar"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
