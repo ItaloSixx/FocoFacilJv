@@ -5,31 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".LoginActivity">
-
-    <ImageView
-        android:id="@+id/imageSenha3"
-        android:layout_width="@dimen/_17pxh"
-        android:layout_height="@dimen/_21pxh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6"
-        app:srcCompat="@drawable/img_password" />
-
-    <ImageView
-        android:id="@+id/imageSenha2"
-        android:layout_width="@dimen/_17pxh"
-        android:layout_height="@dimen/_21pxh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518"
-        app:srcCompat="@drawable/img_password" />
+    tools:context=".CadastrarActivity">
 
     <TextView
         android:id="@+id/txtCadastrar"
@@ -55,23 +31,25 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:autofillHints=""
+        android:drawableRight="@drawable/eye"
         android:ellipsize="end"
         android:hint="Senha"
-        android:drawableRight="@drawable/eye"
         android:singleLine="true"
         android:textColorHint="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/edtSenhaConfirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+        app:layout_constraintVertical_bias="0.45" />
 
     <EditText
         android:id="@+id/edtSenhaConfirm"
         style="@style/txtPoppinssemibold14"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="416dp"
+        android:layout_marginBottom="42dp"
         android:layout_weight="1"
         android:autofillHints=""
         android:drawableRight="@drawable/eye"
@@ -79,15 +57,14 @@
         android:hint="Senha"
         android:singleLine="true"
         android:textColorHint="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edtEmailLogin"
+        android:id="@+id/edtNome"
         style="@style/txtPoppinssemibold14"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
@@ -102,40 +79,71 @@
         app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCadastrar"
-        app:layout_constraintVertical_bias="0.714" />
+        tools:ignore="DuplicateIds" />
 
     <EditText
-        android:id="@+id/edtEmailLogin"
+        android:id="@+id/edtEmail"
         style="@style/txtPoppinssemibold14"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:layout_weight="1"
         android:autofillHints=""
         android:ellipsize="end"
         android:hint="Email"
         android:singleLine="true"
         android:textColorHint="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintTop_toBottomOf="@+id/edtNome" />
 
     <ImageView
-        android:id="@+id/imageEmail"
+        android:id="@+id/imageUser"
         android:layout_width="@dimen/_17pxh"
         android:layout_height="@dimen/_21pxh"
+        android:layout_marginTop="16dp"
         android:scaleType="fitXY"
-        android:src="@drawable/img_email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        android:src="@drawable/img_user"
+        app:layout_constraintEnd_toStartOf="@+id/edtNome"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373"
+        app:layout_constraintTop_toBottomOf="@+id/txtCadastrar"
         tools:ignore="ContentDescription"
         tools:src="@drawable/img_user" />
+
+    <ImageView
+        android:id="@+id/imageSenha2"
+        android:layout_width="@dimen/_17pxh"
+        android:layout_height="@dimen/_21pxh"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/edtSenha"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSenha"
+        app:srcCompat="@drawable/img_password" />
+
+    <ImageView
+        android:id="@+id/imageSenha"
+        android:layout_width="@dimen/_17pxh"
+        android:layout_height="@dimen/_21pxh"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/edtEmail"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageUser"
+        app:srcCompat="@drawable/img_email" />
+
+    <ImageView
+        android:id="@+id/imageSenha3"
+        android:layout_width="@dimen/_17pxh"
+        android:layout_height="@dimen/_21pxh"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/edtSenhaConfirm"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSenha2"
+        app:srcCompat="@drawable/img_password" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCadastrar"
@@ -177,16 +185,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/lbl_ou"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCadGoogle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
-        app:layout_constraintVertical_bias="0.0"
         tools:text="@string/lbl_ou" />
 
     <TextView
@@ -209,7 +215,7 @@
         android:id="@+id/btnCadGoogle"
         style="@style/btnSolidRounded"
         android:layout_width="340dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
         android:background="@drawable/rectangle_bg_gray_500_radius_20"
         android:ellipsize="end"
@@ -228,21 +234,19 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/btnLoginTela"
+        android:id="@+id/txtLoginTela"
         style="@style/txtPoppinsbold12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="4dp"
         android:layout_marginBottom="40dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="Login-in"
+        android:text="Login"
         android:textColor="#1891AB"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.708"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/txtViewConta" />
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -258,18 +262,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,MissingConstraints"
         tools:src="@drawable/img_logo" />
-
-    <ImageView
-        android:id="@+id/imageSenha"
-        android:layout_width="@dimen/_17pxh"
-        android:layout_height="@dimen/_21pxh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.442"
-        app:srcCompat="@drawable/img_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
