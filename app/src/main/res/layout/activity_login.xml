@@ -25,7 +25,7 @@
         tools:text="@string/lbl_login" />
 
     <EditText
-        android:id="@+id/edtEmailLogin"
+        android:id="@+id/edtEmail"
         style="@style/txtPoppinssemibold14"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
         tools:text="@string/msg_esqueceu_a_senh" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCadastrar"
+        android:id="@+id/btnLogin"
         style="@style/btnSolidRounded"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
         tools:ignore="MissingConstraints"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCadGoogle"
+        android:id="@+id/btnLogGoogle"
         style="@style/btnSolidRounded"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
@@ -149,13 +149,13 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/btnLoginTela"
+        android:id="@+id/txtCadTela"
         style="@style/txtPoppinsbold12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="48dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Registre-se"
@@ -195,7 +195,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:layout_constraintVertical_bias="0.0"
         tools:text="@string/lbl_ou" />
 
