@@ -7,6 +7,30 @@
     android:background="#FFFFFF"
     tools:context=".LoginActivity">
 
+    <ImageView
+        android:id="@+id/imageSenha3"
+        android:layout_width="@dimen/_17pxh"
+        android:layout_height="@dimen/_21pxh"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6"
+        app:srcCompat="@drawable/img_password" />
+
+    <ImageView
+        android:id="@+id/imageSenha2"
+        android:layout_width="@dimen/_17pxh"
+        android:layout_height="@dimen/_21pxh"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518"
+        app:srcCompat="@drawable/img_password" />
+
     <TextView
         android:id="@+id/txtCadastrar"
         style="@style/txtPoppinsbold24"
@@ -18,11 +42,67 @@
         android:text="@string/lbl_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.259"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"
-        tools:text="@string/lbl_login" />
+        app:layout_constraintVertical_bias="0.298"
+        tools:text="Cadastrar" />
+
+    <EditText
+        android:id="@+id/edtSenha"
+        style="@style/txtPoppinssemibold14"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ellipsize="end"
+        android:hint="Senha"
+        android:drawableRight="@drawable/eye"
+        android:singleLine="true"
+        android:textColorHint="#ABABAB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <EditText
+        android:id="@+id/edtSenhaConfirm"
+        style="@style/txtPoppinssemibold14"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:drawableRight="@drawable/eye"
+        android:ellipsize="end"
+        android:hint="Senha"
+        android:singleLine="true"
+        android:textColorHint="#ABABAB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606" />
+
+    <EditText
+        android:id="@+id/edtEmailLogin"
+        style="@style/txtPoppinssemibold14"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ellipsize="end"
+        android:hint="Nome"
+        android:singleLine="true"
+        android:textColorHint="#ABABAB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCadastrar"
+        app:layout_constraintVertical_bias="0.714" />
 
     <EditText
         android:id="@+id/edtEmailLogin"
@@ -35,30 +115,12 @@
         android:hint="Email"
         android:singleLine="true"
         android:textColorHint="#ABABAB"
-        app:layout_constraintBottom_toTopOf="@+id/edtSenha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.602"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCadastrar"
-        app:layout_constraintVertical_bias="0.7" />
-
-    <EditText
-        android:id="@+id/edtSenha"
-        style="@style/txtPoppinssemibold14"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:autofillHints=""
-        android:ellipsize="end"
-        android:hint="Senha"
-        android:singleLine="true"
-        android:textColorHint="#ABABAB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintVertical_bias="0.446" />
 
     <ImageView
         android:id="@+id/imageEmail"
@@ -68,50 +130,19 @@
         android:src="@drawable/img_email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432"
+        app:layout_constraintVertical_bias="0.373"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/img_email" />
-
-    <ImageView
-        android:id="@+id/imageEye"
-        android:layout_width="@dimen/_20pxh"
-        android:layout_height="@dimen/_20pxh"
-        android:layout_gravity="top|end"
-        android:scaleType="fitXY"
-        android:src="@drawable/img_eye"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/img_eye" />
-
-    <TextView
-        android:id="@+id/txtEsqueceuSenha"
-        style="@style/txtPoppinsbold12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="20dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/msg_esqueceu_a_senh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtSenha"
-        tools:text="@string/msg_esqueceu_a_senh" />
+        tools:src="@drawable/img_user" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCadastrar"
         style="@style/btnSolidRounded"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="180dp"
         android:ellipsize="end"
         android:gravity="center"
         android:paddingStart="@dimen/_30pxh"
@@ -119,67 +150,26 @@
         android:paddingEnd="@dimen/_30pxh"
         android:paddingBottom="@dimen/_9pxv"
         android:singleLine="true"
-        android:text="Login"
+        android:text="Cadastrar"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCadGoogle"
-        style="@style/btnSolidRounded"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
-        android:background="@drawable/rectangle_bg_gray_500_radius_20"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:paddingStart="@dimen/_30pxh"
-        android:paddingTop="@dimen/_9pxv"
-        android:paddingEnd="@dimen/_30pxh"
-        android:paddingBottom="@dimen/_9pxv"
-        android:singleLine="true"
-        android:text="Login com Google"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/btnLoginTela"
-        style="@style/txtPoppinsbold12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="50dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Registre-se"
-        android:textColor="#1891AB"
+    <ImageView
+        android:id="@+id/googleimg"
+        android:layout_width="42dp"
+        android:layout_height="40dp"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.692"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtViewConta"
-        style="@style/txtPoppinsbold12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginBottom="48dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Não possui uma conta?"
-        android:textColor="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.869"
+        app:srcCompat="@drawable/img_tanpajudul40" />
 
     <TextView
         android:id="@+id/txtOU"
@@ -193,11 +183,66 @@
         android:text="@string/lbl_ou"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
         app:layout_constraintVertical_bias="0.0"
         tools:text="@string/lbl_ou" />
+
+    <TextView
+        android:id="@+id/txtViewConta"
+        style="@style/txtPoppinsbold12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="40dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Já possui uma conta?"
+        android:textColor="#ABABAB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCadGoogle"
+        style="@style/btnSolidRounded"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="88dp"
+        android:background="@drawable/rectangle_bg_gray_500_radius_20"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingStart="@dimen/_30pxh"
+        android:paddingTop="@dimen/_9pxv"
+        android:paddingEnd="@dimen/_30pxh"
+        android:paddingBottom="@dimen/_9pxv"
+        android:singleLine="true"
+        android:text="Cadastrar com Google"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/btnLoginTela"
+        style="@style/txtPoppinsbold12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="40dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Login-in"
+        android:textColor="#1891AB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -220,23 +265,11 @@
         android:layout_height="@dimen/_21pxh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_password" />
-
-    <ImageView
-        android:id="@+id/googleimg"
-        android:layout_width="42dp"
-        android:layout_height="40dp"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.824"
-        app:srcCompat="@drawable/img_tanpajudul40" />
+        app:layout_constraintVertical_bias="0.442"
+        app:srcCompat="@drawable/img_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
