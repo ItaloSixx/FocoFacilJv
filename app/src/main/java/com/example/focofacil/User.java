@@ -23,10 +23,11 @@ public class User implements Serializable {
         // Construtor vazio necessário para o Room
     }
 
-    public User(String nome, String email, String senha) {
+    public User(int id, String nome, String email, String senhaHashed) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
-        setSenhaHashed(senha);
+        this.senhaHashed = senhaHashed;
     }
 
     public int getId() {
