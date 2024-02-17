@@ -29,25 +29,47 @@ public interface UserDao {
     void delete(User usuario);
 
     default void insertUserToFirebase(User user) {
-        // Referência ao seu nó de usuários no Firebase Realtime Database
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("User");
-
-        // Gerando uma chave única para o usuário no Firebase
         String userId = usersRef.push().getKey();
-
-        // Definindo os dados do usuário no nó de usuários do Firebase usando a chave gerada
         usersRef.child(userId).setValue(user);
     }
 
-    // Método para receber dados do Firebase e atualizar o banco de dados local
     @Query("SELECT * FROM User")
     List<User> getAllUsersFromFirebase();
 
-    // Método para atualizar o Firebase com os dados locais
     @Update
     void updateUserInFirebase(User user);
 
-    // Método para excluir um usuário do Firebase
     @Delete
     void deleteUserFromFirebase(User user);
+
+    // Métodos para a entidade Tarefa
+    @Query("SELECT * FROM Tarefa")
+    List<Tarefa> getAllTarefas();
+
+    @Insert
+    long insertTarefa(Tarefa tarefa);
+
+    @Update
+    void updateTarefa(Tarefa tarefa);
+
+    @Delete
+    void deleteTarefa(Tarefa tarefa);
+
+    // Métodos para a entidade Preferencias
+    @Query("SELECT * FROM Preferencias")
+    List<Preferencias> getAllPreferencias();
+
+    @Insert
+    long insertPreferencias(Preferencias preferencias);
+
+    @Update
+    void updatePreferencias(Preferencias preferencias);
+
+    @Delete
+    void deletePreferencias(Preferencias preferencias);
+
+    @Query("SELECT * FROM Preferencias LIMIT 1")
+    Preferencias getPreferencias();
+
 }

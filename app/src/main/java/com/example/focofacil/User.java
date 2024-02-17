@@ -1,14 +1,18 @@
 package com.example.focofacil;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 public class User implements Serializable {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private String id;
 
     @ColumnInfo(name = "nome")
     private String nome;
@@ -21,20 +25,21 @@ public class User implements Serializable {
 
     public User() {
         // Construtor vazio necessário para o Room
+        this.id = UUID.randomUUID().toString();
     }
 
-    public User(int id, String nome, String email, String senhaHashed) {
-        this.id = id;
+    public User(String nome, String email, String senhaHashed) {
+        this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.email = email;
         this.senhaHashed = senhaHashed;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,4 +72,5 @@ public class User implements Serializable {
     public boolean verifyPassword(String senha) {
         return senha != null && PasswordUtils.verifyPassword(senha, senhaHashed);
     }
+
 }

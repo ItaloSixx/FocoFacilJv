@@ -2,21 +2,36 @@ package com.example.focofacil;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 @Entity
 public class Preferencias implements Serializable {
-    @ColumnInfo(name = "notificarDia")
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+    @ColumnInfo(name = "notificarDia") //Assim que o dia virar notificar todas as tarefas
     private Boolean notificarDia;
-    @ColumnInfo(name = "notificarSemana")
+    @ColumnInfo(name = "notificarSemana") //Assim que a semana virar notificar todas as tarefas
     private Boolean notificarSemana;
-    @ColumnInfo(name = "notificarHorario")
+    @ColumnInfo(name = "notificarHorario") //Assim que proximo do horario da tarefa, notificar
     private Boolean notificarHorario;
 
     public Preferencias(Boolean notificarDia, Boolean notificarSemana, Boolean notificarHorario) {
         this.notificarDia = notificarDia;
         this.notificarSemana = notificarSemana;
         this.notificarHorario = notificarHorario;
+    }
+
+    public Preferencias() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Boolean getNotificarDia() {

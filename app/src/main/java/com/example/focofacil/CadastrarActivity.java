@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ public class CadastrarActivity extends AppCompatActivity {
         edtSenhaConfirm = findViewById(R.id.edtSenhaConfirm);
         btnCadastrar = findViewById(R.id.btnCadastrar);
         btnCadGoogle = findViewById(R.id.btnCadGoogle);
+        txtLoginTela = findViewById(R.id.txtLoginTela);
 
         db = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "FocoFacilBD").build();
 
@@ -58,16 +60,14 @@ public class CadastrarActivity extends AppCompatActivity {
                             String senhaConfirm = edtSenhaConfirm.getText().toString();
 
                             //Criando um novo objeto User com os dados fornecidos
-                            User user = new User(0, nome, email, senha);
+                            User user = new User(nome, email, senha);
 
-                            // Inserindo o usuário no banco de dados local
-                            long userIdLocal = db.userDao().insert(user);
+// Inserindo o usuário no banco de dados local
+                            db.userDao().insert(user);
 
-                            // Configurar o id do usuário com o id gerado pelo Room
-                            user.setId((int) userIdLocal);
-
-                            // Inserir usuário no Firebase
+// Inserir usuário no Firebase
                             db.userDao().insertUserToFirebase(user);
+
 
 
                             //Atualizando a UI para limpar os campos de entrada (dentro da thread secundária)
@@ -88,6 +88,14 @@ public class CadastrarActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(CadastrarActivity.this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        txtLoginTela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent redirecionar = new Intent(CadastrarActivity.this, ConfiguracoesActivity.class);
+                startActivity(redirecionar);
             }
         });
     }
