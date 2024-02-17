@@ -23,4 +23,19 @@ public interface UserDao {
     void update(User usuario);
     @Delete
     void delete(User usuario);
+
+    @Insert
+    void insertUserToFirebase(User user);
+
+    // Método para receber dados do Firebase e atualizar o banco de dados local
+    @Query("SELECT * FROM User")
+    List<User> getAllUsersFromFirebase();
+
+    // Método para atualizar o Firebase com os dados locais
+    @Update
+    void updateUserInFirebase(User user);
+
+    // Método para excluir um usuário do Firebase
+    @Delete
+    void deleteUserFromFirebase(User user);
 }

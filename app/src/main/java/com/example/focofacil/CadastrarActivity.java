@@ -11,6 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ktx.Firebase;
+
+import java.util.UUID;
+
 public class CadastrarActivity extends AppCompatActivity {
 
     EditText edtNome, edtEmail, edtSenha, edtSenhaConfirm;
@@ -56,6 +62,7 @@ public class CadastrarActivity extends AppCompatActivity {
 
                             //Inserindo o usuário no banco de dados
                             db.userDao().insert(user);
+                            sendUserToFirebase(user);
 
                             //Atualizando a UI para limpar os campos de entrada (dentro da thread secundária)
                             runOnUiThread(new Runnable() {
@@ -78,4 +85,16 @@ public class CadastrarActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void sendUserToFirebase(User user) {
+        // Referência ao seu nó de usuários no Firebase Realtime Database
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("User");
+
+        // Gerando uma chave única para o usuário no Firebase
+        String userId = usersRef.push().getKey();
+
+        // Definindo os dados do usuário no nó de usuários do Firebase usando a chave gerada
+        usersRef.child(userId).setValue(user);
+    }
+
 }
