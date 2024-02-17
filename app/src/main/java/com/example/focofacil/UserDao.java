@@ -6,6 +6,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 @Dao
@@ -16,7 +19,8 @@ public interface UserDao {
     User findByEmail(String txtEmail);
 
     @Insert
-    void insert(User usuario);
+    long insert(User usuario);
+
     @Insert
     void insertAll (List<User> usuarios);
     @Update
@@ -24,8 +28,16 @@ public interface UserDao {
     @Delete
     void delete(User usuario);
 
-    @Insert
-    void insertUserToFirebase(User user);
+    default void insertUserToFirebase(User user) {
+        // Referência ao seu nó de usuários no Firebase Realtime Database
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("User");
+
+        // Gerando uma chave única para o usuário no Firebase
+        String userId = usersRef.push().getKey();
+
+        // Definindo os dados do usuário no nó de usuários do Firebase usando a chave gerada
+        usersRef.child(userId).setValue(user);
+    }
 
     // Método para receber dados do Firebase e atualizar o banco de dados local
     @Query("SELECT * FROM User")
