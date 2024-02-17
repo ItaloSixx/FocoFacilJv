@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579533834454",
+    "project_id": "focofaciljv",
+    "storage_bucket": "focofaciljv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579533834454:android:460758bdadadec9dd56177",
+        "android_client_info": {
+          "package_name": "com.example.focofacil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWru6PLYekk0K7_tbCENJfbWdzrDeK95w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
