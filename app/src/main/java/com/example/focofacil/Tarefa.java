@@ -14,15 +14,15 @@ public class Tarefa implements Serializable {
     private int id;
     @ColumnInfo(name = "descricao")
     private String descricao;
-    @ColumnInfo(name = "comentario")
-    private String comentario;
+    @ColumnInfo(name = "assunto")
+    private String assunto;
     @ColumnInfo(name = "dataHora")
     private Date dataHora;
 
 
-    public Tarefa(String descricao, String comentario, Date dataHora) {
+    public Tarefa(String descricao, String assunto, Date dataHora) {
         this.descricao = descricao;
-        this.comentario = comentario;
+        this.assunto = assunto;
         this.dataHora = dataHora;
     }
 
@@ -42,12 +42,12 @@ public class Tarefa implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getAssunto() {
+        return assunto;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setAssunto(String assunto) {
+        this.assunto = assunto;
     }
 
     public Date getDataHora() {

@@ -13,22 +13,28 @@
         android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
+            android:name=".DetalhesDiaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.NoBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.NoBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CadastrarActivity"
-            android:theme="@style/Theme.NoBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.NoBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
