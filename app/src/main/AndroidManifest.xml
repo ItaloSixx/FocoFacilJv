@@ -7,19 +7,27 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="FocoFacil"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FocoFacil"
-        tools:targetApi="31">
+        android:theme="@style/Theme.NoBar"
+        tools:targetApi="34">
         <activity
-            android:name=".MainActivity"
+            android:name=".CadastrarDiaActivity"
+            android:theme="@style/Theme.NoBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+         <activity
+            android:name=".CadastrarActivity"
+            android:theme="@style/Theme.NoBar"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
         </activity>
     </application>
 
