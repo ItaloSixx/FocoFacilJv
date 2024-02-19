@@ -1,9 +1,12 @@
-package com.example.focofacil;
+package com.example.focofacil.Bd;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.example.focofacil.Utils.PasswordUtils;
+
 import java.io.Serializable;
 import java.util.UUID;
 

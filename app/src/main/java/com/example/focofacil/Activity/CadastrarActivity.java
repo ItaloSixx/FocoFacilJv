@@ -1,22 +1,19 @@
-package com.example.focofacil;
+package com.example.focofacil.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.ktx.Firebase;
-
-import java.util.UUID;
+import com.example.focofacil.Bd.MyDatabase;
+import com.example.focofacil.R;
+import com.example.focofacil.Bd.User;
 
 public class CadastrarActivity extends AppCompatActivity {
 
@@ -62,10 +59,10 @@ public class CadastrarActivity extends AppCompatActivity {
                             //Criando um novo objeto User com os dados fornecidos
                             User user = new User(nome, email, senha);
 
-// Inserindo o usuário no banco de dados local
+                            // Inserindo o usuário no banco de dados local
                             db.userDao().insert(user);
 
-// Inserir usuário no Firebase
+                            // Inserir usuário no Firebase
                             db.userDao().insertUserToFirebase(user);
 
 

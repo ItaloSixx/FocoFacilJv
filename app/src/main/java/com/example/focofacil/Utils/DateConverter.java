@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Utils;
 
 import androidx.room.TypeConverter;
 

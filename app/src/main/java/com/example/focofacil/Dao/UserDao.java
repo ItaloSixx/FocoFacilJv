@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,6 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.focofacil.Bd.Tarefa;
+import com.example.focofacil.Bd.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,14 +21,14 @@ public interface UserDao {
     User findByEmail(String txtEmail);
 
     @Insert
-    long insert(User usuario);
+    long insert(User user);
 
     @Insert
-    void insertAll (List<User> usuarios);
+    void insertAll (List<User> user);
     @Update
-    void update(User usuario);
+    void update(User user);
     @Delete
-    void delete(User usuario);
+    void delete(User user);
 
     default void insertUserToFirebase(User user) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("User");
@@ -56,20 +58,5 @@ public interface UserDao {
     @Delete
     void deleteTarefa(Tarefa tarefa);
 
-    // Métodos para a entidade Preferencias
-    @Query("SELECT * FROM Preferencias")
-    List<Preferencias> getAllPreferencias();
-
-    @Insert
-    long insertPreferencias(Preferencias preferencias);
-
-    @Update
-    void updatePreferencias(Preferencias preferencias);
-
-    @Delete
-    void deletePreferencias(Preferencias preferencias);
-
-    @Query("SELECT * FROM Preferencias LIMIT 1")
-    Preferencias getPreferencias();
 
 }

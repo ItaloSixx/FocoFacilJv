@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Utils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

@@ -1,36 +1,45 @@
-package com.example.focofacil;
+package com.example.focofacil.Bd;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
+
 @Entity
 public class Tarefa implements Serializable {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private String id;
+
+    @ColumnInfo(name = "assunto")
+    private String assunto;
     @ColumnInfo(name = "descricao")
     private String descricao;
-    @ColumnInfo(name = "comentario")
-    private String comentario;
     @ColumnInfo(name = "dataHora")
     private Date dataHora;
 
+    public Tarefa(){
+        this.id = UUID.randomUUID().toString();
+    }
 
     public Tarefa(String descricao, String comentario, Date dataHora) {
+        this.id = UUID.randomUUID().toString();
         this.descricao = descricao;
-        this.comentario = comentario;
+        this.assunto = comentario;
         this.dataHora = dataHora;
     }
 
-    public int getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
@@ -42,12 +51,12 @@ public class Tarefa implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getAssunto() {
+        return assunto;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setAssunto(String assunto) {
+        this.assunto = assunto;
     }
 
     public Date getDataHora() {
