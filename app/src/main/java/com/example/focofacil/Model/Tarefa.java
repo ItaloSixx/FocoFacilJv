@@ -1,20 +1,23 @@
-package com.example.focofacil.Bd;
+package com.example.focofacil.Model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId"))
 public class Tarefa implements Serializable {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    private String id;
+    private String tarefaId;
+    @NonNull
+    private String userId;
 
     @ColumnInfo(name = "assunto")
     private String assunto;
@@ -24,23 +27,24 @@ public class Tarefa implements Serializable {
     private Date dataHora;
 
     public Tarefa(){
-        this.id = UUID.randomUUID().toString();
+        this.tarefaId = UUID.randomUUID().toString();
     }
 
-    public Tarefa(String descricao, String comentario, Date dataHora) {
-        this.id = UUID.randomUUID().toString();
+    public Tarefa(@NonNull String userId, String descricao) {
+        this.tarefaId = UUID.randomUUID().toString();
+        this.userId = userId;
+        this.assunto = assunto;
         this.descricao = descricao;
-        this.assunto = comentario;
         this.dataHora = dataHora;
     }
 
     @NonNull
-    public String getId() {
-        return id;
+    public String getTarefaId() {
+        return tarefaId;
     }
 
-    public void setId(@NonNull String id) {
-        this.id = id;
+    public void setTarefaId(@NonNull String tarefaId) {
+        this.tarefaId = tarefaId;
     }
 
     public String getDescricao() {
@@ -65,5 +69,14 @@ public class Tarefa implements Serializable {
 
     public void setDataHora(Date dataHora) {
         this.dataHora = dataHora;
+    }
+
+    @NonNull
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(@NonNull String userId) {
+        this.userId = userId;
     }
 }

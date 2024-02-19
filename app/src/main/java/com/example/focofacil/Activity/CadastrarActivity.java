@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.focofacil.Bd.MyDatabase;
 import com.example.focofacil.R;
-import com.example.focofacil.Bd.User;
+import com.example.focofacil.Model.User;
 
 public class CadastrarActivity extends AppCompatActivity {
 
@@ -50,19 +50,15 @@ public class CadastrarActivity extends AppCompatActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            //Capturando novamente os dados dos campos (dentro da thread secundária)
                             String nome = edtNome.getText().toString();
                             String email = edtEmail.getText().toString();
                             String senha = edtSenha.getText().toString();
                             String senhaConfirm = edtSenhaConfirm.getText().toString();
 
-                            //Criando um novo objeto User com os dados fornecidos
                             User user = new User(nome, email, senha);
 
-                            // Inserindo o usuário no banco de dados local
                             db.userDao().insert(user);
 
-                            // Inserir usuário no Firebase
                             db.userDao().insertUserToFirebase(user);
 
 
@@ -91,7 +87,7 @@ public class CadastrarActivity extends AppCompatActivity {
         txtLoginTela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent redirecionar = new Intent(CadastrarActivity.this, ConfiguracoesActivity.class);
+                Intent redirecionar = new Intent(CadastrarActivity.this, AdicionarTarefaActivity.class);
                 startActivity(redirecionar);
             }
         });

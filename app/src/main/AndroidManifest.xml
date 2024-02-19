@@ -13,6 +13,9 @@
         android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
+            android:name=".Activity.AdicionarTarefaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ConfiguracoesActivity"
             android:exported="false" />
         <activity
@@ -31,7 +34,7 @@
             android:theme="@style/Theme.NoBar" />
         <activity
             android:name=".Activity.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -6,8 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.focofacil.Bd.Tarefa;
-import com.example.focofacil.Bd.User;
+import com.example.focofacil.Model.Tarefa;
+import com.example.focofacil.Model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

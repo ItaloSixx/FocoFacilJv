@@ -1,4 +1,4 @@
-package com.example.focofacil.Bd;
+package com.example.focofacil.Model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
