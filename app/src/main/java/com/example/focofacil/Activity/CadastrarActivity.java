@@ -1,7 +1,8 @@
 package com.example.focofacil.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,31 +12,48 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.focofacil.Bd.MyDatabase;
 import com.example.focofacil.R;
 import com.example.focofacil.Model.User;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class CadastrarActivity extends AppCompatActivity {
 
     EditText edtNome, edtEmail, edtSenha, edtSenhaConfirm;
-    Button btnCadastrar, btnCadGoogle;
+    Button btnCadastrar, btnLoginGoogle;
     TextView txtLoginTela;
-    MyDatabase db;
+    FirebaseAuth auth;
+    GoogleSignInClient client;
+    FirebaseDatabase database;
+    int RC_SIGN_IN = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar);
 
+
+
         edtNome = findViewById(R.id.edtNome);
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
         edtSenhaConfirm = findViewById(R.id.edtSenhaConfirm);
         btnCadastrar = findViewById(R.id.btnCadastrar);
-        btnCadGoogle = findViewById(R.id.btnCadGoogle);
+        btnLoginGoogle = findViewById(R.id.btnLogGoogle);
         txtLoginTela = findViewById(R.id.txtLoginTela);
-
-        db = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "FocoFacilBD").build();
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,39 +64,9 @@ public class CadastrarActivity extends AppCompatActivity {
                 String senhaConfirm = edtSenhaConfirm.getText().toString();
 
                 if (senha.equals(senhaConfirm)) {
-                    //Iniciando uma nova thread para operações no banco de dados (para não bloquear a UI)
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String nome = edtNome.getText().toString();
-                            String email = edtEmail.getText().toString();
-                            String senha = edtSenha.getText().toString();
-                            String senhaConfirm = edtSenhaConfirm.getText().toString();
-
-                            User user = new User(nome, email, senha);
-
-                            db.userDao().insert(user);
-
-                            db.userDao().insertUserToFirebase(user);
-
-
-
-                            //Atualizando a UI para limpar os campos de entrada (dentro da thread secundária)
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    edtNome.setText("");
-                                    edtEmail.setText("");
-                                    edtSenha.setText("");
-                                    edtSenhaConfirm.setText("");
-                                }
-                            });
-                        }
-                    }).start();
-                    Toast.makeText(CadastrarActivity.this, "Conta cadastrada", Toast.LENGTH_SHORT).show();
-                    Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
-                    startActivity(redirecionar);
-                }else{
+                    User user = new User(nome, email, senha);
+                    cadastrarUsuario(user);
+                } else {
                     Toast.makeText(CadastrarActivity.this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -91,8 +79,92 @@ public class CadastrarActivity extends AppCompatActivity {
                 startActivity(redirecionar);
             }
         });
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        client = GoogleSignIn.getClient(this,gso);
+
+        btnLoginGoogle.setOnClickListener(v -> {
+            googleSingIn();
+        });
+
     }
 
+    public void cadastrarUsuario(User user) {
 
+        auth = FirebaseAuth.getInstance();
+        // Criação do usuário no Firebase Auth
+        auth.createUserWithEmailAndPassword(user.getEmail(), user.getSenhaHashed())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CadastrarActivity.this, "Conta cadastrada", Toast.LENGTH_SHORT).show();
+                            Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
+                            startActivity(redirecionar);
+                        } else {
+                            Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar usuário: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 
+    private void googleSingIn(){
+        Intent redirecionar = client.getSignInIntent();
+        startActivityForResult(redirecionar, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account =  task.getResult(ApiException.class);
+                firebaseAuthGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            Intent redirecionar = new Intent(CadastrarActivity.this, CadastrarActivity.class);
+            startActivity(redirecionar);
+        }
+    }
+
+    private void firebaseAuthGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = auth.getCurrentUser();
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("id", user.getUid());
+                            map.put("nome", user.getDisplayName());
+                            map.put("email", user.getEmail());
+                            if (user.getPhotoUrl() != null) {
+                                map.put("fotoPerfil", user.getPhotoUrl().toString());
+                            }
+                            database.getReference().child("User").child(user.getUid()).setValue(map);
+                            Intent redirecionar = new Intent(getApplicationContext(), CadastrarActivity.class);
+                            startActivity(redirecionar);
+                        }else{
+                            Toast.makeText(CadastrarActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 }

@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnLogin, btnLoginGoogle;;
+    Button btnLogin, btnLoginGoogle;
     TextView txtCadTela, txtEsqueceuSenha;
     EditText edtEmail, edtSenha;
     GoogleSignInClient client;
@@ -41,12 +41,12 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth;
     int RC_SIGN_IN = 11;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         btnLogin = findViewById(R.id.btnLogin);
         btnLoginGoogle = findViewById(R.id.btnLogGoogle);
@@ -63,31 +63,22 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-
-
         client = GoogleSignIn.getClient(this,gso);
 
         btnLoginGoogle.setOnClickListener(v -> {
             googleSingIn();
         });
 
-
-
         txtCadTela.setOnClickListener(v -> {
             Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
             startActivity(redirecionar);
         });
-
-
-
     }
-
 
     private void googleSingIn(){
         Intent redirecionar = client.getSignInIntent();
         startActivityForResult(redirecionar, RC_SIGN_IN);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -96,10 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account =  task.getResult(ApiException.class);
-
-                firebaseAuth(account.getIdToken());
-
-
+                firebaseAuthGoogle(account.getIdToken());
             } catch (ApiException e) {
                 throw new RuntimeException(e);
             }
@@ -116,17 +104,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void firebaseAuth(String idToken) {
+    private void firebaseAuthGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if(task.isSuccessful()){
-
                             FirebaseUser user = auth.getCurrentUser();
-
                             HashMap<String, Object> map = new HashMap<>();
                             map.put("id", user.getUid());
                             map.put("nome", user.getDisplayName());
@@ -135,17 +120,12 @@ public class LoginActivity extends AppCompatActivity {
                                 map.put("fotoPerfil", user.getPhotoUrl().toString());
                             }
                             database.getReference().child("User").child(user.getUid()).setValue(map);
-
-
                             Intent redirecionar = new Intent(getApplicationContext(), CadastrarActivity.class);
                             startActivity(redirecionar);
-
                         }else{
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-            }
-
-
+    }
 }

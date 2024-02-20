@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Switch;
 
-import com.example.focofacil.Bd.MyDatabase;
 import com.example.focofacil.R;
 
 public class ConfiguracoesActivity extends AppCompatActivity {
@@ -14,7 +13,6 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     Switch notificarDia;
     Switch notificarHorario;
     Switch notificarSemana;
-    MyDatabase db;
 
     @SuppressLint("MissingInflatedId")
     @Override

@@ -1,29 +1,17 @@
 package com.example.focofacil.Model;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId"))
 public class Tarefa implements Serializable {
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "id")
+
     private String tarefaId;
-    @NonNull
     private String userId;
 
-    @ColumnInfo(name = "assunto")
     private String assunto;
-    @ColumnInfo(name = "descricao")
     private String descricao;
-    @ColumnInfo(name = "dataHora")
     private Date dataHora;
 
     public Tarefa(){
@@ -38,12 +26,11 @@ public class Tarefa implements Serializable {
         this.dataHora = dataHora;
     }
 
-    @NonNull
     public String getTarefaId() {
         return tarefaId;
     }
 
-    public void setTarefaId(@NonNull String tarefaId) {
+    public void setTarefaId(String tarefaId) {
         this.tarefaId = tarefaId;
     }
 
