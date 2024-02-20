@@ -23,6 +23,7 @@ public class User implements Serializable {
     @ColumnInfo(name = "email")
     private String email;
 
+
     @ColumnInfo(name = "senha_hashed")
     private String senhaHashed;
 

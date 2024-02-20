@@ -50,7 +50,6 @@ semestre 2024</string>
     <string name="msg_esqueceu_a_senh">Esqueceu a senha?</string>
     <string name="lbl_senha">Senha</string>
     <string name="lbl_ol">Olá</string>
-    <string name="lbl_italo_jeferson">Italo Jeferson</string>
     <string name="lbl_sexta_feira">SEXTA FEIRA</string>
     <string name="lbl_senha_antiga">Senha antiga</string>
     <string name="lbl_aula_de_hoje">AULA DE HOJE</string>
@@ -64,4 +63,7 @@ semestre 2024</string>
     <string name="msg_10_de_outubro">10 de Outubro, 2022</string>
     <string name="msg_adicionar_class">Adicionar classe</string>
     <string name="lbl_usu_rio">Usuário</string>
+    <string name="default_web_client_id">579533834454-qt9ae8ddld3476lquv2bsp0k1bgmnv8j.apps.googleusercontent.com</string>
+
+
 </resources>
