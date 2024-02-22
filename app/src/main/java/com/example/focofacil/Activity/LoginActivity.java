@@ -83,6 +83,11 @@ public class LoginActivity extends AppCompatActivity {
             fazerLogin(email, senha);
         });
 
+        txtEsqueceuSenha.setOnClickListener(v -> {
+            Intent redirecionar = new Intent(this, RecuperarSenhaActivity.class);
+            startActivity(redirecionar);
+        });
+
         senhaVer = false;
         edtSenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
         //senha visivel/nao visivel
