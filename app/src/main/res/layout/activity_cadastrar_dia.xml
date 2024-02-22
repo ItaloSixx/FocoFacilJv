@@ -6,61 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".CadastrarDiaActivity">
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_60pxv"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/_5pxv"
-        android:layout_marginEnd="@dimen/_2pxh"
-        >
 
-        <LinearLayout
-            android:id="@+id/linearRowhome"
-            style="@style/groupStyleblue_100cornerRadius"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/_15pxv"
-            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imageHome"
-                android:layout_width="@dimen/_50pxh"
-                android:layout_height="@dimen/_50pxh"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_33pxh"
-                android:background="#BDE6FE"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_home"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/img_home" />
-
-            <ImageButton
-                android:id="@+id/imageClipboardList"
-                android:layout_width="@dimen/_50pxh"
-                android:layout_height="@dimen/_50pxh"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_80pxh"
-                android:background="#BDE6FE"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_clipboardlist"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/img_clipboardlist" />
-
-            <ImageButton
-                android:id="@+id/imageUser"
-                android:layout_width="@dimen/_50pxh"
-                android:layout_height="@dimen/_50pxh"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_79pxh"
-                android:layout_marginEnd="@dimen/_33pxh"
-                android:background="#BDE6FE"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_user"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/img_user" />
-        </LinearLayout>
-    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <FrameLayout
         android:id="@+id/frameCadastrarDia"
@@ -356,4 +303,40 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="50dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_menu" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/img_clipboardlist"
+        app:layout_anchor="@id/bottomAppBar"
+        app:maxImageSize="@dimen/_40pxh"
+        android:id="@+id/fab"
+        app:tint="@color/cyan_700" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

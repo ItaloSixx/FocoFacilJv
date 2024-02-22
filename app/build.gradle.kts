@@ -45,7 +45,6 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-database")
+    implementation("com.google.android.material:material:<version>")
 
 }
-
-
