@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.focofacil.Bd.ConfigureBd;
 import com.example.focofacil.R;
 import com.example.focofacil.Model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -35,6 +39,7 @@ public class CadastrarActivity extends AppCompatActivity {
     EditText edtNome, edtEmail, edtSenha, edtSenhaConfirm;
     Button btnCadastrar, btnLoginGoogle;
     TextView txtLoginTela;
+    boolean senhaVer;
     FirebaseAuth auth;
     GoogleSignInClient client;
     FirebaseDatabase database;
@@ -93,26 +98,92 @@ public class CadastrarActivity extends AppCompatActivity {
             googleSingIn();
         });
 
+        senhaVer = false;
+        edtSenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        //senha visivel/nao visivel
+        edtSenha.setOnTouchListener((v, event) -> {
+            final int Right = 2;
+            if(event.getAction()==MotionEvent.ACTION_UP){
+                if(event.getRawX()>=edtSenha.getRight()-edtSenha.getCompoundDrawables()[Right].getBounds().width()){
+                    int selecao = edtSenha.getSelectionEnd();
+                    if(senhaVer){
+                        edtSenha.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeoff, 0);
+                        edtSenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        senhaVer = false;
+                    }else{
+                        edtSenha.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeon, 0);
+                        edtSenha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        senhaVer = true;
+                    }
+                    edtSenha.setSelection(selecao);
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        edtSenhaConfirm.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        //senha visivel/nao visivel
+        edtSenhaConfirm.setOnTouchListener((v, event) -> {
+            final int Right = 2;
+            if(event.getAction()==MotionEvent.ACTION_UP){
+                if(event.getRawX()>=edtSenhaConfirm.getRight()-edtSenhaConfirm.getCompoundDrawables()[Right].getBounds().width()){
+                    int selecao = edtSenhaConfirm.getSelectionEnd();
+                    if(senhaVer){
+                        edtSenhaConfirm.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeoff, 0);
+                        edtSenhaConfirm.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        senhaVer = false;
+                    }else{
+                        edtSenhaConfirm.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeon, 0);
+                        edtSenhaConfirm.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        senhaVer = true;
+                    }
+                    edtSenhaConfirm.setSelection(selecao);
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     public void cadastrarUsuario(User user) {
 
-        auth = FirebaseAuth.getInstance();
-        // Criação do usuário no Firebase Auth
+        ConfigureBd.FirebaseAutenticar();
         auth.createUserWithEmailAndPassword(user.getEmail(), user.getSenhaHashed())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(CadastrarActivity.this, "Conta cadastrada", Toast.LENGTH_SHORT).show();
-                            Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
-                            startActivity(redirecionar);
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            if (firebaseUser != null) {
+                                HashMap<String, Object> userMap = new HashMap<>();
+                                userMap.put("nome", user.getNome());
+                                userMap.put("email", user.getEmail());
+                                FirebaseDatabase.getInstance().getReference("User")
+                                        .child(firebaseUser.getUid())
+                                        .setValue(userMap)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(CadastrarActivity.this, "Conta cadastrada", Toast.LENGTH_SHORT).show();
+                                                    Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
+                                                    startActivity(redirecionar);
+                                                } else {
+                                                    Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            } else {
+                                Toast.makeText(CadastrarActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar usuário: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
 
     private void googleSingIn(){
         Intent redirecionar = client.getSignInIntent();

@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin, btnLoginGoogle;
     TextView txtCadTela, txtEsqueceuSenha;
     EditText edtEmail, edtSenha;
+    boolean senhaVer;
     GoogleSignInClient client;
     FirebaseDatabase database;
     FirebaseAuth auth;
@@ -46,8 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         btnLogin = findViewById(R.id.btnLogin);
         btnLoginGoogle = findViewById(R.id.btnLogGoogle);
         txtCadTela = findViewById(R.id.txtCadTela);
@@ -57,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -73,6 +76,59 @@ public class LoginActivity extends AppCompatActivity {
             Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
             startActivity(redirecionar);
         });
+
+        btnLogin.setOnClickListener(v -> {
+            String email = edtEmail.getText().toString();
+            String senha = edtSenha.getText().toString();
+            fazerLogin(email, senha);
+        });
+
+        senhaVer = false;
+        edtSenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        //senha visivel/nao visivel
+        edtSenha.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int Right = 2;
+                if(event.getAction()==MotionEvent.ACTION_UP){
+                    if(event.getRawX()>=edtSenha.getRight()-edtSenha.getCompoundDrawables()[Right].getBounds().width()){
+                        int selecao = edtSenha.getSelectionEnd();
+                        if(senhaVer){
+                            edtSenha.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeoff, 0);
+                            edtSenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            senhaVer = false;
+                        }else{
+                            edtSenha.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeon, 0);
+                            edtSenha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            senhaVer = true;
+                        }
+                        edtSenha.setSelection(selecao);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    //fazer login email e senha
+    private void fazerLogin(String email, String senha) {
+        auth.signInWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = auth.getCurrentUser();
+                            Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
+                            //Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
+                            //startActivity(redirecionar);
+                            //finish();
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Falha ao logar" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void googleSingIn(){
@@ -103,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(redirecionar);
         }
     }
-
+    //login com google
     private void firebaseAuthGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
@@ -122,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                             database.getReference().child("User").child(user.getUid()).setValue(map);
                             Intent redirecionar = new Intent(getApplicationContext(), CadastrarActivity.class);
                             startActivity(redirecionar);
+                            finish();
                         }else{
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
