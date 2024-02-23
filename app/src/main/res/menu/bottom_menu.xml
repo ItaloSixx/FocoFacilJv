@@ -3,9 +3,8 @@
 
     <item
         android:id="@+id/home"
-        android:title="Home"
         android:icon="@drawable/img_home"
-        />
+        android:title="Home" />
 
     <item
         android:id="@+id/ClipBoard"
