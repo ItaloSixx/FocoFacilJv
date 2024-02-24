@@ -125,10 +125,14 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
-                            //Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
-                            //startActivity(redirecionar);
-                            //finish();
+                            if(user != null && user.isEmailVerified()) {
+                                Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
+                                Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
+                                startActivity(redirecionar);
+                                finish();
+                            }else{
+                                Toast.makeText(LoginActivity.this, "Por favor verifique o seu email", Toast.LENGTH_SHORT).show();
+                            }
                         }else{
                             Toast.makeText(LoginActivity.this, "Falha ao logar" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
