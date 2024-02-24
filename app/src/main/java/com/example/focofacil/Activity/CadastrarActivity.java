@@ -165,21 +165,21 @@ public class CadastrarActivity extends AppCompatActivity {
                                                     userMap.put("nome", user.getNome());
                                                     userMap.put("email",    user.getEmail());
                                                     FirebaseDatabase.getInstance().getReference("User")
-                                                    .child(firebaseUser.getUid())
-                                                    .setValue(userMap)
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                Toast.makeText(CadastrarActivity.this, "Conta cadastrada, verifique o seu email", Toast.LENGTH_SHORT).show();
-                                                                //Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
-                                                                //startActivity(redirecionar);
-                                                            }else {
-                                                                Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar" +
-                                                                        task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        }
-                                                    });
+                                                        .child(firebaseUser.getUid())
+                                                        .setValue(userMap)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Intent redirecionar = new Intent(CadastrarActivity.this, VerificarEmailActivity.class);
+                                                                        startActivity(redirecionar);
+                                                                        finish();
+                                                                    }else {
+                                                                        Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar" +
+                                                                                task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
                                                 }else{
                                                     Toast.makeText(CadastrarActivity.this, "Falha ao enviar email de verificação" +
                                                             emailVerificactionTask.getException().getMessage(), Toast.LENGTH_SHORT).show();

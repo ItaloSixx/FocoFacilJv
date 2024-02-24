@@ -17,6 +17,9 @@
         android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
+            android:name=".Activity.VerificarEmailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.RecuperarSenhaActivity"
             android:exported="false" />
         <activity

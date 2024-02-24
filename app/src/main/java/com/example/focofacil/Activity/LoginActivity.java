@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null) {
+        if(user != null && user.isEmailVerified()) {
             Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
             startActivity(redirecionar);
         }
