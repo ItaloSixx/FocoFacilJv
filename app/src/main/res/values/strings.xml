@@ -3,7 +3,7 @@
     <string name="app_name">FocoFacil</string>
     <string name="loading">Loading…</string>
     <string name="no_internet_connection">No internet connection!</string>
-<string name="lbl_quarta_feira">QUARTA-FEIRA</string>
+  <string name="lbl_quarta_feira">QUARTA-FEIRA</string>
   <string name="lbl_segunda">Segunda</string>
   <string name="lbl_301">301</string>
   <string name="lbl_cadastrar">Cadastrar</string>
@@ -66,5 +66,6 @@
   <string name="menu_user">Usuário</string>
   <string name="open_nav">Abrir Navigation Drawer</string>
   <string name="close_nav">Fechar Navigation Drawer</string>
+  <string name="default_web_client_id">579533834454-qt9ae8ddld3476lquv2bsp0k1bgmnv8j.apps.googleusercontent.com</string>
 
 </resources>

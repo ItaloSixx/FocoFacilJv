@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         txtCadTela.setOnClickListener(v -> {
-            Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
+            Intent redirecionar = new Intent(LoginActivity.this, CadastrarDiaActivity.class);
             startActivity(redirecionar);
         });
 
@@ -185,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
                                 map.put("fotoPerfil", user.getPhotoUrl().toString());
                             }
                             database.getReference().child("User").child(user.getUid()).setValue(map);
-                            Intent redirecionar = new Intent(getApplicationContext(), CadastrarActivity.class);
+                            Intent redirecionar = new Intent(getApplicationContext(), PerfilActivity.class);
                             startActivity(redirecionar);
                             finish();
                         }else{

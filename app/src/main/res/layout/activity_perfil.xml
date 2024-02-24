@@ -27,4 +27,22 @@
         android:textSize="16sp"
         android:layout_marginTop="10dp" />
 
+    <TextView
+        android:id="@+id/txtEditarNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar nome" />
+
+    <TextView
+        android:id="@+id/txtEditarSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar senha" />
+
+    <TextView
+        android:id="@+id/txtEditarEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar email" />
+
 </LinearLayout>
