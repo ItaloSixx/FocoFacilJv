@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user != null && user.isEmailVerified()) {
                                 Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
-                                Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
+                                Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
                                 startActivity(redirecionar);
                                 finish();
                             }else{
@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null && user.isEmailVerified()) {
-            Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
+            Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
             startActivity(redirecionar);
         }
     }
