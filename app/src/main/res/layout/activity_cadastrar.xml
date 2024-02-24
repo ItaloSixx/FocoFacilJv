@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".CadastrarActivity">
+    tools:context=".Activity.CadastrarActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="4dp">
 
     <TextView
         android:id="@+id/txtCadastrar"
@@ -31,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:autofillHints=""
-        android:drawableRight="@drawable/eye"
+        android:drawableRight="@drawable/eyeoff"
         android:ellipsize="end"
         android:hint="Senha"
         android:singleLine="true"
@@ -52,7 +54,7 @@
         android:layout_marginBottom="42dp"
         android:layout_weight="1"
         android:autofillHints=""
-        android:drawableRight="@drawable/eye"
+        android:drawableRight="@drawable/eyeoff"
         android:ellipsize="end"
         android:hint="Senha"
         android:singleLine="true"
@@ -166,17 +168,39 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/googleimg"
-        android:layout_width="42dp"
-        android:layout_height="40dp"
-        android:elevation="8dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogGoogle"
+        style="@style/btnSolidRounded"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/rectangle_bg_gray_500_radius_20"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingStart="@dimen/_30pxh"
+        android:paddingTop="@dimen/_9pxv"
+        android:paddingEnd="@dimen/_30pxh"
+        android:paddingBottom="@dimen/_9pxv"
+        android:singleLine="true"
+        android:text="Cadastrar com Google"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/googleimg"
+        android:layout_width="@dimen/_40pxv"
+        android:layout_height="@dimen/_40pxv"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLogGoogle"
+        app:layout_constraintStart_toStartOf="@+id/btnLogGoogle"
+        app:layout_constraintTop_toTopOf="@+id/btnLogGoogle"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/img_tanpajudul40" />
 
     <TextView
@@ -185,14 +209,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/lbl_ou"
-        app:layout_constraintBottom_toTopOf="@+id/btnCadGoogle"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
+        app:layout_constraintVertical_bias="0.2"
         tools:text="@string/lbl_ou" />
 
     <TextView
@@ -208,30 +234,9 @@
         android:textColor="#ABABAB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCadGoogle"
-        style="@style/btnSolidRounded"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
-        android:background="@drawable/rectangle_bg_gray_500_radius_20"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:paddingStart="@dimen/_30pxh"
-        android:paddingTop="@dimen/_9pxv"
-        android:paddingEnd="@dimen/_30pxh"
-        android:paddingBottom="@dimen/_9pxv"
-        android:singleLine="true"
-        android:text="Cadastrar com Google"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtLoginTela"

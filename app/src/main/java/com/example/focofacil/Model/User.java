@@ -1,40 +1,35 @@
-package com.example.focofacil;
+package com.example.focofacil.Model;
+import com.example.focofacil.Utils.PasswordUtils;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 import java.io.Serializable;
+import java.util.UUID;
 
-@Entity
+
 public class User implements Serializable {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
 
-    @ColumnInfo(name = "nome")
+    private String id;
+
     private String nome;
 
-    @ColumnInfo(name = "email")
     private String email;
 
-    @ColumnInfo(name = "senha_hashed")
     private String senhaHashed;
 
-    public User() {
-        // Construtor vazio necessário para o Room
+    public User(){
+
     }
 
-    public User(int id, String nome, String email, String senhaHashed) {
-        this.id = id;
+    public User(String nome, String email, String senhaHashed) {
         this.nome = nome;
         this.email = email;
         this.senhaHashed = senhaHashed;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,4 +62,5 @@ public class User implements Serializable {
     public boolean verifyPassword(String senha) {
         return senha != null && PasswordUtils.verifyPassword(senha, senhaHashed);
     }
+
 }

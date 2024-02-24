@@ -13,7 +13,7 @@
         android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
-            android:name=".CadastrarDiaActivity"
+            android:name=".LoginActivity"
             android:theme="@style/Theme.NoBar"
             android:exported="true">
             <intent-filter>
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity
+        <activity
             android:name=".CadastrarActivity"
             android:theme="@style/Theme.NoBar"
             android:exported="false" />

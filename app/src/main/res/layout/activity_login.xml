@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".LoginActivity">
+    tools:context=".Activity.LoginActivity">
 
     <TextView
         android:id="@+id/txtCadastrar"
@@ -53,6 +53,7 @@
         android:hint="Senha"
         android:singleLine="true"
         android:textColorHint="#ABABAB"
+        android:drawableRight="@drawable/eyeoff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.602"
@@ -75,20 +76,7 @@
         tools:ignore="ContentDescription"
         tools:src="@drawable/img_email" />
 
-    <ImageView
-        android:id="@+id/imageEye"
-        android:layout_width="@dimen/_20pxh"
-        android:layout_height="@dimen/_20pxh"
-        android:layout_gravity="top|end"
-        android:scaleType="fitXY"
-        android:src="@drawable/img_eye"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/img_eye" />
+
 
     <TextView
         android:id="@+id/txtEsqueceuSenha"
@@ -227,15 +215,15 @@
 
     <ImageView
         android:id="@+id/googleimg"
-        android:layout_width="42dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/_40pxv"
+        android:layout_height="@dimen/_40pxv"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="4dp"
         android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.824"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLogGoogle"
+        app:layout_constraintStart_toStartOf="@+id/btnLogGoogle"
+        app:layout_constraintTop_toTopOf="@+id/btnLogGoogle"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/img_tanpajudul40" />
 
 
