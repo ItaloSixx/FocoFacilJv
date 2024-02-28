@@ -30,9 +30,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -163,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null && user.isEmailVerified()) {
+        if(user != null && (user.isEmailVerified() || logadoGoogle(user))) {
             Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
             startActivity(redirecionar);
         }
@@ -193,5 +195,15 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private boolean logadoGoogle(FirebaseUser user){
+        List<UserInfo> provedor = (List<UserInfo>) user.getProviderData();
+        for(UserInfo userInfo : provedor){
+            if(userInfo.getProviderId().equals("google.com")){
+                return true;
+            }
+        }
+        return false;
     }
 }
