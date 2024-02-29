@@ -27,7 +27,9 @@
   <color name="gray_800">#393939</color>
   <color name="gray_900">#121212</color>
   <color name="bluegray_100">#d1d1d1</color>
-  <color name="gray_900_7a">#7a121212</color>
+    <color name="bluegray_400">#aabbcc</color>
+
+    <color name="gray_900_7a">#7a121212</color>
   <color name="black_900_33">#33000000</color>
   <color name="black_900_99">#99000000</color>
   <color name="gray_900_b2">#b2121212</color>

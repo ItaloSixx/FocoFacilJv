@@ -11,6 +11,7 @@ public class DiaDaSemana {
         this.listaDeTarefas = listaDeTarefas;
     }
     public String getNomeDia() {
+
         return nomeDia;
     }
     public void setNomeDia(String nomeDia) {
