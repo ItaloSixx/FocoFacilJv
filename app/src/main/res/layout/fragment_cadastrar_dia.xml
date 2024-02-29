@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context=".CadastrarDiaFragment">
+    tools:context=".Activity.CadastrarDiaFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/frameCadastrarDia"
@@ -98,8 +90,8 @@
                 <LinearLayout
                     android:id="@+id/linearRowsegunda"
                     style="@style/groupStylecyan_1"
-                    android:layout_width="362dp"
-                    android:layout_height="67dp"
+                    android:layout_width="@dimen/_362pxh"
+                    android:layout_height="@dimen/_60pxh"
                     android:layout_marginStart="@dimen/_25pxv"
                     android:clickable="true"
                     android:orientation="horizontal">
@@ -333,6 +325,4 @@
             </LinearLayout>
 
         </FrameLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

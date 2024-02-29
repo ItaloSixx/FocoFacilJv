@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Activity;
 
 import com.example.focofacil.Bd.ConfigureBd;
 

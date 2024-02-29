@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -8,8 +8,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.focofacil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class CadastrarDiaActivity extends AppCompatActivity {

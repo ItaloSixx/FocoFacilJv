@@ -13,7 +13,7 @@
         android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.CadastrarDiaActivity"
             android:theme="@style/Theme.NoBar"
             android:exported="true">
             <intent-filter>
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CadastrarActivity"
+            android:name=".Activity.CadastrarActivity"
             android:theme="@style/Theme.NoBar"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true">
         </activity>
     </application>

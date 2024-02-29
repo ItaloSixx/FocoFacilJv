@@ -3,20 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastrarDiaActivity">
+    tools:context=".Activity.CadastrarDiaActivity">
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clickable="true" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <!-- Adicione suas ações de barra de aplicativos aqui se necessário -->
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/_15pxv"
+        android:layout_marginEnd="@dimen/_15pxv"
+        android:layout_marginBottom="@dimen/_15pxv"
+        android:visibility="invisible">
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -25,53 +28,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/cyan_700"
+        android:layout_marginStart="@dimen/_15pxv"
+        android:layout_marginEnd="@dimen/_15pxv"
+        android:layout_marginBottom="@dimen/_15pxv"
+        android:background="@drawable/bg_bottombar"
         android:overScrollMode="always"
         app:itemIconTint="@color/bottom_nav_item_colors"
         app:itemTextColor="@color/bottom_nav_item_colors"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/bottom_menu" />
 
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:layout_width="match_parent"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@color/cyan_700"
+                android:elevation="4dp"
+                android:overScrollMode="ifContentScrolls"
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/drawer_layout"
-            android:fitsSystemWindows="true"
-            tools:openDrawer="start"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@color/cyan_700"
-                    android:elevation="4dp"
-                    android:overScrollMode="ifContentScrolls"
-                    android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_container"/>
-            </LinearLayout>
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:background="@color/white"
-                android:fitsSystemWindows="false"
-                android:visibility="visible"
-                app:headerLayout="@layout/nav_header"
-                app:itemBackground="?android:attr/windowBackground"
-                app:itemIconTint="@color/cyan_700"
-                app:itemTextColor="@color/cyan_700"
-                app:menu="@menu/nav_menu" />
-        </androidx.drawerlayout.widget.DrawerLayout>
+            android:layout_gravity="start"
+            android:background="@color/white"
+            android:fitsSystemWindows="false"
+            android:visibility="visible"
+            app:headerLayout="@layout/nav_header"
+            app:itemBackground="?android:attr/windowBackground"
+            app:itemIconTint="@color/cyan_700"
+            app:itemTextColor="@color/cyan_700"
+            app:menu="@menu/nav_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
