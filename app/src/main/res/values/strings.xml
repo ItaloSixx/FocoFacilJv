@@ -40,6 +40,7 @@ semestre 2024</string>
     <string name="lbl_aula">Aula</string>
     <string name="lbl_nova_senha">Nova senha</string>
     <string name="lbl_horas">Horas</string>
+    <string name="tarefa_descricao">Descrição</string>
     <string name="lbl_dormir">Dormir</string>
     <string name="msg_confira_outros">Confira outros horários</string>
     <string name="lbl_conta">Conta</string>

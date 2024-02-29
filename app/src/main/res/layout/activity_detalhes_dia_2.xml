@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data/>
+
+    <FrameLayout
+        android:id="@+id/frameDetalhesDia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_25pxv"
+        android:layout_marginEnd="@dimen/_30pxh"
+        android:layout_marginStart="@dimen/_30pxh"
+        android:layout_marginTop="@dimen/_52pxv"
+        style="@style/groupStylewhite_A701">
+
+        <!-- ... (conteúdo existente) -->
+
+        <LinearLayout
+            android:id="@+id/linearTarefaInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_19pxv">
+
+            <TextView
+                android:id="@+id/txtTarefa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_22pxh"
+                android:layout_marginStart="@dimen/_22pxh"
+                android:layout_marginTop="@dimen/_16pxv"
+                android:singleLine="true"
+                android:text="@string/msg_sistemas_embarc"
+                style="@style/txtPoppinsbold16_1"
+                tools:text="@string/msg_sistemas_embarc"/>
+
+            <TextView
+                android:id="@+id/txtHoras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_24pxh"
+                android:layout_marginStart="@dimen/_24pxh"
+                android:layout_marginTop="@dimen/_10pxv"
+                android:singleLine="true"
+                android:text="@string/lbl_horas"
+                style="@style/txtPoppinsmedium11"
+                tools:text="@string/lbl_horas"/>
+
+            <EditText
+                android:id="@+id/dataHoraEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_20pxh"
+                android:layout_marginStart="@dimen/_20pxh"
+                android:paddingBottom="@dimen/_10pxv"
+                android:paddingEnd="@dimen/_30pxh"
+                android:paddingStart="@dimen/_4pxh"
+                android:singleLine="true"
+                android:textColorHint="@color/black_900"
+                android:hint="@string/lbl_10_20_12_00"
+                style="@style/etPoppinsmedium12"
+                tools:ignore="Autofill"/>
+
+        </LinearLayout>
+
+        <!-- ... (restante do conteúdo) -->
+
+    </FrameLayout>
+</layout>

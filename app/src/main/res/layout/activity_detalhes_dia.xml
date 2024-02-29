@@ -125,7 +125,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <TextView android:ellipsize="end"
-                    android:id="@+id/txt10deOutubro"
+                    android:id="@+id/txtDataSemana"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_22pxh"
                     android:layout_marginStart="@dimen/_22pxh"
@@ -176,13 +176,13 @@
                     style="@style/txtPoppinsmedium11_2" tools:text="@string/msg_10_de_outubro"/>
             </LinearLayout>
             <LinearLayout android:gravity="start"
-                android:id="@+id/linearColumnsistemasembarc"
+                android:id="@+id/linearLayoutTarefas"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_19pxv"
                 android:layout_width="match_parent"
                 android:orientation="vertical" style="@style/groupStylecornerRadius_1">
                 <TextView android:ellipsize="end"
-                    android:id="@+id/txtSistemasEmbarc"
+                    android:id="@+id/txtTarefaAssunto"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_22pxh"
                     android:layout_marginStart="@dimen/_22pxh"
@@ -190,7 +190,31 @@
                     android:layout_width="match_parent"
                     android:singleLine="true"
                     android:text="@string/msg_sistemas_embarc"
-                    style="@style/txtPoppinsbold16_1" tools:text="@string/msg_sistemas_embarc"/>
+                    style="@style/txtPoppinsbold16_1" tools:text=""/>
+                <TextView android:ellipsize="end"
+                    android:id="@+id/idTxtDescricao"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_24pxh"
+                    android:layout_marginStart="@dimen/_24pxh"
+                    android:layout_marginTop="@dimen/_10pxv"
+                    android:layout_width="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/tarefa_descricao"
+                    style="@style/txtPoppinsmedium11" tools:text="@string/tarefa_descricao"/>
+                <TextView android:ellipsize="end"
+                    android:id="@+id/txtDescricao"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_24pxh"
+                    android:layout_marginStart="@dimen/_24pxh"
+                    android:layout_marginTop="@dimen/_10pxv"
+                    android:layout_width="wrap_content"
+                    android:paddingBottom="@dimen/_10pxv"
+                    android:paddingEnd="@dimen/_30pxh"
+                    android:paddingStart="@dimen/_4pxh"
+                    android:singleLine="true"
+                    android:text="@string/lbl_horas"
+                    style="@style/txtPoppinsmedium11" tools:text=""/>
+
                 <TextView android:ellipsize="end"
                     android:id="@+id/txtHoras"
                     android:layout_height="wrap_content"
@@ -201,8 +225,8 @@
                     android:singleLine="true"
                     android:text="@string/lbl_horas"
                     style="@style/txtPoppinsmedium11" tools:text="@string/lbl_horas"/>
-                <EditText android:ellipsize="end"
-                    android:hint="@string/lbl_10_20_12_00"
+                <TextView android:ellipsize="end"
+                    android:hint=""
                     android:id="@+id/dataHoraEditText"
                     android:inputType="text"
                     android:layout_height="wrap_content"
@@ -215,6 +239,8 @@
                     android:singleLine="true"
                     android:textColorHint="@color/black_900"
                     style="@style/etPoppinsmedium12" tools:ignore="Autofill"/>
+
+
                 <TextView android:ellipsize="end"
                     android:id="@+id/txtProtocolosWeb"
                     android:layout_height="wrap_content"

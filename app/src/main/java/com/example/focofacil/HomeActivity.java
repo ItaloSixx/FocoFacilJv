@@ -64,11 +64,19 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
             // Configurar o dia da semana
             DiaDaSemana dia = new DiaDaSemana(obterNomeDia(i), obterListaDeTarefas());
-            listaDeDias.add(dia);
+
 
             // Configurar o TextView correspondente ao dia
             int textViewId = getResources().getIdentifier("txt" + dia.getNomeDia(), "id", getPackageName());
             TextView textView = findViewById(textViewId);
+
+            // Calcular a data correspondente ao dia da semana
+            Calendar diaSelecionado = Calendar.getInstance();
+            diaSelecionado.set(Calendar.DAY_OF_WEEK, i);
+
+            // Adicionar essa data como extra para a DetalhesDiaActivity
+            dia.setDataSelecionada(diaSelecionado.getTime());
+            listaDeDias.add(dia);
 
             // Exibir o nome do dia e suas tarefas no TextView
             textView.setText(dia.getNomeDia());
@@ -128,6 +136,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, DetalhesDiaActivity.class);
                 intent.putExtra("diaDaSemana", dia.getNomeDia());
                 intent.putExtra("listaDeTarefas", dia.getListaDeTarefas());
+                intent.putExtra("dataSelecionada", dia.getDataSelecionada());
+
                 startActivity(intent);
             }
         });
