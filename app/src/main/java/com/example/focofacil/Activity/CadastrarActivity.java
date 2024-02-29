@@ -30,6 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -147,7 +148,6 @@ public class CadastrarActivity extends AppCompatActivity {
     }
 
     public void cadastrarUsuario(User user) {
-
         ConfigureBd.FirebaseAutenticar();
         auth.createUserWithEmailAndPassword(user.getEmail(), user.getSenhaHashed())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -155,22 +155,52 @@ public class CadastrarActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
+                            //definir nome do usuario
                             if (firebaseUser != null) {
-                                HashMap<String, Object> userMap = new HashMap<>();
-                                userMap.put("nome", user.getNome());
-                                userMap.put("email", user.getEmail());
-                                FirebaseDatabase.getInstance().getReference("User")
-                                        .child(firebaseUser.getUid())
-                                        .setValue(userMap)
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(user.getNome())
+                                        .build();
+
+                                firebaseUser.updateProfile(profileUpdates)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(CadastrarActivity.this, "Conta cadastrada", Toast.LENGTH_SHORT).show();
-                                                    Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
-                                                    startActivity(redirecionar);
+                                            public void onComplete(@NonNull Task<Void> updateProfileTask) {
+                                                if (updateProfileTask.isSuccessful()) {
+                                                    //definido o nome
+                                                    firebaseUser.sendEmailVerification()
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> emailVerificationTask) {
+                                                                    if (emailVerificationTask.isSuccessful()) {
+                                                                        HashMap<String, Object> userMap = new HashMap<>();
+                                                                        userMap.put("nome", user.getNome());
+                                                                        userMap.put("email", user.getEmail());
+                                                                        FirebaseDatabase.getInstance().getReference("User")
+                                                                                .child(firebaseUser.getUid())
+                                                                                .setValue(userMap)
+                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<Void> dbUpdateTask) {
+                                                                                        if (dbUpdateTask.isSuccessful()) {
+                                                                                            Intent redirecionar = new Intent(CadastrarActivity.this, VerificarEmailActivity.class);
+                                                                                            startActivity(redirecionar);
+                                                                                            finish();
+                                                                                        } else {
+                                                                                            Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar usuário" +
+                                                                                                    dbUpdateTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                        }
+                                                                                    }
+                                                                                });
+                                                                    } else {
+                                                                        Toast.makeText(CadastrarActivity.this, "Falha ao enviar email de verificação" +
+                                                                                emailVerificationTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
                                                 } else {
-                                                    Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    // Falha ao definir o nome do usuário
+                                                    Toast.makeText(CadastrarActivity.this, "Falha ao definir o nome do usuário: " +
+                                                            updateProfileTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -178,11 +208,13 @@ public class CadastrarActivity extends AppCompatActivity {
                                 Toast.makeText(CadastrarActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar usuário: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CadastrarActivity.this, "Falha ao cadastrar usuário: " +
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
 
 
     private void googleSingIn(){
@@ -209,8 +241,8 @@ public class CadastrarActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
-            Intent redirecionar = new Intent(CadastrarActivity.this, CadastrarActivity.class);
-            startActivity(redirecionar);
+            //Intent redirecionar = new Intent(CadastrarActivity.this, CadastrarActivity.class);
+            //startActivity(redirecionar);
         }
     }
 

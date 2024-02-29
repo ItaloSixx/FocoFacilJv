@@ -64,7 +64,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
             return;
         }
 
-        /* Verificação de Cadastro (substitua por sua implementação)
+        /* Verificação de Cadastro
         if (!isUserRegistered(email)) {
             Toast.makeText(this, "Conta não cadastrada", Toast.LENGTH_LONG).show();
             return;
@@ -74,7 +74,6 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        // Ocultar indicador de progresso (opcional)
 
                         if (task.isSuccessful()) {
                             Toast.makeText(RecuperarSenhaActivity.this, "Instruções encaminhadas para " + email, Toast.LENGTH_LONG).show();
