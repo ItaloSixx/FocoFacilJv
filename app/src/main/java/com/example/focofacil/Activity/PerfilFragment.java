@@ -33,7 +33,6 @@ public class PerfilFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    FirebaseUser user;
     TextView txtNomePerfil, txtEmailPerfil;
     ImageView imgPerfil;
 
@@ -60,13 +59,12 @@ public class PerfilFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        mostrarPerfil();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+
+        txtNomePerfil = view.findViewById(R.id.txtNomePerfil);
+        txtEmailPerfil = view.findViewById(R.id.txtEmailPerfil);
+        imgPerfil = view.findViewById(R.id.imgPerfil);
 
         txtEmailPerfil.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), EditarEmailActivity.class);
@@ -77,21 +75,26 @@ public class PerfilFragment extends Fragment {
             Intent intent = new Intent(getContext(), EditarNomeActivity.class);
             startActivity(intent);
         });
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
-
-        txtNomePerfil = view.findViewById(R.id.txtNomePerfil);
-        txtNomePerfil = view.findViewById(R.id.txtEmailPerfil);
-        imgPerfil = view.findViewById(R.id.CardPerfil);
+        mostrarPerfil();
 
         return view;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+
+    }
+
+
+
     public void mostrarPerfil() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
             String nome = user.getDisplayName();
             String email = user.getEmail();

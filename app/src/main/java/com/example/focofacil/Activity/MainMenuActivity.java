@@ -36,7 +36,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     TextView txtNome, txtEmail;
     ImageView fotoPerfil;
     Button btnPerfil;
-    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         txtEmail = headerView.findViewById(R.id.txtEmailNav);
         btnPerfil = headerView.findViewById(R.id.nav_perfil);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         setSupportActionBar(toolbar);
 
@@ -97,7 +96,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     }
 
     public void mostrarPerfil() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
             String nome = user.getDisplayName();
             String email = user.getEmail();

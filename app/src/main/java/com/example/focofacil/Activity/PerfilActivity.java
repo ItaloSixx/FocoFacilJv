@@ -26,6 +26,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class PerfilActivity extends AppCompatActivity {
     private TextView txtNome, txtEmail, txtEditarNome, txtEditarSenha, txtEditarEmail, txtCadTest;
@@ -93,6 +94,18 @@ public class PerfilActivity extends AppCompatActivity {
                 Glide.with(this).load(fotoUrl).into(imageFoto);
             } else {
                 imageFoto.setImageResource(R.drawable.img_group142);
+            }
+        }
+
+        if(user!=null){
+            for (UserInfo profile : user.getProviderData()) {
+                String providerId = profile.getProviderId();
+
+                String uid = profile.getUid();
+
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+                Uri photoUrl = profile.getPhotoUrl();
             }
         }
     }
