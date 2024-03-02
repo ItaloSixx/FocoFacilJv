@@ -264,7 +264,7 @@ public class CadastrarActivity extends AppCompatActivity {
                             }
 
                             database.getReference().child("User").child(user.getUid()).setValue(map);
-                            Intent redirecionar = new Intent(getApplicationContext(), CadastrarActivity.class);
+                            Intent redirecionar = new Intent(getApplicationContext(), PerfilActivity.class);
                             startActivity(redirecionar);
                         }else{
                             Toast.makeText(CadastrarActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
