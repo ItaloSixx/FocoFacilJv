@@ -48,7 +48,7 @@
         app:layout_constraintVertical_bias="0.96" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/imgPerfil"
+        android:id="@+id/CardPerfil"
         android:layout_width="@dimen/_102pxv"
         android:layout_height="@dimen/_102pxv"
         app:cardCornerRadius="@dimen/_50pxv"

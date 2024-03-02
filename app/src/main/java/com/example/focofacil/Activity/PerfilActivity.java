@@ -3,11 +3,14 @@ package com.example.focofacil.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,6 +77,9 @@ public class PerfilActivity extends AppCompatActivity {
             Intent redirecionar = new Intent(PerfilActivity.this, EditarSenhaActivity.class);
             startActivity(redirecionar);
         });
+
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
