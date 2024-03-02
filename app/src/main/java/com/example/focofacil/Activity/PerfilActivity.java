@@ -3,6 +3,8 @@ package com.example.focofacil.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -24,9 +26,10 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class PerfilActivity extends AppCompatActivity {
-    private TextView txtNome, txtEmail, txtEditarNome, txtEditarSenha, txtEditarEmail;
+    private TextView txtNome, txtEmail, txtEditarNome, txtEditarSenha, txtEditarEmail, txtCadTest;
     private ImageView imageFoto;
     private InterstitialAd mInterstitialAd;
     private static final String TAG = "PerfilActivity";
@@ -44,40 +47,40 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-        txtNome = findViewById(R.id.txtNome);
-        txtEmail = findViewById(R.id.txtEmail);
+        txtNome = findViewById(R.id.txtNomeNav);
+        txtEmail = findViewById(R.id.txtEmailNav);
         imageFoto = findViewById(R.id.imageFoto);
         txtEditarEmail = findViewById(R.id.txtEditarEmail);
         txtEditarNome = findViewById(R.id.txtEditarNome);
         txtEditarSenha = findViewById(R.id.txtEditarSenha);
         adView = findViewById(R.id.adView);
+        txtCadTest = findViewById(R.id.cadTarefaTest);
 
         //carrega e mostra o ad
-        carregarAdIn();
+        //carregarAdIn();
 
-        txtEditarNome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent redirecionar = new Intent(PerfilActivity.this, EditarNomeActivity.class);
-                startActivity(redirecionar);
-            }
+        txtCadTest.setOnClickListener(v -> {
+            Intent redirecionar = new Intent(PerfilActivity.this, MainMenuActivity.class);
+            startActivity(redirecionar);
         });
 
-        txtEditarEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent redirecionar = new Intent(PerfilActivity.this, EditarEmailActivity.class);
-                startActivity(redirecionar);
-            }
+        txtEditarNome.setOnClickListener(v -> {
+            Intent redirecionar = new Intent(PerfilActivity.this, EditarNomeActivity.class);
+            startActivity(redirecionar);
         });
 
-        txtEditarSenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent redirecionar = new Intent(PerfilActivity.this, EditarSenhaActivity.class);
-                startActivity(redirecionar);
-            }
+        txtEditarEmail.setOnClickListener(v -> {
+            Intent redirecionar = new Intent(PerfilActivity.this, EditarEmailActivity.class);
+            startActivity(redirecionar);
         });
+
+        txtEditarSenha.setOnClickListener(v -> {
+            Intent redirecionar = new Intent(PerfilActivity.this, EditarSenhaActivity.class);
+            startActivity(redirecionar);
+        });
+
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -91,6 +94,18 @@ public class PerfilActivity extends AppCompatActivity {
                 Glide.with(this).load(fotoUrl).into(imageFoto);
             } else {
                 imageFoto.setImageResource(R.drawable.img_group142);
+            }
+        }
+
+        if(user!=null){
+            for (UserInfo profile : user.getProviderData()) {
+                String providerId = profile.getProviderId();
+
+                String uid = profile.getUid();
+
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+                Uri photoUrl = profile.getPhotoUrl();
             }
         }
     }

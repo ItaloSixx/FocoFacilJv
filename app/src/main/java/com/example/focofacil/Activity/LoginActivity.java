@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         txtCadTela.setOnClickListener(v -> {
-            Intent redirecionar = new Intent(LoginActivity.this, MainMenuActivity.class);
+            Intent redirecionar = new Intent(LoginActivity.this, CadastrarActivity.class);
             startActivity(redirecionar);
         });
 

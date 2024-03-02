@@ -258,11 +258,13 @@ public class CadastrarActivity extends AppCompatActivity {
                             map.put("id", user.getUid());
                             map.put("nome", user.getDisplayName());
                             map.put("email", user.getEmail());
+
                             if (user.getPhotoUrl() != null) {
                                 map.put("fotoPerfil", user.getPhotoUrl().toString());
                             }
+
                             database.getReference().child("User").child(user.getUid()).setValue(map);
-                            Intent redirecionar = new Intent(getApplicationContext(), CadastrarActivity.class);
+                            Intent redirecionar = new Intent(getApplicationContext(), PerfilActivity.class);
                             startActivity(redirecionar);
                         }else{
                             Toast.makeText(CadastrarActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
