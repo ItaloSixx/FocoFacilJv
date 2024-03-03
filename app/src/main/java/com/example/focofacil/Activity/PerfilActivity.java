@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.focofacil.R;
+import com.example.focofacil.Utils.MenuCam;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
@@ -30,10 +31,11 @@ import com.google.firebase.auth.UserInfo;
 
 public class PerfilActivity extends AppCompatActivity {
     private TextView txtNome, txtEmail, txtEditarNome, txtEditarSenha, txtEditarEmail, txtCadTest;
-    private ImageView imageFoto;
+    private ImageView imageFoto, imgEditar;
     private InterstitialAd mInterstitialAd;
     private static final String TAG = "PerfilActivity";
     private AdView adView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class PerfilActivity extends AppCompatActivity {
         txtEditarSenha = findViewById(R.id.txtEditarSenha);
         adView = findViewById(R.id.adView);
         txtCadTest = findViewById(R.id.cadTarefaTest);
+        imgEditar = findViewById(R.id.imgEditar);
 
         //carrega e mostra o ad
         //carregarAdIn();
@@ -79,8 +82,12 @@ public class PerfilActivity extends AppCompatActivity {
             startActivity(redirecionar);
         });
 
-
-
+        imgEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // MenuCam.showImagePickerMenu(PerfilActivity.this);
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -153,5 +160,9 @@ public class PerfilActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+    
+    
 
 }

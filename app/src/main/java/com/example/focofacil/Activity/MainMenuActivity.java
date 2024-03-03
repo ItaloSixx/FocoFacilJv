@@ -78,9 +78,9 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             if (itemId == R.id.home) {
                 replaceFragment(new CadastrarDiaFragment());
             } else if (itemId == R.id.ClipBoard) {
-
+                
             } else if (itemId == R.id.Perfil) {
-
+                replaceFragment(new PerfilFragment());
             }
             return true;
         });
@@ -105,7 +105,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
             Uri fotoUrl = user.getPhotoUrl();
             if(fotoUrl != null){
-                Glide.with(this).load(fotoUrl).into(fotoPerfil);
+                Glide.with(this).load(fotoUrl).fitCenter().into(fotoPerfil);
             }else{
                 fotoPerfil.setImageResource(R.drawable.fotopadrao);
             }
