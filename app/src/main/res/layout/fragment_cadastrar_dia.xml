@@ -1,6 +1,4 @@
-
-
-
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,10 +12,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.447">
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="67dp" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarToolbar"
@@ -75,10 +69,14 @@
 
     <LinearLayout
         style="@style/groupStylecyan_1"
-        android:layout_width="362dp"
-        android:layout_height="67dp"
+        android:layout_width="341dp"
+        android:layout_height="63dp"
         android:layout_marginStart="@dimen/_25pxv"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/_25pxv"
+        android:layout_marginEnd="@dimen/_10pxv"
+        android:layout_marginRight="@dimen/_10pxv"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/_15pxv">
 
         <Spinner
             android:id="@+id/diaSpinner"
@@ -96,6 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_30pxv"
+        android:layout_marginTop="@dimen/_25pxv"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/msg_adicionar_class"
