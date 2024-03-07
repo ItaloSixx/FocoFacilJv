@@ -12,10 +12,10 @@ import com.example.focofacil.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link calendarFragment#newInstance} factory method to
+ * Use the {@link CalendarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class calendarFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class calendarFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public calendarFragment() {
+    public CalendarFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class calendarFragment extends Fragment {
      * @return A new instance of fragment calendarFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static calendarFragment newInstance(String param1, String param2) {
-        calendarFragment fragment = new calendarFragment();
+    public static CalendarFragment newInstance(String param1, String param2) {
+        CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

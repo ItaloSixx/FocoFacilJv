@@ -119,7 +119,11 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         } else if (itemId == R.id.nav_settings) {
             //getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new SettingsFragment()).commit();
         } else if (itemId == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
             Toast.makeText(this, "Deslogado!", Toast.LENGTH_SHORT).show();
+            Intent redirecionar = new Intent(MainMenuActivity.this, LoginActivity.class);
+            startActivity(redirecionar);
+            finishAffinity();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
