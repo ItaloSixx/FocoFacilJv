@@ -120,6 +120,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //fazer login email e senha
     private void fazerLogin(String email, String senha) {
+        final LoadingDialog loadingDialog = new LoadingDialog(this);
+
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -127,6 +129,9 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             FirebaseUser user = auth.getCurrentUser();
                             if(user != null && user.isEmailVerified()) {
+                                //tela de carregamento
+                                loadingDialog.show();
+
                                 Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
                                 Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
                                 startActivity(redirecionar);

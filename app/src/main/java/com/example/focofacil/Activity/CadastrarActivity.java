@@ -198,7 +198,7 @@ public class CadastrarActivity extends AppCompatActivity {
                                                                 }
                                                             });
                                                 } else {
-                                                    // Falha ao definir o nome do usuário
+                                                    //falha ao definir o nome do usuário
                                                     Toast.makeText(CadastrarActivity.this, "Falha ao definir o nome do usuário: " +
                                                             updateProfileTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }

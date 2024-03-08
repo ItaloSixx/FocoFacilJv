@@ -42,6 +42,9 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        //LoadingDialog loadingDialog = new LoadingDialog(PerfilActivity.this);
+        //LoadingDialog.dimissDialog();
+
         //Inicialização do SDK do adMob
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override

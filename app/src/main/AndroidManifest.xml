@@ -29,7 +29,13 @@
         tools:targetApi="34">
         <activity
             android:name=".Activity.SplashActivity"
-            android:exported="false" />
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.NavActivity"
             android:exported="false" />
@@ -65,14 +71,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.NoBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            android:theme="@style/Theme.NoBar"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Activity.CadastrarActivity"
             android:exported="false"
