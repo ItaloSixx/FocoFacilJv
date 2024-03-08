@@ -10,6 +10,7 @@ public class ActivityCadastrarDiaViewModel extends ViewModel {
     private MutableLiveData<Calendar> dataSelecionada = new MutableLiveData<>(Calendar.getInstance());
 
 
+
     public ActivityCadastrarDiaViewModel() {
         carregarDados();
     }

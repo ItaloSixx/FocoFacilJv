@@ -60,8 +60,6 @@ public class CadastrarDiaFragment extends Fragment {
         editTextAtividade = view.findViewById(R.id.editTextAtividade);
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
         spinnerRepeticao = view.findViewById(R.id.spinnerRepeticao);
-//        int hourOfDay = viewModel.getHoraSelecionada().getValue().get(Calendar.HOUR_OF_DAY);
-//        int minute = viewModel.getHoraSelecionada().getValue().get(Calendar.MINUTE);
 
 
 
@@ -92,8 +90,6 @@ public class CadastrarDiaFragment extends Fragment {
             }
         });
 
-
-
         // Configurar spinner com opções de repetição
         Spinner spinner = view.findViewById(R.id.spinnerRepeticao);
         List<String> items = new ArrayList<>();
@@ -116,14 +112,10 @@ public class CadastrarDiaFragment extends Fragment {
                 // Atualizar a tela com as atividades do dia selecionado
             }
         });
-
-        // Carregar dados do ViewModel
         viewModel.carregarDados();
 
         // Recuperar preferências compartilhadas
         SharedPreferences prefs = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//        int hourOfDay = prefs.getInt("hourOfDay", 0); // 0 é o valor padrão se a chave não existir
-//        int minute = prefs.getInt("minute", 0); // 0 é o valor padrão se a chave não existir
 
         return view;
     }
@@ -144,9 +136,12 @@ public class CadastrarDiaFragment extends Fragment {
             atividade.put("repeticao", repeticao);
             atividade.put("dataSelecionada", dataSelecionada.getTime());
             atividade.put("idUsuario", idUsuario);
-            FirebaseDatabase.getInstance().getReference("Tarefas")
-                    .child(user.getUid())
-                    .setValue(atividade)
+
+            // Gerar um novo nó com ID único para a tarefa
+            DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").child(user.getUid()).push();
+
+            // Definir os valores da tarefa no novo nó
+            tarefaRef.setValue(atividade)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -162,6 +157,8 @@ public class CadastrarDiaFragment extends Fragment {
         }
     }
 
+
+
     private MutableLiveData<Calendar> dataSelecionada;
     public LiveData<Calendar> getDataSelecionada() {
         if (dataSelecionada == null) {
@@ -170,4 +167,6 @@ public class CadastrarDiaFragment extends Fragment {
         }
         return dataSelecionada;
     }
+
+
 }
