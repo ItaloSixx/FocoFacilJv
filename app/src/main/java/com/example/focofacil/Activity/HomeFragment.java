@@ -87,10 +87,11 @@ public class HomeFragment extends Fragment {
 
 
             // Configurar o TextView correspondente ao dia
-            int textViewId = getResources().getIdentifier("txt" + dia.getNomeDia(), "id", getActivity().getPackageName());
+            int textViewId = getResources().getIdentifier("txt_" + dia.getNomeDia(), "id", getActivity().getPackageName());
             //TextView textView = view.findViewById(textViewId);
 
             if (textViewId != 0) {
+                Log.e("TextView", "TextView name: " + dia.getNomeDia());
                 TextView textView = view.findViewById(textViewId);
 
                 // Calcular a data correspondente ao dia da semana
@@ -102,7 +103,7 @@ public class HomeFragment extends Fragment {
                 listaDeDias.add(dia);
 
                 // Exibir o nome do dia e suas tarefas no TextView
-                textView.setText(dia.getNomeDia());
+                //textView.setText(dia.getNomeDia());
 
                 // Configurar o OnClickListener para o TextView correspondente ao dia
                 configurarOnClickListener(textView, dia);
@@ -160,8 +161,18 @@ public class HomeFragment extends Fragment {
     private String obterNomeDia(int dayOfWeek) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
-        return sdf.format(new Date(calendar.getTimeInMillis()));
+        // Formato desejado: txt_segunda_feira (substitui hífens por underscores)
+        String dayName = new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date(calendar.getTimeInMillis()));
+
+        dayName = dayName
+                .replaceAll("[áãâàä]", "a")
+                .replaceAll("[éêèë]", "e")
+                .replaceAll("[íîìï]", "i")
+                .replaceAll("[óôõòö]", "o")
+                .replaceAll("[úûùü]", "u")
+                .replaceAll("[ç]", "c");
+
+        return dayName.toLowerCase().replace("-", "_");
     }
 
     private void configurarOnClickListener(TextView textView, final DiaDaSemana dia) {
