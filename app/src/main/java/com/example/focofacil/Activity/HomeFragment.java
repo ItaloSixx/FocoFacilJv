@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import java.time.Clock;
 import java.util.ArrayList;
 
 
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +36,8 @@ import java.util.Locale;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment  {
+    private RecyclerView recyclerViewDiasSemana;
+    private ListAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,8 +92,6 @@ public class HomeFragment extends Fragment  {
             // Configurar o dia da semana
             DiaDaSemana dia = new DiaDaSemana(obterNomeDia(i), obterListaDeTarefas());
 
-
-
             // Configurar o TextView correspondente ao dia
             int textViewId = getResources().getIdentifier("txt_" + dia.getNomeDia(), "id", getActivity().getPackageName());
             //TextView textView = view.findViewById(textViewId);
@@ -138,7 +142,6 @@ public class HomeFragment extends Fragment  {
         if (txtAssunto != null && txtDataHora != null) {
             // Limpar os TextViews
 
-
             txtAssunto.setText("");
             txtDataHora.setText("");
             txtDescricao.setText("");
@@ -164,11 +167,11 @@ public class HomeFragment extends Fragment  {
 
     private ArrayList<Tarefa> obterListaDeTarefas() {
         // Retorna uma lista fictícia de tarefas para cada dia
-        // Você deve adaptar isso conforme a lógica do seu aplicativo
+
         ArrayList<Tarefa> listaDeTarefas = new ArrayList<>();
         listaDeTarefas.add(new Tarefa("Tarefa 1", "Assunto 1", new Date()));
-        listaDeTarefas.add(new Tarefa("Tarefa 2", "Assunto 2", new Date()));
-        // Adicione mais tarefas conforme necessário
+
+        // Adicione mais tarefas conforme necessário.
         return listaDeTarefas;
     }
 
@@ -215,8 +218,15 @@ public class HomeFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        recyclerViewDiasSemana = view.findViewById(R.id.recyclerViewDiasSemana);
+        recyclerViewDiasSemana.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Configurar o adapter para o RecyclerView
+        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, listaDeDias);  // Substitua DiaSemanaAdapter pelo seu adapter
+        recyclerViewDiasSemana.setAdapter((RecyclerView.Adapter) adapter);
+
         // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
-        listaDeDias = new ArrayList<>();
+        //listaDeDias = new ArrayList<>();
         setupDiasDaSemana(view);
 
         return view;
