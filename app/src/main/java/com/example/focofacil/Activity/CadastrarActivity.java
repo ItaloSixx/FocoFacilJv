@@ -51,8 +51,6 @@ public class CadastrarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar);
 
-
-
         edtNome = findViewById(R.id.edtNome);
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
@@ -64,10 +62,17 @@ public class CadastrarActivity extends AppCompatActivity {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 String nome = edtNome.getText().toString();
                 String email = edtEmail.getText().toString();
                 String senha = edtSenha.getText().toString();
                 String senhaConfirm = edtSenhaConfirm.getText().toString();
+
+                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || senhaConfirm.isEmpty()) {
+                    Toast.makeText(CadastrarActivity.this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (senha.equals(senhaConfirm)) {
                     User user = new User(nome, email, senha);
@@ -78,10 +83,11 @@ public class CadastrarActivity extends AppCompatActivity {
             }
         });
 
+
         txtLoginTela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent redirecionar = new Intent(CadastrarActivity.this, AdicionarTarefaActivity.class);
+                Intent redirecionar = new Intent(CadastrarActivity.this, LoginActivity.class);
                 startActivity(redirecionar);
             }
         });
@@ -148,6 +154,10 @@ public class CadastrarActivity extends AppCompatActivity {
     }
 
     public void cadastrarUsuario(User user) {
+        //tela carregamento
+        final LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoadingDialog();
+
         ConfigureBd.FirebaseAutenticar();
         auth.createUserWithEmailAndPassword(user.getEmail(), user.getSenhaHashed())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -247,6 +257,10 @@ public class CadastrarActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthGoogle(String idToken) {
+        //tela carregamento
+        final LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoadingDialog();
+
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
