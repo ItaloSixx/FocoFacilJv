@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.focofacil.DiaDaSemana;
+import com.example.focofacil.DiaSemanaAdapter;
+
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
 
@@ -106,6 +108,11 @@ public class HomeFragment extends Fragment  {
 
                 // Adicionar essa data como extra para a DetalhesDiaActivity
                 dia.setDataSelecionada(diaSelecionado.getTime());
+
+                if (listaDeDias == null) {
+                    listaDeDias = new ArrayList<>();
+                }
+
                 listaDeDias.add(dia);
 
                 // Exibir o nome do dia e suas tarefas no TextView
@@ -211,19 +218,23 @@ public class HomeFragment extends Fragment  {
         });
     }
 
-
+    private void setupRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDiasSemana);
+        DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerViewDiasSemana = view.findViewById(R.id.recyclerViewDiasSemana);
-        recyclerViewDiasSemana.setLayoutManager(new LinearLayoutManager(getContext()));
+        setupRecyclerView(view);
 
         // Configurar o adapter para o RecyclerView
-        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, listaDeDias);  // Substitua DiaSemanaAdapter pelo seu adapter
-        recyclerViewDiasSemana.setAdapter((RecyclerView.Adapter) adapter);
+        DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
+        //recyclerViewDiasSemana.setAdapter(adapter);
 
         // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
         //listaDeDias = new ArrayList<>();
