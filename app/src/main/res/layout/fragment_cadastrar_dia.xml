@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.447">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_2pxh"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="336dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.84"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtOl"
+                    style="@style/txtPoppinsbold16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15pxv"
+                    android:layout_marginTop="@dimen/_15pxv"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_ol"
+                    tools:text="@string/lbl_ol" />
+
+                <TextView
+                    android:id="@+id/txtNomeUsuario"
+                    style="@style/txtPoppinsbold24_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15pxv"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="Daniel Oliveira" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageGroup142"
+                android:layout_width="@dimen/_50pxh"
+                android:layout_height="@dimen/_50pxh"
+                android:layout_marginTop="@dimen/_25pxv"
+                android:layout_marginRight="@dimen/_10pxv"
+                android:scaleType="fitXY"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/img_group142" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        style="@style/groupStylecyan_1"
+        android:layout_width="341dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="@dimen/_25pxv"
+        android:layout_marginTop="@dimen/_25pxv"
+        android:layout_marginEnd="@dimen/_10pxv"
+        android:layout_marginRight="@dimen/_10pxv"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/_15pxv">
+
+        <Spinner
+            android:id="@+id/diaSpinner"
+            android:layout_width="@dimen/_371pxh"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtAdicionarclass"
+        style="@style/txtPoppinsbold15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30pxv"
+        android:layout_marginTop="@dimen/_25pxv"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/msg_adicionar_class"
+        tools:text="@string/msg_adicionar_class" />
+
+    <LinearLayout
+        style="@style/groupStylecornerRadius_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_25pxv"
+        android:layout_marginTop="@dimen/_13pxv"
+        android:layout_marginEnd="@dimen/_2pxh"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/txtAssunto"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_14pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:hint="@string/lbl_assunto"
+            android:inputType="text"
+            android:paddingStart="@dimen/_2pxh"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_500"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/txtDescricao"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_13pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:hint="@string/lbl_aula"
+            android:inputType="text"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_500"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/txtHora"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_10pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:layout_marginBottom="@dimen/_19pxv"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:hint="@string/lbl_horas_da_aula"
+            android:inputType="text"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_500"
+            tools:ignore="Autofill" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddTarefa"
+        style="@style/btnSolidRounded_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_76pxh"
+        android:layout_marginEnd="@dimen/_73pxh"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingStart="@dimen/_29pxh"
+        android:paddingTop="@dimen/_7pxv"
+        android:paddingEnd="@dimen/_19pxh"
+        android:paddingBottom="@dimen/_7pxv"
+        android:singleLine="true"
+        android:text="@string/msg_adicionar_class"
+        android:textAllCaps="false"
+        tools:text="@string/msg_adicionar_class" />
+
+</LinearLayout>

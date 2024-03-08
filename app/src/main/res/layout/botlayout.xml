@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogbkg">
+
+    <ImageView
+        android:layout_width="@dimen/_70pxh"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_remove_24"
+        android:layout_gravity="center|top"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/menuText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:text="Menu"
+            android:padding="@dimen/_8pxh"
+            android:textColor="@color/cyan_700"
+            android:layout_marginStart="@dimen/_12pxh"
+            android:layout_marginTop="@dimen/_5pxh"
+            android:textSize="@dimen/_25pxh" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_multiply"
+            android:layout_marginLeft="@dimen/_250pxh"
+            android:id="@+id/cancelButton"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutHome"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10pxh"
+        android:padding="@dimen/_10pxh">
+
+        <ImageView
+            android:layout_width="@dimen/_26pxh"
+            android:layout_height="@dimen/_26pxh"
+            android:src="@drawable/img_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textColor="@color/cyan_700"
+            android:layout_marginLeft="@dimen/_10pxh"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutPerfil"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10pxh">
+
+
+        <ImageView
+            android:layout_width="@dimen/_26pxh"
+            android:layout_height="@dimen/_26pxh"
+            android:src="@drawable/img_user" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create a short"
+            android:textColor="@color/cyan_700"
+            android:layout_marginLeft="@dimen/_10pxh"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutClipBoard"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/_10pxh"
+        android:paddingRight="@dimen/_10pxh"
+        android:paddingTop="@dimen/_10pxh"
+        android:paddingBottom="@dimen/_10pxh">
+
+
+        <ImageView
+            android:layout_width="@dimen/_26pxh"
+            android:layout_height="@dimen/_26pxh"
+            android:src="@drawable/img_clipboardlist"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go live"
+            android:textColor="@color/cyan_700"
+            android:layout_marginLeft="@dimen/_10pxh"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
