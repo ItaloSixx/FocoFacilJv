@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.focofacil.DiaDaSemana;
 import com.example.focofacil.R;
@@ -72,6 +73,8 @@ public class DetalhesDiaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detalhes_dia, container, false);
+
+        Toast.makeText(getActivity(), "Chegamos em Detalhes Dia", Toast.LENGTH_SHORT).show();
 
         // Recuperar o nome do dia da semana do Intent
         String diaDaSemana = getArguments().getString("diaDaSemana");

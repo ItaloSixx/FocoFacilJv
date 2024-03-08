@@ -3,6 +3,8 @@ package com.example.focofacil.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ import java.util.Locale;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -111,7 +113,7 @@ public class HomeFragment extends Fragment {
                 // Exibir as informações de cada tarefa nos TextViews específicos
                 exibirInformacoesTarefas(dia, view);
             } else {
-                // Se o TextView não foi encontrado, imprima uma mensagem de log ou trate conforme necessário
+                // Se o TextView não foi encontrado,uma mensagem de log é exibida
                 Log.e("TextView", "TextView not found for day: " + dia.getNomeDia());
             }
         }
@@ -119,23 +121,27 @@ public class HomeFragment extends Fragment {
 
     private void exibirInformacoesTarefas(DiaDaSemana dia, View view) {
 
-        //TextView txtDescricao = findViewById(R.id.txtDescricao);
-        //TextView txtAssunto = view.findViewById(R.id.txtAssunto);
-        //TextView txtDataHora = view.findViewById(R.id.txtDataHora);
 
-        int txtAssuntoId = getResources().getIdentifier("txtAssunto" + dia.getNomeDia(), "id", getContext().getPackageName());
-        int txtDataHoraId = getResources().getIdentifier("txtDataHora" + dia.getNomeDia(), "id", getContext().getPackageName());
+
+        int txtAssuntoId = getResources().getIdentifier("txtTarefaAssunto", "id", getContext().getPackageName());
+        int txtDataHoraId = getResources().getIdentifier("txtTarefaDataHora", "id", getContext().getPackageName());
+        int txtDescricaoId = getResources().getIdentifier("txtTarefaDescricao", "id", getContext().getPackageName());
 
         TextView txtAssunto = view.findViewById(txtAssuntoId);
         TextView txtDataHora = view.findViewById(txtDataHoraId);
+        TextView txtDescricao = view.findViewById(txtDescricaoId);
+
 
         // Limpar os TextViews
         //txtDescricao.setText("");
         // Verificar se TextViews foram encontrados
         if (txtAssunto != null && txtDataHora != null) {
             // Limpar os TextViews
+
+
             txtAssunto.setText("");
             txtDataHora.setText("");
+            txtDescricao.setText("");
 
             // Exibir informações da última tarefa (caso haja mais de uma)
             for (Tarefa tarefa : dia.getListaDeTarefas()) {
@@ -144,7 +150,15 @@ public class HomeFragment extends Fragment {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 txtDataHora.setText(sdf.format(tarefa.getDataHora()));
+
+                txtDescricao.setText(tarefa.getDescricao());
+
+                Log.e("TextView", "txtAssunto: " + txtAssunto + " | txtDataHora: " + txtDataHora + " | txtDescricao: " + txtDescricao);
             }
+        } else {
+
+            Log.e("TextView", "txtAssunto e txtDataHora são NULOS");
+
         }
     }
 
@@ -181,11 +195,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 DetalhesDiaFragment detalhesDiaFragment = DetalhesDiaFragment.newInstance(dia);
 
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, detalhesDiaFragment).addToBackStack(null).commit();
+
                 // Substituir o fragmento atual pelo DetalhesDiaFragment
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, detalhesDiaFragment)
-                        .addToBackStack(null)
-                        .commit();
+                //getParentFragmentManager().beginTransaction()
+                  //      .replace(R.id.fragment_container, detalhesDiaFragment)
+                    //    .addToBackStack(null)
+                       // .commit();
 
             }
         });

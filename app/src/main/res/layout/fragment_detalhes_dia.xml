@@ -4,13 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.DetalhesDiaFragment">
 
-        <FrameLayout android:id="@+id/frameDetalhesDia"
+        <FrameLayout android:id="@+id/fragment_detalhes_dia"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/_25pxv"
             android:layout_marginEnd="@dimen/_30pxh"
             android:layout_marginStart="@dimen/_30pxh"
             android:layout_marginTop="@dimen/_52pxv"
-            android:layout_width="match_parent" style="@style/groupStylewhite_A701">
+            android:layout_width="match_parent"
+            style="@style/groupStylewhite_A701">
             <LinearLayout android:id="@+id/linearColumngroup142"
                 android:layout_gravity="top|start"
                 android:layout_height="wrap_content"
@@ -201,7 +202,7 @@
                         android:textSize="12sp"
                         tools:text="@string/tarefa_descricao" />
                     <TextView android:ellipsize="end"
-                        android:id="@+id/txtDescricao"
+                        android:id="@+id/txtTarefaDescricao"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_24pxh"
                         android:layout_marginStart="@dimen/_24pxh"
@@ -228,7 +229,7 @@
 
                     <TextView android:ellipsize="end"
                         android:hint=""
-                        android:id="@+id/dataHoraEditText"
+                        android:id="@+id/txtTarefaDataHora"
                         android:inputType="text"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_20pxh"
@@ -273,73 +274,11 @@
                         android:text="@string/lbl_15_30_17_10"
                         style="@style/txtPoppinsmedium12" tools:text="@string/lbl_15_30_17_10"/>
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnConfiraOutrosHorrios"
-                        style="@style/btnSolidRounded_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_marginStart="@dimen/_62pxh"
-                        android:layout_marginTop="@dimen/_17pxv"
-                        android:layout_marginEnd="@dimen/_57pxh"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:paddingStart="@dimen/_17pxh"
-                        android:paddingTop="@dimen/_7pxv"
-                        android:paddingEnd="@dimen/_10pxh"
-                        android:paddingBottom="@dimen/_7pxv"
-                        android:singleLine="true"
-                        android:text="@string/msg_confira_outros"
-                        android:textAllCaps="false"
-                        tools:text="@string/msg_confira_outros" />
+
                 </LinearLayout>
 
             </LinearLayout>
-            <FrameLayout android:id="@+id/frameBottombar"
-                android:layout_gravity="bottom|start"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content" style="@style/groupStyleblue_100cornerRadius">
 
-                <LinearLayout
-                    android:id="@+id/linearRowhome"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageHome"
-                        android:layout_width="@dimen/_30pxh"
-                        android:layout_height="@dimen/_30pxh"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_33pxh"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_home"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/img_home" />
-
-                    <ImageView
-                        android:id="@+id/imageClipboardList"
-                        android:layout_width="@dimen/_30pxh"
-                        android:layout_height="@dimen/_30pxh"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_80pxh"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_clipboardlist"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/img_clipboardlist" />
-
-                    <ImageView
-                        android:id="@+id/imageUser"
-                        android:layout_width="@dimen/_30pxh"
-                        android:layout_height="@dimen/_30pxh"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_79pxh"
-                        android:layout_marginEnd="@dimen/_33pxh"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_user"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/img_user" />
-                </LinearLayout>
-            </FrameLayout>
         </FrameLayout>
 
 
