@@ -224,6 +224,8 @@
                         android:singleLine="true"
                         android:text="@string/lbl_horas"
                         style="@style/txtPoppinsmedium11" tools:text="@string/lbl_horas"/>
+
+
                     <TextView android:ellipsize="end"
                         android:hint=""
                         android:id="@+id/dataHoraEditText"

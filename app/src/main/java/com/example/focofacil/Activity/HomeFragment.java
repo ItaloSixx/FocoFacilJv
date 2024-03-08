@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.example.focofacil.DiaDaSemana;
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
 
+import java.time.Clock;
 import java.util.ArrayList;
 
 
@@ -83,48 +85,65 @@ public class HomeFragment extends Fragment {
             DiaDaSemana dia = new DiaDaSemana(obterNomeDia(i), obterListaDeTarefas());
 
 
+
             // Configurar o TextView correspondente ao dia
-            int textViewId = getResources().getIdentifier("txt" + dia.getNomeDia(), "id", getContext().getPackageName());
-            TextView textView = view.findViewById(textViewId);
+            int textViewId = getResources().getIdentifier("txt" + dia.getNomeDia(), "id", getActivity().getPackageName());
+            //TextView textView = view.findViewById(textViewId);
 
-            // Calcular a data correspondente ao dia da semana
-            Calendar diaSelecionado = Calendar.getInstance();
-            diaSelecionado.set(Calendar.DAY_OF_WEEK, i);
+            if (textViewId != 0) {
+                TextView textView = view.findViewById(textViewId);
 
-            // Adicionar essa data como extra para a DetalhesDiaActivity
-            dia.setDataSelecionada(diaSelecionado.getTime());
-            listaDeDias.add(dia);
+                // Calcular a data correspondente ao dia da semana
+                Calendar diaSelecionado = Calendar.getInstance();
+                diaSelecionado.set(Calendar.DAY_OF_WEEK, i);
 
-            // Exibir o nome do dia e suas tarefas no TextView
-            textView.setText(dia.getNomeDia());
+                // Adicionar essa data como extra para a DetalhesDiaActivity
+                dia.setDataSelecionada(diaSelecionado.getTime());
+                listaDeDias.add(dia);
 
-            // Configurar o OnClickListener para o TextView correspondente ao dia
-            configurarOnClickListener(textView, dia);
+                // Exibir o nome do dia e suas tarefas no TextView
+                textView.setText(dia.getNomeDia());
 
-            // Exibir as informações de cada tarefa nos TextViews específicos
-            exibirInformacoesTarefas(dia, view);
+                // Configurar o OnClickListener para o TextView correspondente ao dia
+                configurarOnClickListener(textView, dia);
+
+                // Exibir as informações de cada tarefa nos TextViews específicos
+                exibirInformacoesTarefas(dia, view);
+            } else {
+                // Se o TextView não foi encontrado, imprima uma mensagem de log ou trate conforme necessário
+                Log.e("TextView", "TextView not found for day: " + dia.getNomeDia());
+            }
         }
     }
 
     private void exibirInformacoesTarefas(DiaDaSemana dia, View view) {
-        // Suponha que você tenha TextViews para cada atributo de Tarefa
+
         //TextView txtDescricao = findViewById(R.id.txtDescricao);
-        TextView txtAssunto = view.findViewById(R.id.txtAssunto);
-        TextView txtDataHora = view.findViewById(R.id.txtDataHora);
+        //TextView txtAssunto = view.findViewById(R.id.txtAssunto);
+        //TextView txtDataHora = view.findViewById(R.id.txtDataHora);
+
+        int txtAssuntoId = getResources().getIdentifier("txtAssunto" + dia.getNomeDia(), "id", getContext().getPackageName());
+        int txtDataHoraId = getResources().getIdentifier("txtDataHora" + dia.getNomeDia(), "id", getContext().getPackageName());
+
+        TextView txtAssunto = view.findViewById(txtAssuntoId);
+        TextView txtDataHora = view.findViewById(txtDataHoraId);
 
         // Limpar os TextViews
         //txtDescricao.setText("");
-        txtAssunto.setText("");
-        txtDataHora.setText("");
+        // Verificar se TextViews foram encontrados
+        if (txtAssunto != null && txtDataHora != null) {
+            // Limpar os TextViews
+            txtAssunto.setText("");
+            txtDataHora.setText("");
 
-        // Exibir informações da última tarefa (caso haja mais de uma)
-        for (Tarefa tarefa : dia.getListaDeTarefas()) {
-            // Preencher os TextViews com as informações da tarefa
-            //txtDescricao.setText(tarefa.getDescricao());
-            txtAssunto.setText(tarefa.getAssunto());
+            // Exibir informações da última tarefa (caso haja mais de uma)
+            for (Tarefa tarefa : dia.getListaDeTarefas()) {
+                // Preencher os TextViews com as informações da tarefa
+                txtAssunto.setText(tarefa.getAssunto());
 
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-            txtDataHora.setText(sdf.format(tarefa.getDataHora()));
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                txtDataHora.setText(sdf.format(tarefa.getDataHora()));
+            }
         }
     }
 

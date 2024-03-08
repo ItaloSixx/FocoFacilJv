@@ -70,13 +70,13 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         mostrarPerfil();
 
         //substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
-        replaceFragment(new CadastrarDiaFragment());
+        replaceFragment(new HomeFragment());
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
-                replaceFragment(new CadastrarDiaFragment());
+                replaceFragment(new HomeFragment());
             } else if (itemId == R.id.ClipBoard) {
                 
             } else if (itemId == R.id.Perfil) {

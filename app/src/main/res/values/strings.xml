@@ -68,7 +68,9 @@
     <string name="open_nav">Abrir Navigation Drawer</string>
     <string name="close_nav">Fechar Navigation Drawer</string>
     <string name="default_web_client_id">579533834454-qt9ae8ddld3476lquv2bsp0k1bgmnv8j.apps.googleusercontent.com</string>
+
     <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_home_fragment">Home Fragment</string>
     <string name="title_detalhes_dia_fragment">Detalhes Dia Fragment</string>
