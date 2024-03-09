@@ -1,10 +1,6 @@
 package com.example.focofacil.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,12 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.focofacil.Bd.DatabaseHelper;
+
+import com.example.focofacil.Dao.TarefaDAO;
+import com.example.focofacil.Model.TarefaModel;
 import com.example.focofacil.R;
 import com.example.focofacil.adapters.CustomSpinnerAdapter;
-import com.example.focofacil.contracts.TarefaContract;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -138,87 +134,52 @@ public class CadastrarDiaFragment extends Fragment {
 
 
     public void persistirTarefa(int year, int month, int dayOfMonth, int selectedHourOfDay, int selectedMinute) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String idUsuario = user.getUid();
-
-        String descricao = editTextAtividade.getText().toString();
-        String titulo = editTextTituloAtividade.getText().toString();
-        int repeticao = spinnerRepeticao.getSelectedItemPosition();
-
-        Map<String, Object> atividade = new HashMap<>();
-        atividade.put("titulo", titulo);
-        atividade.put("descricao", descricao);
-        atividade.put("repeticao", repeticao);
-        atividade.put("dia", dayOfMonth);
-        atividade.put("mes", month + 1); // Lembrando que Janeiro é 0, Fevereiro é 1, e assim por diante
-        atividade.put("ano", year);
-        atividade.put("hora", selectedHourOfDay);
-        atividade.put("minuto", selectedMinute);
-        atividade.put("idUsuario", idUsuario);
-
-        // Gerar um novo nó com ID único para a tarefa
-        DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").child(user.getUid()).push();
-
-        // Definir os valores da tarefa no novo nó
-        tarefaRef.setValue(atividade)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
-                            getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
-
-                        } else {
-                            Toast.makeText(requireContext(), "Tente novamente"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-        // Utilizando uma nova Thread para inserir dados no SQLite
         new Thread(new Runnable() {
             @Override
             public void run() {
-                DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String idUsuario = user.getUid();
 
-                ContentValues values = new ContentValues();
-                values.put(TarefaContract.TarefaEntry.COLUMN_TITULO, titulo);
-                values.put(TarefaContract.TarefaEntry.COLUMN_DESCRICAO, descricao);
-                values.put(TarefaContract.TarefaEntry.COLUMN_REPETICAO, repeticao);
-                values.put(TarefaContract.TarefaEntry.COLUMN_DIA, dayOfMonth);
-                values.put(TarefaContract.TarefaEntry.COLUMN_MES, month + 1);
-                values.put(TarefaContract.TarefaEntry.COLUMN_ANO, year);
-                values.put(TarefaContract.TarefaEntry.COLUMN_HORA, selectedHourOfDay);
-                values.put(TarefaContract.TarefaEntry.COLUMN_MINUTO, selectedMinute);
-                values.put(TarefaContract.TarefaEntry.COLUMN_ID_USUARIO, idUsuario);
+                String descricao = editTextAtividade.getText().toString();
+                String titulo = editTextTituloAtividade.getText().toString();
+                int repeticao = spinnerRepeticao.getSelectedItemPosition();
 
-                long newRowId = db.insert(TarefaContract.TarefaEntry.TABLE_NAME, null, values);
+                TarefaModel tarefa = new TarefaModel();
+                tarefa.setIdUsuario(idUsuario);
+                tarefa.setTitulo(titulo);
+                tarefa.setDescricao(descricao);
+                tarefa.setRepeticao(repeticao);
+                tarefa.setDia(dayOfMonth);
+                tarefa.setMes(month + 1);
+                tarefa.setAno(year);
+                tarefa.setHora(selectedHourOfDay);
+                tarefa.setMinuto(selectedMinute);
 
-                if (newRowId != -1) {
-                    // Notificar o usuário sobre o sucesso da inserção
-                    Handler mainHandler = new Handler(Looper.getMainLooper());
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                // Salvar no Firebase
+                DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").child(user.getUid()).push();
+                tarefaRef.setValue(tarefa);
+
+                // Salvar localmente
+                TarefaDAO tarefaDAO = new TarefaDAO(requireContext());
+                long newRowId = tarefaDAO.inserirTarefa(tarefa);
+
+                // Exibir mensagem após a conclusão da operação na thread principal
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (newRowId != -1) {
                             Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
                             getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
-                        }
-                    });
-                } else {
-                    // Notificar o usuário sobre o erro na inserção
-                    Handler mainHandler = new Handler(Looper.getMainLooper());
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                        } else {
                             Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
-
-                db.close();
+                    }
+                });
             }
         }).start();
     }
+
+
 
     private void showTimeDialog(final Button date_in) {
         final Calendar calendar=Calendar.getInstance();

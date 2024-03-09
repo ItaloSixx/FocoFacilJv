@@ -171,7 +171,7 @@
         <Spinner
             android:id="@+id/spinnerRepeticao"
             android:layout_width="@dimen/_150pxh"
-            android:layout_height="@dimen/_40pxh"
+            android:layout_height="@dimen/_45pxh"
             android:layout_below="@+id/infoSpinner"
             android:layout_marginLeft="@dimen/_15pxh"
             android:background="@drawable/menu"
