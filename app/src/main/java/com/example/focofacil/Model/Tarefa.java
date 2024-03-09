@@ -5,33 +5,32 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class Tarefa implements Serializable {
-
-    private String tarefaId;
-    private String userId;
-
-    private String assunto;
+public class Tarefa {
+    private int id;
+    private String titulo;
     private String descricao;
-    private Date dataHora;
+    private int repeticao;
+    private int dia;
+    private int mes;
+    private int ano;
+    private int hora;
+    private int minuto;
+    private String idUsuario;
 
-    public Tarefa(){
-        this.tarefaId = UUID.randomUUID().toString();
+    public int getId() {
+        return id;
     }
 
-    public Tarefa(@NonNull String userId, String descricao) {
-        this.tarefaId = UUID.randomUUID().toString();
-        this.userId = userId;
-        this.assunto = assunto;
-        this.descricao = descricao;
-        this.dataHora = dataHora;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTarefaId() {
-        return tarefaId;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTarefaId(String tarefaId) {
-        this.tarefaId = tarefaId;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescricao() {
@@ -42,28 +41,59 @@ public class Tarefa implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getAssunto() {
-        return assunto;
+    public int getRepeticao() {
+        return repeticao;
     }
 
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
+    public void setRepeticao(int repeticao) {
+        this.repeticao = repeticao;
     }
 
-    public Date getDataHora() {
-        return dataHora;
+    public int getDia() {
+        return dia;
     }
 
-    public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
+    public void setDia(int dia) {
+        this.dia = dia;
     }
 
-    @NonNull
-    public String getUserId() {
-        return userId;
+    public int getMes() {
+        return mes;
     }
 
-    public void setUserId(@NonNull String userId) {
-        this.userId = userId;
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public int getHora() {
+        return hora;
+    }
+
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    public int getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(int minuto) {
+        this.minuto = minuto;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

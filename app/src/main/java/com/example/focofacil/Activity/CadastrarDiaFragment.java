@@ -1,9 +1,14 @@
 package com.example.focofacil.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +24,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import com.example.focofacil.Bd.DatabaseHelper;
 import com.example.focofacil.R;
 import com.example.focofacil.adapters.CustomSpinnerAdapter;
+import com.example.focofacil.contracts.TarefaContract;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,22 +38,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import androidx.appcompat.app.AppCompatActivity;
-
-
-import android.text.InputType;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class CadastrarDiaFragment extends Fragment {
 
     private Toolbar toolbar;
@@ -198,7 +192,54 @@ public class CadastrarDiaFragment extends Fragment {
                         }
                     }
                 });
+
+        // Utilizando uma nova Thread para inserir dados no SQLite
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(TarefaContract.TarefaEntry.COLUMN_TITULO, titulo);
+                values.put(TarefaContract.TarefaEntry.COLUMN_DESCRICAO, descricao);
+                values.put(TarefaContract.TarefaEntry.COLUMN_REPETICAO, repeticao);
+                values.put(TarefaContract.TarefaEntry.COLUMN_DIA, dayOfMonth);
+                values.put(TarefaContract.TarefaEntry.COLUMN_MES, month + 1);
+                values.put(TarefaContract.TarefaEntry.COLUMN_ANO, year);
+                values.put(TarefaContract.TarefaEntry.COLUMN_HORA, selectedHourOfDay);
+                values.put(TarefaContract.TarefaEntry.COLUMN_MINUTO, selectedMinute);
+                values.put(TarefaContract.TarefaEntry.COLUMN_ID_USUARIO, idUsuario);
+
+                long newRowId = db.insert(TarefaContract.TarefaEntry.TABLE_NAME, null, values);
+
+                if (newRowId != -1) {
+                    // Notificar o usuário sobre o sucesso da inserção
+                    Handler mainHandler = new Handler(Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
+                            getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
+                        }
+                    });
+                } else {
+                    // Notificar o usuário sobre o erro na inserção
+                    Handler mainHandler = new Handler(Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                db.close();
+            }
+        }).start();
     }
+
+
 
 
 
@@ -215,7 +256,8 @@ public class CadastrarDiaFragment extends Fragment {
             }
         };
 
-        new TimePickerDialog(requireContext(),timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+        timePickerDialog.show();
     }
 
 
@@ -244,8 +286,7 @@ public class CadastrarDiaFragment extends Fragment {
         };
 
         // Criar o DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
+        DatePickerDialog datePickerDialog = new DatePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         // Exibir o DatePickerDialog
         datePickerDialog.show();
     }

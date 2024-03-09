@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.focofacil.Dao.TarefaDao;
+
+import com.example.focofacil.Dao.TarefaDAO;
+import com.example.focofacil.Dao.TarefaDAO;
 import com.example.focofacil.Model.Tarefa;
 import com.example.focofacil.R;
 
@@ -17,7 +19,7 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
     private EditText editTextAssunto;
     private Button buttonAdicionar;
     private Button buttonExcluir;
-    TarefaDao tarefaDao;
+    TarefaDAO tarefaDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +38,13 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String descricao = editTextDescricao.getText().toString();
-                        Tarefa tarefa = new Tarefa(userId, descricao);
+                        Tarefa tarefa = new Tarefa();
 
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
 
-                                tarefaDao.insertTarefaToFirebase(tarefa);
+                                tarefaDao.inserirTarefa(tarefa);
                             }
                         }).start();
 
