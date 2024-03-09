@@ -59,8 +59,8 @@ public class PerfilActivity extends AppCompatActivity {
         txtCadTest = findViewById(R.id.cadTarefaTest);
         imgEditar = findViewById(R.id.imgEditar);
 
-        //carrega e mostra o ad
-        //carregarAdIn();
+        //qcarrega e mostra o ad
+        carregarAdIn();
 
         txtCadTest.setOnClickListener(v -> {
             Intent redirecionar = new Intent(PerfilActivity.this, MainMenuActivity.class);
@@ -118,15 +118,15 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     //mostra o ad sempre que o app for minimizado e retornar
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(mInterstitialAd != null){
-            carregarAdIn();
-        }else{
-            showInterstitial();
-        }
-    }
+    //@Override
+    //protected void onResume() {
+      //  super.onResume();
+        //if(mInterstitialAd != null){
+     //       carregarAdIn();
+        //}else{
+          //  showInterstitial();
+        //}
+    //}
 
     private void showInterstitial() {
         if (mInterstitialAd != null) {

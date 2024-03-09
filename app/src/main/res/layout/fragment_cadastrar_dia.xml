@@ -1,203 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.447">
+    android:layout_height="match_parent">
+
+
+    <Spinner
+        android:id="@+id/spinnerRepeticao"
+        android:layout_width="@dimen/_150pxh"
+        android:layout_height="@dimen/_45pxh"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/menu"
+        android:popupBackground="@drawable/dialogbkg"
+        android:text="Rotinas"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/repeatCheckbox"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumngrouptwentynine" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonOpenCalendarDialog"
+        style="@style/btnSolidRounded_1"
+        android:layout_width="@dimen/_350pxv"
+        android:layout_height="@dimen/_55pxv"
+        android:drawableRight="@drawable/calender"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/_29pxh"
+        android:paddingTop="@dimen/_7pxv"
+        android:paddingEnd="@dimen/_19pxh"
+        android:paddingBottom="@dimen/_7pxv"
+        android:singleLine="true"
+        android:text="Hoje"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintVertical_bias="0.092" />
+
+    <TextView
+        android:id="@+id/txtAdicionarclass"
+        style="@style/txtPoppinsbold15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Descreva a tarefa"
+        app:layout_constraintBottom_toTopOf="@+id/linearColumngrouptwentynine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearRowsegunda"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <LinearLayout
+        android:id="@+id/linearColumngrouptwentynine"
+        style="@style/groupStylecornerRadius_1"
+        android:layout_width="@dimen/_350pxv"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintVertical_bias="0.397">
+
+        <EditText
+            android:id="@+id/editTexttituloAtividade"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_14pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:ellipsize="end"
+            android:hint="@string/lbl_assunto"
+            android:inputType="text"
+            android:paddingStart="@dimen/_2pxh"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_500" />
+
+        <EditText
+            android:id="@+id/editTextAtividade"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_13pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:ellipsize="end"
+            android:hint="Descrição"
+            android:inputType="text"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_500" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonOpenTimePickerDialog"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_10pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:layout_marginBottom="@dimen/_19pxv"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/relogio"
+            android:drawablePadding="@dimen/_20pxh"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/_4pxh"
+            android:paddingEnd="@dimen/_10pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:text="Horário"
+            android:textAllCaps="false"
+            android:textColor="@color/ABABAB" />
+
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_2pxh"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_411pxv"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="0.84"
+            android:gravity="start"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="336dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.84"
-                android:gravity="start"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtOl"
+                style="@style/txtPoppinsbold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15pxv"
+                android:layout_marginTop="@dimen/_15pxv"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/lbl_ol" />
 
-                <TextView
-                    android:id="@+id/txtOl"
-                    style="@style/txtPoppinsbold16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15pxv"
-                    android:layout_marginTop="@dimen/_15pxv"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="@string/lbl_ol"
-                    tools:text="@string/lbl_ol" />
-
-                <TextView
-                    android:id="@+id/txtNomeUsuario"
-                    style="@style/txtPoppinsbold24_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15pxv"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="Daniel Oliveira" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/imageGroup142"
-                android:layout_width="@dimen/_50pxh"
-                android:layout_height="@dimen/_50pxh"
-                android:layout_marginTop="@dimen/_25pxv"
-                android:layout_marginRight="@dimen/_10pxv"
-                android:scaleType="fitXY"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/img_group142" />
+            <TextView
+                android:id="@+id/txtNomeUsuario"
+                style="@style/txtPoppinsbold24_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15pxv"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="Usuario" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_25pxh"
-            android:fontFamily="@font/poppins"
-            android:text="Nova Atividade"
-            android:textSize="20sp" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSalvar"
+        style="@style/btnSolidRounded_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingStart="@dimen/_29pxh"
+        android:paddingTop="@dimen/_7pxv"
+        android:paddingEnd="@dimen/_19pxh"
+        android:paddingBottom="@dimen/_7pxv"
+        android:singleLine="true"
+        android:text="Adicionar tarefa"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintVertical_bias="0.802" />
 
-
-        <LinearLayout
-            android:id="@+id/linearColumngrouptwentynine"
-            style="@style/groupStylecornerRadius_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTitulo"
-            android:layout_marginLeft="@dimen/_20pxh"
-            android:layout_marginTop="@dimen/_10pxh"
-            android:layout_marginRight="@dimen/_20pxh"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/editTexttituloAtividade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewTitulo"
-                android:layout_margin="@dimen/_10pxh"
-                android:hint="Título da Atividade" />
-
-            <EditText
-                android:id="@+id/editTextAtividade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/editTexttituloAtividade"
-                android:layout_margin="@dimen/_10pxh"
-                android:hint="Descrição da Atividade" />
-        </LinearLayout>
+    <CheckBox
+        android:id="@+id/repeatCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableLeft="@drawable/repeat"
+        android:paddingStart="12dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSalvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumngrouptwentynine" />
 
 
-        <TextView
-            android:id="@+id/infoCalendario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearColumngrouptwentynine"
-            android:layout_marginLeft="@dimen/_20pxh"
-            android:layout_marginTop="@dimen/_10pxh"
-            android:text="@string/infoCalendario"></TextView>
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonOpenCalendarDialog"
-            android:layout_width="@dimen/_150pxh"
-            android:layout_height="@dimen/_45pxh"
-            android:layout_below="@+id/infoCalendario"
-            android:layout_marginLeft="@dimen/_15pxh"
-            android:background="@drawable/menu"
-            android:gravity="center"
-            android:inputType="none"
-            android:fontFamily="@font/poppins"
-            android:text="@string/CandarioDialog"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <TextView
-            android:id="@+id/infoData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/buttonOpenCalendarDialog"
-            android:layout_marginLeft="@dimen/_20pxh"
-            android:layout_marginTop="@dimen/_10pxh"
-            android:text="@string/infoHora"></TextView>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonOpenTimePickerDialog"
-            android:layout_width="@dimen/_150pxh"
-            android:layout_height="@dimen/_45pxh"
-            android:layout_below="@+id/infoData"
-            android:layout_marginLeft="@dimen/_15pxh"
-            android:background="@drawable/menu"
-            android:fontFamily="@font/poppins"
-            android:text="@string/horaDialog"
-            android:inputType="none"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <TextView
-            android:id="@+id/infoSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/buttonOpenTimePickerDialog"
-            android:layout_marginLeft="@dimen/_20pxh"
-            android:layout_marginTop="@dimen/_10pxh"
-            android:text="@string/infoSpinner"></TextView>
-
-        <Spinner
-            android:id="@+id/spinnerRepeticao"
-            android:layout_width="@dimen/_150pxh"
-            android:layout_height="@dimen/_45pxh"
-            android:layout_below="@+id/infoSpinner"
-            android:layout_marginLeft="@dimen/_15pxh"
-            android:background="@drawable/menu"
-            android:popupBackground="@drawable/dialogbkg"
-            android:text="Rotinas"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSalvar"
-            android:layout_width="@dimen/_118pxh"
-            android:layout_height="@dimen/_43pxh"
-            android:layout_below="@+id/spinnerRepeticao"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/_100pxh"
-            android:layout_marginLeft="@dimen/_100pxh"
-            android:layout_marginTop="@dimen/_16pxh"
-            android:layout_marginEnd="@dimen/_100pxh"
-            android:layout_marginRight="@dimen/_100pxh"
-            android:background="@drawable/menu"
-            android:gravity="center"
-            android:text="Salvar"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    </RelativeLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

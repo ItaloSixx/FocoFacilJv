@@ -211,6 +211,7 @@ public class PerfilFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         updateProfileImageUrl(user.getUid(), user.getPhotoUrl().toString());
                                         Toast.makeText(getActivity(), "Imagem do perfil alterada", Toast.LENGTH_SHORT).show();
+                                        mostrarPerfil();
                                     } else {
                                         Log.d(TAG, "Erro ao alterar imagem do perfil" + task.getException().getMessage());
                                     }

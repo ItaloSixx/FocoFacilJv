@@ -1,8 +1,11 @@
 package com.example.focofacil.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +26,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.focofacil.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -36,6 +43,9 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     TextView txtNome, txtEmail;
     ImageView fotoPerfil;
     Button btnPerfil;
+    AdMob adMob;
+    private InterstitialAd mInterstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,9 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         mostrarPerfil();
 
         //substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
-        replaceFragment(new CadastrarDiaFragment());
+        replaceFragment(new PerfilFragment());
+        //ad
+        carregarAdIn();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -136,6 +148,39 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void showInterstitial() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(MainMenuActivity.this);
+        } else {
+            Log.d(TAG, "Anúncio intersticial não carregado ainda.");
+        }
+    }
+
+    private void carregarAdIn() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        super.onAdLoaded(interstitialAd);
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onLoaded");
+                        if (mInterstitialAd != null) {
+                            showInterstitial();
+                        } else {
+                            Log.d(TAG, "Anúncio intersticial não foi carregado com sucesso.");
+                        }
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
 }
