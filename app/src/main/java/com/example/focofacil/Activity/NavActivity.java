@@ -29,6 +29,12 @@ public class NavActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mostrarPerfil();
+    }
+
     public void mostrarPerfil() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){

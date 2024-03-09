@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -118,7 +120,7 @@ public class PerfilFragment extends Fragment {
         });
 
         imgEditar.setOnClickListener(v -> {
-            MenuCam.showImagePickerMenu(this);
+            MenuCam.solicitarPermissao(this);
         });
 
         mostrarPerfil();
@@ -182,6 +184,7 @@ public class PerfilFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         updateProfileImageUrl(user.getUid(), user.getPhotoUrl().toString());
                                         Toast.makeText(getActivity(), "Imagem do perfil alterada", Toast.LENGTH_SHORT).show();
+                                        mostrarPerfil();
                                     } else {
                                         Log.d(TAG, "Erro ao alterar imagem do perfil" + task.getException().getMessage());
                                     }
@@ -259,5 +262,17 @@ public class PerfilFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == Constants.REQUEST_CAMERA_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                MenuCam.showImagePickerMenu(this);
+            }
+        }else if(!ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Constants.REQUEST_CAMERA_PERMISSION)){
+                MenuCam.permissaoNecessaria(this);
+        }else{
+            MenuCam.solicitarPermissao(this);
+        }
+    }
 }
