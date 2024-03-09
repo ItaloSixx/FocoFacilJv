@@ -67,127 +67,137 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        style="@style/groupStylecyan_1"
-        android:layout_width="341dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="@dimen/_25pxv"
-        android:layout_marginTop="@dimen/_25pxv"
-        android:layout_marginEnd="@dimen/_10pxv"
-        android:layout_marginRight="@dimen/_10pxv"
-        android:orientation="horizontal"
-        android:paddingEnd="@dimen/_15pxv">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_25pxh"
+            android:fontFamily="@font/poppins"
+            android:text="Nova Atividade"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:id="@+id/linearColumngrouptwentynine"
+            style="@style/groupStylecornerRadius_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitulo"
+            android:layout_marginLeft="@dimen/_20pxh"
+            android:layout_marginTop="@dimen/_10pxh"
+            android:layout_marginRight="@dimen/_20pxh"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTexttituloAtividade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewTitulo"
+                android:layout_margin="@dimen/_10pxh"
+                android:hint="Título da Atividade" />
+
+            <EditText
+                android:id="@+id/editTextAtividade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTexttituloAtividade"
+                android:layout_margin="@dimen/_10pxh"
+                android:hint="Descrição da Atividade" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/infoCalendario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearColumngrouptwentynine"
+            android:layout_marginLeft="@dimen/_20pxh"
+            android:layout_marginTop="@dimen/_10pxh"
+            android:text="@string/infoCalendario"></TextView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonOpenCalendarDialog"
+            android:layout_width="@dimen/_150pxh"
+            android:layout_height="@dimen/_45pxh"
+            android:layout_below="@+id/infoCalendario"
+            android:layout_marginLeft="@dimen/_15pxh"
+            android:background="@drawable/menu"
+            android:gravity="center"
+            android:inputType="none"
+            android:fontFamily="@font/poppins"
+            android:text="@string/CandarioDialog"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/infoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonOpenCalendarDialog"
+            android:layout_marginLeft="@dimen/_20pxh"
+            android:layout_marginTop="@dimen/_10pxh"
+            android:text="@string/infoHora"></TextView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonOpenTimePickerDialog"
+            android:layout_width="@dimen/_150pxh"
+            android:layout_height="@dimen/_45pxh"
+            android:layout_below="@+id/infoData"
+            android:layout_marginLeft="@dimen/_15pxh"
+            android:background="@drawable/menu"
+            android:fontFamily="@font/poppins"
+            android:text="@string/horaDialog"
+            android:inputType="none"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/infoSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonOpenTimePickerDialog"
+            android:layout_marginLeft="@dimen/_20pxh"
+            android:layout_marginTop="@dimen/_10pxh"
+            android:text="@string/infoSpinner"></TextView>
 
         <Spinner
-            android:id="@+id/diaSpinner"
-            android:layout_width="@dimen/_371pxh"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true" />
+            android:id="@+id/spinnerRepeticao"
+            android:layout_width="@dimen/_150pxh"
+            android:layout_height="@dimen/_45pxh"
+            android:layout_below="@+id/infoSpinner"
+            android:layout_marginLeft="@dimen/_15pxh"
+            android:background="@drawable/menu"
+            android:popupBackground="@drawable/dialogbkg"
+            android:text="Rotinas"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtAdicionarclass"
-        style="@style/txtPoppinsbold15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_30pxv"
-        android:layout_marginTop="@dimen/_25pxv"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/msg_adicionar_class"
-        tools:text="@string/msg_adicionar_class" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSalvar"
+            android:layout_width="@dimen/_118pxh"
+            android:layout_height="@dimen/_43pxh"
+            android:layout_below="@+id/spinnerRepeticao"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_100pxh"
+            android:layout_marginLeft="@dimen/_100pxh"
+            android:layout_marginTop="@dimen/_16pxh"
+            android:layout_marginEnd="@dimen/_100pxh"
+            android:layout_marginRight="@dimen/_100pxh"
+            android:background="@drawable/menu"
+            android:gravity="center"
+            android:text="Salvar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <LinearLayout
-        style="@style/groupStylecornerRadius_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_25pxv"
-        android:layout_marginTop="@dimen/_13pxv"
-        android:layout_marginEnd="@dimen/_2pxh"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/txtAssunto"
-            style="@style/etPoppinsmedium16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_22pxh"
-            android:layout_marginTop="@dimen/_14pxv"
-            android:layout_marginEnd="@dimen/_19pxh"
-            android:clickable="true"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:hint="@string/lbl_assunto"
-            android:inputType="text"
-            android:paddingStart="@dimen/_2pxh"
-            android:paddingEnd="@dimen/_30pxh"
-            android:paddingBottom="@dimen/_7pxv"
-            android:singleLine="true"
-            android:textColorHint="@color/gray_500"
-            tools:ignore="Autofill" />
-
-        <EditText
-            android:id="@+id/txtDescricao"
-            style="@style/etPoppinsmedium16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_22pxh"
-            android:layout_marginTop="@dimen/_13pxv"
-            android:layout_marginEnd="@dimen/_19pxh"
-            android:clickable="true"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:hint="@string/lbl_aula"
-            android:inputType="text"
-            android:paddingEnd="@dimen/_30pxh"
-            android:paddingBottom="@dimen/_7pxv"
-            android:singleLine="true"
-            android:textColorHint="@color/gray_500"
-            tools:ignore="Autofill" />
-
-        <EditText
-            android:id="@+id/txtHora"
-            style="@style/etPoppinsmedium16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_22pxh"
-            android:layout_marginTop="@dimen/_10pxv"
-            android:layout_marginEnd="@dimen/_19pxh"
-            android:layout_marginBottom="@dimen/_19pxv"
-            android:clickable="true"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:hint="@string/lbl_horas_da_aula"
-            android:inputType="text"
-            android:paddingEnd="@dimen/_30pxh"
-            android:paddingBottom="@dimen/_7pxv"
-            android:singleLine="true"
-            android:textColorHint="@color/gray_500"
-            tools:ignore="Autofill" />
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAddTarefa"
-        style="@style/btnSolidRounded_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_76pxh"
-        android:layout_marginEnd="@dimen/_73pxh"
-        android:clickable="true"
-        android:ellipsize="end"
-        android:focusable="true"
-        android:gravity="center"
-        android:paddingStart="@dimen/_29pxh"
-        android:paddingTop="@dimen/_7pxv"
-        android:paddingEnd="@dimen/_19pxh"
-        android:paddingBottom="@dimen/_7pxv"
-        android:singleLine="true"
-        android:text="@string/msg_adicionar_class"
-        android:textAllCaps="false"
-        tools:text="@string/msg_adicionar_class" />
+    </RelativeLayout>
 
 </LinearLayout>
