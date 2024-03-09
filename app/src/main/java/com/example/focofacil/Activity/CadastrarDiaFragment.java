@@ -42,11 +42,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class CadastrarDiaFragment extends Fragment {
-
     private Toolbar toolbar;
     private ViewModelProvider viewModelProvider;
     FirebaseDatabase database;
-    private ActivityCadastrarDiaViewModel viewModel;
     Button date_in;
     Button time_in;
     private EditText editTextAtividade;
@@ -57,7 +55,6 @@ public class CadastrarDiaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cadastrar_dia, container, false);
         database = FirebaseDatabase.getInstance();
         viewModelProvider = new ViewModelProvider(this);
-        viewModel = viewModelProvider.get(ActivityCadastrarDiaViewModel.class);
         toolbar = view.findViewById(R.id.toolbarToolbar);
         editTextAtividade = view.findViewById(R.id.editTextAtividade);
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
@@ -135,22 +132,6 @@ public class CadastrarDiaFragment extends Fragment {
 
         // Observar data selecionada e atualizar tela
 
-        viewModel.getDataSelecionada().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
-            @Override
-            public void onChanged(Calendar calendar) {
-                // Atualizar a tela com as atividades do dia selecionado
-            }
-        });
-        viewModel.getDataSelecionada().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
-            @Override
-            public void onChanged(Calendar calendar) {
-                // Atualizar a tela com as atividades do dia selecionado
-            }
-        });
-        viewModel.carregarDados();
-
-        // Recuperar preferências compartilhadas
-        SharedPreferences prefs = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
         return view;
     }
@@ -239,10 +220,6 @@ public class CadastrarDiaFragment extends Fragment {
         }).start();
     }
 
-
-
-
-
     private void showTimeDialog(final Button date_in) {
         final Calendar calendar=Calendar.getInstance();
 
@@ -291,9 +268,3 @@ public class CadastrarDiaFragment extends Fragment {
         datePickerDialog.show();
     }
 }
-
-
-
-
-
-

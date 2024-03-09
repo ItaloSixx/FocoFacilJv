@@ -81,7 +81,7 @@ public class CadastrarActivity extends AppCompatActivity {
         txtLoginTela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent redirecionar = new Intent(CadastrarActivity.this, AdicionarTarefaActivity.class);
+                Intent redirecionar = new Intent(CadastrarActivity.this, CadastrarDiaFragment.class);
                 startActivity(redirecionar);
             }
         });
