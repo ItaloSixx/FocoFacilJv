@@ -52,8 +52,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.EditarEmailActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:exported="false" />
         <activity
             android:name=".Activity.PerfilActivity"
             android:exported="false" />
@@ -62,9 +61,6 @@
             android:exported="false" />
         <activity
             android:name=".Activity.RecuperarSenhaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.AdicionarTarefaActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.ConfiguracoesActivity"

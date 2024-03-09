@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -37,17 +39,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 public class CadastrarDiaFragment extends Fragment {
     private Toolbar toolbar;
     private ViewModelProvider viewModelProvider;
     FirebaseDatabase database;
-    Button date_in;
-    Button time_in;
-    CheckBox checkBoxRepeat;
+    Button date_in, time_in, buttonSalvar;
+    CheckBox checkbox;
     private EditText editTextAtividade;
     private EditText editTextTituloAtividade;
     private Spinner spinnerRepeticao;
+    
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastrar_dia, container, false);
@@ -58,11 +61,12 @@ public class CadastrarDiaFragment extends Fragment {
         editTextAtividade = view.findViewById(R.id.editTextAtividade);
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
 
-        checkBoxRepeat = view.findViewById(R.id.repeatCheckbox);
-        Button date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
-        Button time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
+        spinnerRepeticao = view.findViewById(R.id.spinnerRepeticao);
+        date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
+        time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
+        checkbox = view.findViewById(R.id.repeatCheckbox);
 
-        Button buttonSalvar = view.findViewById(R.id.buttonSalvar);
+        buttonSalvar = view.findViewById(R.id.buttonSalvar);
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,16 +188,16 @@ public class CadastrarDiaFragment extends Fragment {
 
 
 
-    private void showTimeDialog(final Button date_in) {
-        final Calendar calendar=Calendar.getInstance();
+    private void showTimeDialog(final Button time_in) {
+        final Calendar calendar = Calendar.getInstance();
 
-        TimePickerDialog.OnTimeSetListener timeSetListener=new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                calendar.set(Calendar.MINUTE,minute);
-                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm");
-                date_in.setText(simpleDateFormat.format(calendar.getTime()));
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                time_in.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
 
@@ -202,33 +206,39 @@ public class CadastrarDiaFragment extends Fragment {
     }
 
 
-    private void showDateDialog(final Button time_in) {
+
+    private void showDateDialog(final Button date_in) {
         final Calendar calendar = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Criar um objeto Calendar para a data selecionada
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(Calendar.YEAR, year);
                 selectedDate.set(Calendar.MONTH, month);
                 selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                // Verificar se a data selecionada é anterior à data atual
+                //data selecionada é anterior à data atual
                 if (selectedDate.before(Calendar.getInstance())) {
-                    // Data selecionada é anterior à data atual, exibir mensagem de erro
                     Toast.makeText(requireContext(), "Por favor, selecione uma data válida", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Data selecionada é válida, atualizar o campo de texto com a data selecionada
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    time_in.setText(simpleDateFormat.format(selectedDate.getTime()));
+                    //formatar a data e o dia da semana
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE - dd/MM/yyyy ", new Locale("pt", "BR"));
+                    String dateString = simpleDateFormat.format(selectedDate.getTime());
+                    date_in.setText(dateString);
                 }
             }
         };
 
-        // Criar o DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        // Exibir o DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                android.R.style.Theme_DeviceDefault_Dialog,
+                dateSetListener, calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+
         datePickerDialog.show();
     }
+
+
+
 }

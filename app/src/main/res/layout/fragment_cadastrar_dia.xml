@@ -6,6 +6,42 @@
     android:layout_height="match_parent">
 
 
+    <Spinner
+        android:id="@+id/spinnerRepeticao"
+        android:layout_width="@dimen/_150pxh"
+        android:layout_height="@dimen/_45pxh"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/menu"
+        android:popupBackground="@drawable/dialogbkg"
+        android:text="Rotinas"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/repeatCheckbox"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumngrouptwentynine" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonOpenCalendarDialog"
+        style="@style/btnSolidRounded_1"
+        android:layout_width="@dimen/_350pxv"
+        android:layout_height="@dimen/_55pxv"
+        android:drawableRight="@drawable/calender"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/_29pxh"
+        android:paddingTop="@dimen/_7pxv"
+        android:paddingEnd="@dimen/_19pxh"
+        android:paddingBottom="@dimen/_7pxv"
+        android:singleLine="true"
+        android:text="Hoje"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintVertical_bias="0.092" />
 
     <TextView
         android:id="@+id/txtAdicionarclass"
@@ -68,7 +104,7 @@
             android:singleLine="true"
             android:textColorHint="@color/gray_500" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonOpenTimePickerDialog"
             style="@style/etPoppinsmedium16"
             android:layout_width="match_parent"
@@ -77,17 +113,19 @@
             android:layout_marginTop="@dimen/_10pxv"
             android:layout_marginEnd="@dimen/_19pxh"
             android:layout_marginBottom="@dimen/_19pxv"
+            android:background="@android:color/transparent"
             android:drawableRight="@drawable/relogio"
             android:drawablePadding="@dimen/_20pxh"
-            android:ellipsize="end"
+            android:fontFamily="@font/poppins"
             android:gravity="center_vertical"
-            android:hint="Horário"
-            android:inputType="text"
             android:paddingLeft="@dimen/_4pxh"
             android:paddingEnd="@dimen/_10pxh"
             android:paddingBottom="@dimen/_7pxv"
-            android:singleLine="true"
-            android:textColorHint="@color/gray_500" />
+            android:text="Horário"
+            android:textAllCaps="false"
+            android:textColor="@color/ABABAB" />
+
+
     </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
@@ -129,45 +167,7 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/linearRowsegunda"
-        style="@style/groupStylecyan_1"
-        android:layout_width="@dimen/_350pxv"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
-        app:layout_constraintVertical_bias="0.077">
 
-        <TextView
-            android:id="@+id/txtDia"
-            style="@style/txtPoppinsbold24_2"
-            android:layout_width="@dimen/_152pxv"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30pxh"
-            android:layout_marginTop="@dimen/_12pxv"
-            android:layout_marginBottom="@dimen/_7pxv"
-            android:layout_weight="0.52"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:text="Hoje" />
-
-        <ImageView
-            android:id="@+id/buttonOpenCalendarDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_40pxv"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="@dimen/_30pxv"
-            app:srcCompat="@drawable/calender"
-            tools:layout_editor_absoluteX="45dp"
-            tools:layout_editor_absoluteY="439dp" />
-
-
-    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSalvar"
@@ -198,8 +198,10 @@
         android:drawableLeft="@drawable/repeat"
         android:paddingStart="12dp"
         android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="440dp" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonSalvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumngrouptwentynine" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
