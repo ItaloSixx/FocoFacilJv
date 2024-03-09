@@ -223,7 +223,7 @@ public class CadastrarDiaFragment extends Fragment {
                     Toast.makeText(requireContext(), "Por favor, selecione uma data válida", Toast.LENGTH_SHORT).show();
                 } else {
                     //formatar a data e o dia da semana
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE - dd/MM/yyyy ", new Locale("pt", "BR"));
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yyyy ", new Locale("pt", "BR"));
                     String dateString = simpleDateFormat.format(selectedDate.getTime());
                     date_in.setText(dateString);
                 }
