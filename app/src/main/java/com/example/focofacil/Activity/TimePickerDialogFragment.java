@@ -31,14 +31,12 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
         View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_time_picker, null, false);
 
         // Initialize the OK button
-        Button buttonOK = view.findViewById(R.id.buttonOK);
+        Button buttonOK = view.findViewById(R.id.buttontimeOK);
 
         // Set click listener for the OK button
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Logic to be executed when the OK button is clicked
-                // Here you can capture the selected time and do something with it
                 dismiss();
             }
         });
@@ -51,11 +49,15 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
     }
 
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Here you can do something with the selected time
-        SharedPreferences.Editor editor = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit();
-        editor.putInt("hourOfDay", hourOfDay);
-        editor.putInt("minute", minute);
-        editor.apply();
+    public void onTimeSet(TimePicker view, int selectedHourOfDay, int selectedMinute) {
+        if (getParentFragment() instanceof CadastrarDiaFragment) {
+            // Obtenha a data selecionada no DatePicker
+            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("selected_date", Context.MODE_PRIVATE);
+            int year = sharedPreferences.getInt("year", 0);
+            int month = sharedPreferences.getInt("month", 0);
+            int dayOfMonth = sharedPreferences.getInt("day", 0);
+
+            //((CadastrarDiaFragment) getParentFragment()).persistirTarefa(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
+        }
     }
 }

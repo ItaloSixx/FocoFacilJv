@@ -1,65 +1,64 @@
 package com.example.focofacil.Activity;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProvider;
+
 import com.example.focofacil.R;
+
 import java.util.Calendar;
+
 public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // Create a new instance of DatePickerDialog and return it
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), this, year, month, day);
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-        View dialogView = inflater.inflate(R.layout.fragment_date_picker_dialog, null);
-        Button buttonOK = dialogView.findViewById(R.id.buttonOK);
+
+        // Set the title (optional)
+        datePickerDialog.setTitle("Select Date");
+
+        return datePickerDialog;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_date_picker_dialog, container, false);
+
+        // Find and set click listener for OK button
+        Button buttonOK = view.findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onOKButtonClick(datePickerDialog);
+                dismiss(); // Close the dialog
             }
         });
-        datePickerDialog.setView(dialogView);
-        return datePickerDialog;
+
+        return view;
     }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        ActivityCadastrarDiaViewModel viewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance()).get(ActivityCadastrarDiaViewModel.class);
-        viewModel.setDataSelecionada(year, month, dayOfMonth);
-    }
-    private void onOKButtonClick(DatePickerDialog datePickerDialog) {
-        // Get the chosen date from the DatePickerDialog
-        DatePicker datePicker = datePickerDialog.getDatePicker();
-        int chosenYear = datePicker.getYear();
-        int chosenMonth = datePicker.getMonth();
-        int chosenDay = datePicker.getDayOfMonth();
-        // Perform any action with the chosen date here
-        // For example, you can pass it to a method or store it in SharedPreferences
-        saveSelectedDate(chosenYear, chosenMonth, chosenDay);
-        // Dismiss the dialog
-        datePickerDialog.dismiss();
-    }
-    private void saveSelectedDate(int year, int month, int day) {
-        // Obter o SharedPreferences
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("selected_date", Context.MODE_PRIVATE);
-
-        // Editar o SharedPreferences para adicionar a data selecionada
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("year", year);
-        editor.putInt("month", month);
-        editor.putInt("day", day);
-        editor.apply();
+        // Pass the selected date to the parent fragment or activity
+        if (getParentFragment() instanceof CadastrarDiaFragment) {
+          //  ((CadastrarDiaFragment) getParentFragment()).onDateSelected(year, month, dayOfMonth);
+        }
     }
 }
