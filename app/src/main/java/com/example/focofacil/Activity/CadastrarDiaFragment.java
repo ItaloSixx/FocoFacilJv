@@ -1,6 +1,12 @@
 package com.example.focofacil.Activity;
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +14,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,10 +24,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.focofacil.BroadcastReceiver.DailyNotificationReceiver;
 import com.example.focofacil.Dao.TarefaDAO;
+import com.example.focofacil.Manifest;
 import com.example.focofacil.Model.TarefaModel;
 import com.example.focofacil.R;
 import com.example.focofacil.adapters.CustomSpinnerAdapter;
@@ -38,6 +50,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class CadastrarDiaFragment extends Fragment {
+
+    private static final String CHANNEL_ID = "Channel_ID";
+    private static final int NOTIFICATION_ID = 100;
+    private static final int NOTIFICATION_REQUEST_CODE = 200;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    private static final int REQUEST_NOTIFICATION_PERMISSION = 123;
     private Toolbar toolbar;
     private ViewModelProvider viewModelProvider;
     FirebaseDatabase database;
@@ -97,7 +116,6 @@ public class CadastrarDiaFragment extends Fragment {
         });
 
 
-
         date_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,19 +133,28 @@ public class CadastrarDiaFragment extends Fragment {
         // Configurar spinner com opções de repetição
         Spinner spinner = view.findViewById(R.id.spinnerRepeticao);
         List<String> items = new ArrayList<>();
-        items.add("Nunca");
-        items.add("Diáriamente");
-        items.add("Semanalmente");
-        items.add("Mensalmente");
-        items.add("Personalisado");
+        items.add("Sim");
+        items.add("Não");
 
         CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(requireActivity(), items);
         spinner.setAdapter(adapter);
 
-        // Configurar calendarView
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Sim")) {
+                    scheduleDailyNotification();
+                } else {
+                    cancelNotification();
+                }
+            }
 
-        // Observar data selecionada e atualizar tela
-
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Nada a fazer aqui
+            }
+        });
 
         return view;
     }
@@ -197,8 +224,6 @@ public class CadastrarDiaFragment extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         timePickerDialog.show();
     }
-
-
     private void showDateDialog(final Button time_in) {
         final Calendar calendar = Calendar.getInstance();
 
@@ -228,4 +253,37 @@ public class CadastrarDiaFragment extends Fragment {
         // Exibir o DatePickerDialog
         datePickerDialog.show();
     }
+
+    private void scheduleDailyNotification() {
+        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(requireActivity(), DailyNotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(requireActivity(), NOTIFICATION_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Configurar o horário da notificação (por exemplo, 8:00 da manhã)
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+
+        // Se o horário já passou hoje, agende para amanhã
+        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        // Agendar a notificação para se repetir diariamente
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+    }
+
+    private void cancelNotification() {
+        if (alarmManager != null) {
+            Intent intent = new Intent(requireActivity(), DailyNotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(requireActivity(), NOTIFICATION_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
+
+
 }
