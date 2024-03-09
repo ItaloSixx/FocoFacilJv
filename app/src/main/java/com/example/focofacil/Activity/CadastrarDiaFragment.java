@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -43,19 +44,21 @@ public class CadastrarDiaFragment extends Fragment {
     FirebaseDatabase database;
     Button date_in;
     Button time_in;
+    CheckBox checkBoxRepeat;
     private EditText editTextAtividade;
     private EditText editTextTituloAtividade;
     private Spinner spinnerRepeticao;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastrar_dia, container, false);
+
         database = FirebaseDatabase.getInstance();
         viewModelProvider = new ViewModelProvider(this);
         toolbar = view.findViewById(R.id.toolbarToolbar);
         editTextAtividade = view.findViewById(R.id.editTextAtividade);
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
 
-        spinnerRepeticao = view.findViewById(R.id.spinnerRepeticao);
+        checkBoxRepeat = view.findViewById(R.id.repeatCheckbox);
         Button date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
         Button time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
 

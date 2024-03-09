@@ -24,7 +24,6 @@
             android:background="@drawable/menu"
             android:overScrollMode="ifContentScrolls"
             android:paddingTop="@dimen/_20pxv"
-            android:visibility="visible"
             app:itemIconSize="@dimen/_30pxv"
             app:itemIconTint="@color/bottom_nav_item_colors"
             app:itemTextColor="@color/bottom_nav_item_colors"
