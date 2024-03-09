@@ -42,7 +42,6 @@ public class TarefaDAO {
         values.put(DatabaseHelper.COLUMN_MINUTO, tarefa.getMinuto());
 
         long newRowId = db.insert(DatabaseHelper.TABLE_TAREFAS, null, values);
-        db.close();
         return newRowId;
     }
 
