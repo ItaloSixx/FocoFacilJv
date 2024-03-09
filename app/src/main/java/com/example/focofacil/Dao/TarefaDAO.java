@@ -42,7 +42,6 @@ public class TarefaDAO {
         values.put(DatabaseHelper.COLUMN_MINUTO, tarefa.getMinuto());
 
         long newRowId = db.insert(DatabaseHelper.TABLE_TAREFAS, null, values);
-        db.close();
         return newRowId;
     }
 
@@ -79,5 +78,46 @@ public class TarefaDAO {
         return tarefas;
     }
 
-    // Adicione outros métodos conforme necessário (buscar por ID, atualizar, excluir, etc.)
+    public TarefaModel buscarTarefaPorId(long id) {
+        String[] projection = {
+                TarefaContract.TarefaEntry._ID,
+                TarefaContract.TarefaEntry.COLUMN_TITULO,
+                TarefaContract.TarefaEntry.COLUMN_DESCRICAO,
+                TarefaContract.TarefaEntry.COLUMN_ANO,
+                TarefaContract.TarefaEntry.COLUMN_MES,
+                TarefaContract.TarefaEntry.COLUMN_DIA,
+                TarefaContract.TarefaEntry.COLUMN_HORA,
+                TarefaContract.TarefaEntry.COLUMN_MINUTO
+        };
+
+        String selection = TarefaContract.TarefaEntry._ID + " = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+
+        Cursor cursor = db.query(
+                TarefaContract.TarefaEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        TarefaModel tarefa = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            tarefa = new TarefaModel();
+            tarefa.setIdUsuario(String.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry._ID))));
+            tarefa.setTitulo(cursor.getString(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_TITULO)));
+            tarefa.setDescricao(cursor.getString(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_DESCRICAO)));
+            tarefa.setAno(cursor.getInt(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_ANO)));
+            tarefa.setMes(cursor.getInt(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_MES)));
+            tarefa.setDia(cursor.getInt(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_DIA)));
+            tarefa.setHora(cursor.getInt(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_HORA)));
+            tarefa.setMinuto(cursor.getInt(cursor.getColumnIndexOrThrow(TarefaContract.TarefaEntry.COLUMN_MINUTO)));
+
+            cursor.close();
+        }
+
+        return tarefa;
+    }
 }
