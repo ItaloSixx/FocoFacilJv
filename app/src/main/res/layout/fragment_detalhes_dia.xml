@@ -198,9 +198,9 @@
                         android:layout_marginEnd="@dimen/_24pxh"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="@string/tarefa_descricao"
+                        android:text=""
                         android:textSize="12sp"
-                        tools:text="@string/tarefa_descricao" />
+                        tools:text="" />
                     <TextView android:ellipsize="end"
                         android:id="@+id/txtTarefaDescricao"
                         android:layout_height="wrap_content"
