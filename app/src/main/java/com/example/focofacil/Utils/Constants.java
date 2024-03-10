@@ -1,7 +1,11 @@
 package com.example.focofacil.Utils;
 
 import android.Manifest;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class Constants {
         public static final int REQUEST_IMAGE_CAPTURE = 1;
         public static final int REQUEST_IMAGE_PICK = 2;
