@@ -8,8 +8,6 @@
     tools:context=".Activity.PerfilFragment">
 
 
-
-
     <TextView
         android:id="@+id/txtConta5"
         style="@style/txtPoppinsmedium16_1"
@@ -41,7 +39,7 @@
         android:layout_width="@dimen/_330pxv"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/arroba"
-        android:drawableRight="@drawable/edit"
+        android:drawableRight="@drawable/editpen"
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
@@ -122,7 +120,7 @@
         android:layout_width="@dimen/_330pxv"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/password"
-        android:drawableRight="@drawable/edit"
+        android:drawableRight="@drawable/editpen"
         android:ellipsize="end"
         android:foregroundGravity="center_vertical|clip_horizontal"
         android:gravity="center_vertical|center_horizontal"
@@ -141,7 +139,7 @@
         android:layout_width="@dimen/_330pxv"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/usericon"
-        android:drawableRight="@drawable/edit"
+        android:drawableRight="@drawable/editpen"
         android:drawableBottom="@drawable/barra"
         android:ellipsize="end"
         android:gravity="center"
