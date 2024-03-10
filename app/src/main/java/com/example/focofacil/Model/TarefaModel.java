@@ -3,7 +3,7 @@ package com.example.focofacil.Model;
 public class TarefaModel {
     private String titulo;
     private String descricao;
-    private int repeticao;
+    private Boolean repeticao;
     private int dia;
     private int mes;
     private int ano;
@@ -27,11 +27,11 @@ public class TarefaModel {
         this.descricao = descricao;
     }
 
-    public int getRepeticao() {
+    public Boolean getRepeticao() {
         return repeticao;
     }
 
-    public void setRepeticao(int repeticao) {
+    public void setRepeticao(Boolean repeticao) {
         this.repeticao = repeticao;
     }
 

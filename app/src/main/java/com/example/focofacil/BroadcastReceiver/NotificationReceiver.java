@@ -4,13 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
-import com.example.focofacil.R;
-
-
-public class DailyNotificationReceiver extends BroadcastReceiver {
+public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // Aqui você pode lidar com as ações de clique na notificação

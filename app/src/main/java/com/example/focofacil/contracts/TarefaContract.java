@@ -16,5 +16,8 @@ public class TarefaContract {
         public static final String COLUMN_HORA = "hora";
         public static final String COLUMN_MINUTO = "minuto";
         public static final String COLUMN_ID_USUARIO = "idUsuario";
+
+
     }
+
 }

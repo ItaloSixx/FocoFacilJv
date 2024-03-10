@@ -6,21 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <Spinner
-        android:id="@+id/spinnerRepeticao"
-        android:layout_width="@dimen/_150pxh"
-        android:layout_height="@dimen/_45pxh"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/menu"
-        android:popupBackground="@drawable/dialogbkg"
-        android:text="Rotinas"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/repeatCheckbox"
-        app:layout_constraintTop_toBottomOf="@+id/linearColumngrouptwentynine" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonOpenCalendarDialog"
         style="@style/btnSolidRounded_1"
@@ -194,9 +179,9 @@
         android:id="@+id/repeatCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@null"
-        android:drawableLeft="@drawable/repeat"
-        android:paddingStart="12dp"
+        android:button="@drawable/loop_repeat"
+        android:buttonTint="@color/check_box_color_selector"
+        android:paddingStart="@dimen/_12pxh"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/buttonSalvar"
         app:layout_constraintEnd_toEndOf="parent"

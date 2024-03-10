@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.NOTIFICATION"
     tools:ignore="ScopedStorage" />
 
@@ -78,14 +81,8 @@
             android:name=".Activity.MainActivity"
             android:exported="true" />
 
-        <receiver android:name=".BroadcastReceiver.DailyNotificationReceiver"
-            android:exported="true"
-            android:permission="TODO"
-            tools:ignore="ExportedReceiver">
-            <intent-filter>
-                <action android:name="ACTION_NOTIFICATION_CLICK" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".BroadcastReceiver.NotificationReceiver"/>
+
     </application>
 
 </manifest>
