@@ -1,13 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="@dimen/_411pxv"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.84"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtOl"
+                style="@style/txtPoppinsbold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15pxv"
+                android:layout_marginTop="@dimen/_15pxv"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/lbl_ol" />
+
+            <TextView
+                android:id="@+id/txtNomeUsuario"
+                style="@style/txtPoppinsbold24_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15pxv"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="Usuario" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonOpenCalendarDialog"
+        android:layout_below = "@id/toolbarToolbar"
         style="@style/btnSolidRounded_1"
         android:layout_width="@dimen/_350pxv"
         android:layout_height="@dimen/_55pxv"
@@ -18,43 +54,34 @@
         android:paddingTop="@dimen/_7pxv"
         android:paddingEnd="@dimen/_19pxh"
         android:paddingBottom="@dimen/_7pxv"
+        android:layout_gravity="center"
         android:singleLine="true"
+        android:layout_marginTop="@dimen/_12pxh"
+        android:layout_marginBottom="@dimen/_15pxh"
         android:text="Hoje"
         android:textAllCaps="false"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
-        app:layout_constraintVertical_bias="0.092" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/txtAdicionarclass"
+        android:layout_below= "@id/buttonOpenCalendarDialog"
         style="@style/txtPoppinsbold15"
         android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_15pxh"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
+        android:layout_gravity="center"
         android:singleLine="true"
-        android:text="Descreva a tarefa"
-        app:layout_constraintBottom_toTopOf="@+id/linearColumngrouptwentynine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearRowsegunda"
-        app:layout_constraintVertical_bias="1.0" />
+        android:text="Descreva a tarefa" />
 
     <LinearLayout
         android:id="@+id/linearColumngrouptwentynine"
         style="@style/groupStylecornerRadius_1"
         android:layout_width="@dimen/_350pxv"
+        android:layout_below= "@id/txtAdicionarclass"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
-        app:layout_constraintVertical_bias="0.397">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_15pxh"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/editTexttituloAtividade"
@@ -109,50 +136,19 @@
             android:text="Horário"
             android:textAllCaps="false"
             android:textColor="@color/ABABAB" />
-
-
     </LinearLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarToolbar"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/repeatCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="@dimen/_411pxv"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.84"
-            android:gravity="start"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtOl"
-                style="@style/txtPoppinsbold16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15pxv"
-                android:layout_marginTop="@dimen/_15pxv"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="@string/lbl_ol" />
-
-            <TextView
-                android:id="@+id/txtNomeUsuario"
-                style="@style/txtPoppinsbold24_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15pxv"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="Usuario" />
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-
+        android:layout_below="@id/linearColumngrouptwentynine"
+        android:layout_marginTop="@dimen/_15pxh"
+        android:button="@drawable/loop_repeat"
+        android:layout_gravity="center"
+        android:buttonTint="@color/check_box_color_selector"
+        android:paddingStart="@dimen/_12pxh"
+        android:textColor="@android:color/white" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSalvar"
@@ -161,32 +157,15 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"
+        android:layout_marginTop="@dimen/_15pxh"
+        android:layout_below= "@id/repeatCheckbox"
         android:paddingStart="@dimen/_29pxh"
         android:paddingTop="@dimen/_7pxv"
         android:paddingEnd="@dimen/_19pxh"
         android:paddingBottom="@dimen/_7pxv"
         android:singleLine="true"
+        android:layout_gravity="center"
         android:text="Adicionar tarefa"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
-        app:layout_constraintVertical_bias="0.802" />
+        android:textAllCaps="false" />
 
-    <CheckBox
-        android:id="@+id/repeatCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/loop_repeat"
-        android:buttonTint="@color/check_box_color_selector"
-        android:paddingStart="@dimen/_12pxh"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSalvar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearColumngrouptwentynine" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

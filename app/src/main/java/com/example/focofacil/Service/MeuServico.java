@@ -47,14 +47,5 @@ public class MeuServico extends Service {
         super.onDestroy();
     }
 
-    private void startForegroundService() {
-        Intent serviceIntent = new Intent(this, MeuServico.class);
-        ContextCompat.startForegroundService(this, serviceIntent);
-    }
-
-    private void startBackgroundService() {
-        Intent serviceIntent = new Intent(this, MeuServico.class);
-        startService(serviceIntent);
-    }
 }
 

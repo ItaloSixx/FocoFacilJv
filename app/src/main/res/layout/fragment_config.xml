@@ -9,19 +9,19 @@
 
     <TextView
         android:id="@+id/txtNotDiariamente"
-        style="@style/txtPoppinsmedium24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.75"
         android:ellipsize="end"
+        android:fontFamily="@font/poppins"
         android:singleLine="true"
         android:text="Notificão diária"
+        android:textSize="@dimen/_20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318" />
+        app:layout_constraintVertical_bias="0.319" />
 
     <Switch
         android:id="@+id/switchSemanal"
@@ -29,10 +29,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/view1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toEndOf="@+id/txtNotSem"
         app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <View
         android:id="@+id/view1"
@@ -48,19 +48,19 @@
 
     <TextView
         android:id="@+id/txtNotSem"
-        style="@style/txtPoppinsmedium24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.75"
         android:ellipsize="end"
+        android:fontFamily="@font/poppins"
         android:singleLine="true"
         android:text="Notificação semanal"
+        android:textSize="@dimen/_20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintHorizontal_bias="0.215"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbarToolbar"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.421" />
 
     <View
         android:id="@+id/view2"
@@ -80,20 +80,20 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toEndOf="@+id/txtNotDiariamente"
         app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="0.695" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <TextView
         android:id="@+id/txtConfiguraes"
-        style="@style/txtPoppinsmedium24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.75"
         android:ellipsize="end"
+        android:fontFamily="@font/poppins"
         android:singleLine="true"
         android:text="@string/lbl_configura_es"
+        android:textSize="@dimen/_20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,6 +176,5 @@
                 android:text="Usuario" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
