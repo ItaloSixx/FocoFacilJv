@@ -45,8 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.EditarEmailActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:exported="false" />
         <activity
             android:name=".Activity.PerfilActivity"
             android:exported="false" />
