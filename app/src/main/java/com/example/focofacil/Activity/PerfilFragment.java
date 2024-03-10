@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -48,6 +50,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +75,7 @@ public class PerfilFragment extends Fragment {
     TextView txtNomePerfil, txtEmailPerfil, txtSenhaPerfil, txtNomeDestaque;
     ImageView imgPerfil, imgEditar;
     FirebaseDatabase database;
+
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -125,6 +133,7 @@ public class PerfilFragment extends Fragment {
 
         mostrarPerfil();
 
+
         return view;
     }
 
@@ -157,6 +166,10 @@ public class PerfilFragment extends Fragment {
             }
         }
     }
+
+
+
+
 
     @SuppressLint("RestrictedApi")
     @Override
