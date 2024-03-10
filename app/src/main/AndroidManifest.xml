@@ -90,8 +90,7 @@
             android:name=".Activity.DetalhesDiaFragment"
             android:label="@string/title_detalhes_dia_fragment"/>
 
-            android:name=".Activity.MainActivity"
-            android:exported="true" />
+           
 
         <receiver android:name=".BroadcastReceiver.NotificationReceiver"/>
 

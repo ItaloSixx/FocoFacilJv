@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.focofacil.Activity.TarefaFirebase;
 import com.example.focofacil.DiaDaSemana;
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
@@ -38,22 +40,17 @@ public class DiaSemanaAdapter extends RecyclerView.Adapter<DiaSemanaAdapter.DiaS
         DiaDaSemana dia = listaDeDias.get(position);
 
         // Atualizar as Views do ViewHolder conforme necessário
-        holder.txtNomeDia.setText(dia.getNomeDia());
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
         // Supondo que haja apenas uma tarefa por dia para simplificar
         if (!dia.getListaDeTarefas().isEmpty()) {
-            Tarefa tarefa = dia.getListaDeTarefas().get(0);
+            //TarefaFirebase tarefa = dia.getListaDeTarefas();
 
-            holder.txtTarefaAssunto.setText(tarefa.getAssunto());
-            holder.txtTarefaDataHora.setText(sdf.format(tarefa.getDataHora()));
-            holder.txtTarefaDescricao.setText(tarefa.getDescricao());
+
         } else {
             // Se não houver tarefa, você pode ocultar ou exibir uma mensagem indicando que não há tarefa.
-            holder.txtTarefaAssunto.setVisibility(View.GONE);
-            holder.txtTarefaDataHora.setVisibility(View.GONE);
-            holder.txtTarefaDescricao.setText("Nenhuma tarefa para este dia");
+
         }
     }
 
@@ -80,10 +77,7 @@ public class DiaSemanaAdapter extends RecyclerView.Adapter<DiaSemanaAdapter.DiaS
             super(itemView);
 
 
-            txtNomeDia = itemView.findViewById(R.id.txtNomeDia);
-            txtTarefaAssunto = itemView.findViewById(R.id.txtTarefaAssunto);
-            txtTarefaDataHora = itemView.findViewById(R.id.txtTarefaDataHora);
-            txtTarefaDescricao = itemView.findViewById(R.id.txtTarefaDescricao);
+
         }
 
     }

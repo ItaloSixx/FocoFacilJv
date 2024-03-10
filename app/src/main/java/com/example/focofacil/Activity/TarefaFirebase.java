@@ -19,6 +19,7 @@ public class TarefaFirebase {
     private String hora;
     @ColumnInfo(name = "minuto")
     private String minuto;
+    private String dataHora;
 
     public TarefaFirebase(String titulo, String descricao, String repeticao, String dia, String mes, String ano, String hora, String minuto) {
         this.titulo = titulo;
@@ -95,5 +96,13 @@ public class TarefaFirebase {
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
+    }
+
+    public String getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(String dataHora) {
+        this.dataHora = dataHora;
     }
 }

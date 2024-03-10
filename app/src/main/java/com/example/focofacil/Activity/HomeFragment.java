@@ -1,5 +1,7 @@
 package com.example.focofacil.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,8 +21,11 @@ import com.example.focofacil.DiaSemanaAdapter;
 
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
+import com.example.focofacil.adapters.TarefaFirebaseAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +59,11 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewDiasSemana;
     private ListAdapter adapter;
     private ArrayList<String> taref;
+
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -100,7 +110,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void setupDiasDaSemana(View view) {
+    /*private void setupDiasDaSemana(View view) {
         // Obter o dia atual da semana
         Calendar calendar = Calendar.getInstance();
         int diaAtual = calendar.get(Calendar.DAY_OF_WEEK);
@@ -144,7 +154,7 @@ public class HomeFragment extends Fragment {
                 Log.e("TextView", "TextView not found for day: " + dia.getNomeDia());
             }
         }
-    }
+    }*/
 
     private void exibirInformacoesTarefas(DiaDaSemana dia, View view) {
 
@@ -169,9 +179,9 @@ public class HomeFragment extends Fragment {
             txtDescricao.setText("");
 
             // Exibir informações da última tarefa (caso haja mais de uma)
-            for (Tarefa tarefa : dia.getListaDeTarefas()) {
+            for (TarefaFirebase tarefa : dia.getListaDeTarefas()) {
                 // Preencher os TextViews com as informações da tarefa
-                txtAssunto.setText(tarefa.getAssunto());
+                txtAssunto.setText(tarefa.getTitulo());
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 txtDataHora.setText(sdf.format(tarefa.getDataHora()));
@@ -233,9 +243,10 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public static String obterDiaDaSemana(Date data) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", new Locale("pt", "BR"));
-        return sdf.format(data);
+    private int obterDiaDaSemana(long dia, long mes, long ano) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set((int) ano, (int) mes - 1, (int) dia); // Mês começa do zero no Calendar
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
    /* private void setupRecyclerView(View view) {
@@ -258,8 +269,69 @@ public class HomeFragment extends Fragment {
         return novoDia;
     }
 
+    private void configurarDiasDaSemana(View view) {
+        // Adicione os dias da semana à listaDeDias
+        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+            String nomeDia = obterNomeDiaDaSemana(i); // Método para obter o nome do dia da semana
+            DiaDaSemana diaDaSemana = new DiaDaSemana(nomeDia);
+            listaDeDias.add(diaDaSemana);
+        }
+
+    }
+
+    private void passandoDiasDaSemanaNoRecyclerView(View view){
+        // Configurar o RecyclerView para cada dia da semana
+        configurarRecyclerView(view, Calendar.SUNDAY, R.id.recyclerViewDomingo);
+        configurarRecyclerView(view, Calendar.MONDAY, R.id.recyclerViewSegunda);
+        configurarRecyclerView(view, Calendar.TUESDAY, R.id.recyclerViewTerca);
+        configurarRecyclerView(view, Calendar.WEDNESDAY, R.id.recyclerViewQuarta);
+        configurarRecyclerView(view, Calendar.THURSDAY, R.id.recyclerViewQuinta);
+        configurarRecyclerView(view, Calendar.FRIDAY, R.id.recyclerViewSexta);
+        configurarRecyclerView(view, Calendar.SATURDAY, R.id.recyclerViewSabado);
+    }
+
+    private void configurarRecyclerView(View view, int diaDaSemana, int recyclerViewId) {
+        // Configurar o RecyclerView para o dia da semana
+        RecyclerView recyclerView = view.findViewById(recyclerViewId);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Obtenha o DiaDaSemana correspondente
+        DiaDaSemana diaDaSemanaObj = obterDiaDaSemanaCorrespondente(obterNomeDiaDaSemana(diaDaSemana));
+        Log.d(TAG, "configurarRecyclerView - diaDaSemanaObj : " + diaDaSemanaObj);
+        // Configurar o adaptador com a lista de tarefas do dia da semana
+        TarefaFirebaseAdapter tarefaAdapter = new TarefaFirebaseAdapter(getContext(), diaDaSemanaObj.getListaDeTarefas());
+        Log.d(TAG, "configurarRecyclerView - diaDaSemanaObj.getListaDeTarefas() : " + diaDaSemanaObj.getListaDeTarefas());
+
+        //Configurar o RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(tarefaAdapter);
+    }
+
+    private TarefaFirebaseAdapter obterAdapterParaDiaDaSemana(int diaDaSemana) {
+        // Obter o DiaDaSemana correspondente
+        DiaDaSemana diaDaSemanaObj = listaDeDias.get(diaDaSemana - 1); // -1 porque os dias começam do domingo (1)
+
+        // Criar e retornar um adaptador com a lista de tarefas do dia da semana
+        return new TarefaFirebaseAdapter(getContext(), diaDaSemanaObj.getListaDeTarefas());
+    }
+
+    // Método para obter o nome do dia da semana
+    private String obterNomeDiaDaSemana(int diaDaSemana) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, diaDaSemana);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
+        //Log.d(TAG, "obterNomeDiaDaSemana : " + sdf.format(calendar.getTime());
+        return sdf.format(calendar.getTime());
+    }
+
 
     private ListView listTarefa;
+
+    private RecyclerView recyclerViewSegunda;
+
+    private List<TarefaFirebase> tarefaList;
+    private TarefaFirebaseAdapter tarefaAdapter;
+    private TarefaFirebase androidTarefa;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -270,140 +342,173 @@ public class HomeFragment extends Fragment {
         //setupRecyclerView(view);
 
         // Configurar o adapter para o RecyclerView
-        DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
+        //DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
         //recyclerViewDiasSemana.setAdapter(adapter);
 
         // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
         //listaDeDias = new ArrayList<>();
 
-        ArrayList<Tarefa> listaDeTarefas = new ArrayList<>();
+
+
 
         // Configurar o RecyclerView
         //setupRecyclerView(view);
 
         // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
         //setupDiasDaSemana(view);
+
+        listaDeDias = new ArrayList<>();
+        configurarDiasDaSemana(view);
+
+
         Log.e("TarefaFirebase", "Iniciando leitura de tarefa");
 
+        //---------------------------------------------------------------------------------
+        /*recyclerViewSegunda = view.findViewById(R.id.recyclerViewSegunda);
+        recyclerViewSegunda.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewTerca = view.findViewById(R.id.recyclerViewTerca);
+        recyclerViewTerca.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewQuarta = view.findViewById(R.id.recyclerViewQuarta);
+        recyclerViewQuarta.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewQuinta = view.findViewById(R.id.recyclerViewQuinta);
+        recyclerViewQuinta.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewSexta = view.findViewById(R.id.recyclerViewSexta);
+        recyclerViewSexta.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewSabado = view.findViewById(R.id.recyclerViewSabado);
+        recyclerViewSabado.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerViewDomingo = view.findViewById(R.id.recyclerViewDomingo);
+        recyclerViewDomingo.setLayoutManager(new LinearLayoutManager(getContext()));*/
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        user = mAuth.getCurrentUser();
+
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
-        taref = new ArrayList<>();
-
-        // Recuperar dados do Firebase
-        DatabaseReference tarefasRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference tarefasTotais = tarefasRef.child("Tarefas");
-
-        Query tituloTarefaQuery = tarefasTotais.orderByChild("titulo");
 
 
-        ValueEventListener valueEventListener = tituloTarefaQuery.addValueEventListener(new ValueEventListener() {
 
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if (user != null) {
+            FirebaseUser finalUser = user;
+            user.reload().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String uid = finalUser.getUid();
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Tarefas");
 
-                for (DataSnapshot dados : snapshot.getChildren()) {
-                    Log.d("Dados Firebase", "dados: " + dados);
+                    Log.d("TAG", "Iniciando consulta ao Firebase Realtime Database...");
 
-                    TarefaFirebase tarefa = snapshot.getValue(TarefaFirebase.class);
-                    TarefaFirebase ta = dados.getValue(TarefaFirebase.class);
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // Limpar as listas de tarefas em cada dia da semana
+                            for (DiaDaSemana dia : listaDeDias) {
+                                dia.getListaDeTarefas().clear();
+                            }
+                            Log.d(TAG, "Consulta ao Firebase Realtime Database concluída com sucesso!");
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Log.d(TAG, "Verificando dados do firebase!");
 
-                    String titulo = dados.child("titulo").getValue(String.class);
-                    String descricao = dados.child("descricao").getValue(String.class);
-                    String repeticao = dados.child("repeticao").getValue(String.class);
-                    String dia = dados.child("dia").getValue(String.class);
-                    String mes = dados.child("mes").getValue(String.class);
-                    String ano = dados.child("ano").getValue(String.class);
-                    String hora = dados.child("hora").getValue(String.class);
-                    String minuto = dados.child("minuto").getValue(String.class);
+                                String taskUserId = snapshot.child("idUsuario").getValue(String.class);
+                                Log.d(TAG, "taskUserId: " + taskUserId);
 
-                    Log.d("TarefaFirebase", "Titulo: " + ta.getTitulo());
+                                if (taskUserId != null && taskUserId.equals(uid)) {
+                                    Log.d(TAG, "taskUserId é diferente de null");
 
+                                    // Esta tarefa pertence ao usuário logado
+                                    // Faça o que você precisa com a tarefa aqui
+                                    String taskTitle = snapshot.child("titulo").getValue(String.class);
+                                    String taskDescription = snapshot.child("descricao").getValue(String.class);
 
-                    TarefaFirebase tarefa_firebase = new TarefaFirebase(titulo, descricao, repeticao, dia, mes, ano, hora, minuto);
-                    //    public TarefaFirebase(titulo, descricao, repeticao, dia, mes, ano,hora, minuto) {
-                    listaDeTarefasFirebase.add(tarefa_firebase);
-                    Log.d("TarefaFirebase", "Titulo: " + titulo + ", Descrição: " + descricao + ", Dia: " + dia);
-
-
-                }
-
-                listTarefa = view.findViewById(R.id.listTarefa);
-                ArrayAdapter<TarefaFirebase> adaptador = new ArrayAdapter<TarefaFirebase>(requireContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listaDeTarefasFirebase);
-                listTarefa.setAdapter(adaptador);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(requireContext(), "Erro listar tarefas" + error.getMessage(), Toast.LENGTH_LONG).show();
-
-            }
-        });
+                                    Long diaLong = snapshot.child("dia").getValue() != null ? snapshot.child("dia").getValue(Long.class) : 0L;
+                                    Log.d("TAG", "Dia da Tarefa: " + diaLong);
 
 
-        /*tarefasRef.child("users").child("\n" +
-                    "-NsWa9thoLQiG6FGjDZN").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });*/
-        /*tarefasRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Limpar a lista existente (se necessário)
-                listaDeTarefas.clear();
+                                   // Long repeticaoLong = snapshot.child("repeticao").getValue() != null ? snapshot.child("repeticao").getValue(Long.class) : 0L;
+                                    Long repeticaoLong = (snapshot.child("repeticao").getValue() instanceof Long) ? (Long) snapshot.child("repeticao").getValue() : 0L;
 
-                // Iterar sobre os dados do Firebase e adicionar às tarefas à lista
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Tarefa tarefa = snapshot.getValue(Tarefa.class);
 
-                    if (tarefa != null) {
+                                    Long mesLong = snapshot.child("mes").getValue() != null ? snapshot.child("mes").getValue(Long.class) : 0L;
 
-                        // Adicionar lógica para obter o dia da semana da data da tarefa
-                        // Aqui você deve implementar sua própria lógica para converter a data para o dia da semana
-                        String diaDaSemana = obterDiaDaSemana(tarefa.getDataHora());
+                                    Long anoLong = snapshot.child("ano").getValue() != null ? snapshot.child("ano").getValue(Long.class) : 0L;
 
-                        Calendar calendar = Calendar.getInstance();
-                        Date dataAtual = calendar.getTime();
-                        String nomeDoDiaAtual = obterDiaDaSemana(dataAtual);
+                                    Long horaLong = snapshot.child("hora").getValue() != null ? snapshot.child("hora").getValue(Long.class) : 0L;
 
-                        // Verificar se o dia da semana da tarefa é igual ao dia da semana atual
-                        if (diaDaSemana.equals(nomeDoDiaAtual)) {
-                            // Adicionar a tarefa ao dia correspondente na lista
-                            DiaDaSemana dia = obterDiaDaSemanaCorrespondente(diaDaSemana);
-                            dia.getListaDeTarefas().add(tarefa);
+                                    Long minutoLong = snapshot.child("minuto").getValue() != null ? snapshot.child("minuto").getValue(Long.class) : 0L;
 
-                            Log.d("TarefaFirebase", "Assunto: " + tarefa.getAssunto());
-                            Log.d("TarefaFirebase", "Data e Hora: " + tarefa.getDataHora().toString());
+                                    Log.d("TAG", "Título da Tarefa: " + taskTitle);
+                                    Log.d("TAG", "Descrição da Tarefa: " + taskDescription);
+                                    Log.d("TAG", "Repetição da Tarefa: " + repeticaoLong);
+                                    Log.d("TAG", "Dia da Tarefa: " + diaLong);
+                                    Log.d("TAG", "Mês da Tarefa: " + mesLong);
+                                    Log.d("TAG", "Ano da Tarefa: " + anoLong);
+                                    Log.d("TAG", "Hora da Tarefa: " + horaLong);
+                                    Log.d("TAG", "Minuto da Tarefa: " + minutoLong);
 
+                                    String diaString = String.valueOf(diaLong);
+                                    String repeticaoString = String.valueOf(repeticaoLong);
+                                    String mesString = String.valueOf(mesLong);
+                                    String anoString = String.valueOf(anoLong);
+                                    String horaString = String.valueOf(horaLong);
+                                    String minutoString = String.valueOf(minutoLong);
+
+
+                                    TarefaFirebase tarefa_firebase = new TarefaFirebase(taskTitle, taskDescription, repeticaoString, diaString, mesString, anoString, horaString, minutoString);
+
+                                    // Associando a tarefa ao dia da semana correspondente
+                                    int diaDaSemana = obterDiaDaSemana(diaLong - 1, mesLong, anoLong); // Método para obter o dia da semana
+                                    DiaDaSemana diaDaSemanaObj = listaDeDias.get(diaDaSemana);
+                                    diaDaSemanaObj.adicionarTarefa(tarefa_firebase);
+
+                                    passandoDiasDaSemanaNoRecyclerView(view);
+
+                                    //    public TarefaFirebase(titulo, descricao, repeticao, dia, mes, ano,hora, minuto) {
+                                    Log.d("TAG", "Objeto tarefa_firebase, Titulo: " + tarefa_firebase.getTitulo());
+                                    Log.d("TAG", "Data: " + tarefa_firebase.getDia() + "/" + tarefa_firebase.getMes() + "/" + tarefa_firebase.getAno() + " - " + tarefa_firebase.getHora() + ":" + tarefa_firebase.getMinuto());
+                                    tarefa_firebase.setDataHora("Data: " + tarefa_firebase.getDia() + "/" + tarefa_firebase.getMes() + "/" + tarefa_firebase.getAno() + " - " + tarefa_firebase.getHora() + ":" + tarefa_firebase.getMinuto());
+                                    listaDeTarefasFirebase.add(tarefa_firebase);
+                                    // Adicione o código para processar os outros campos da tarefa conforme necessário
+                                    Log.d("TAG", "Tarefa: " + tarefa_firebase);
+                                    Log.d("TAG", "ListaDeTarefasFirebase: " + listaDeTarefasFirebase + " | Tamanho do Array: " + listaDeTarefasFirebase.size());
+
+                                }
+                            }
+
+
+
+                            //tarefaAdapter = new TarefaFirebaseAdapter(getContext(), listaDeTarefasFirebase);
+                            //recyclerViewSegunda.setAdapter(tarefaAdapter);
+
+                            //listTarefa = view.findViewById(R.id.listTarefa);
+                            //TarefaFirebaseAdapter adaptador = new TarefaFirebaseAdapter(getContext(), listaDeTarefasFirebase);
+                            //listTarefa.setAdapter((ListAdapter) adaptador);
+
+                            //ArrayAdapter<TarefaFirebase> adaptador = new ArrayAdapter<TarefaFirebase>(this, android.R.layout.simple_list_item_1, android.R.id.text1, listaDeTarefasFirebase);
+                            //listTarefa.setAdapter(adaptador);
                         }
 
-                    }else{
-                        Log.d("TarefaFirebase", "TarefaFirebase é nulo");
-                    }
-
-                    // Notificar o adaptador que os dados foram alterados
-                    if (adapter != null) {
-                        adapter.notifyDataSetChanged();
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d(TAG, "Erro ao consultar o Firebase Realtime Database: " + databaseError.getMessage());
+                        }
+                    });
+                } else {
+                    Log.e(TAG, "Falha ao recarregar o usuário: ", task.getException());
                 }
-                //setupDiasDaSemana(view);
+            });
+        } else {
+            Log.e(TAG, "Usuário atual é nulo.");
+        }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-
-        //}
+        // --------------------------------------------------------------------------------
 
         return view;
     }
