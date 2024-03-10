@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -25,6 +27,8 @@ import com.example.focofacil.Dao.TarefaDAO;
 import com.example.focofacil.Model.TarefaModel;
 import com.example.focofacil.R;
 import com.example.focofacil.adapters.CustomSpinnerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -33,9 +37,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
+import java.util.Map;
 public class CadastrarDiaFragment extends Fragment {
     private Toolbar toolbar;
     private ViewModelProvider viewModelProvider;
@@ -61,7 +66,7 @@ public class CadastrarDiaFragment extends Fragment {
         time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
         checkbox = view.findViewById(R.id.repeatCheckbox);
 
-        buttonSalvar = view.findViewById(R.id.buttonsalvar);
+        buttonSalvar = view.findViewById(R.id.buttonSalvar);
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
