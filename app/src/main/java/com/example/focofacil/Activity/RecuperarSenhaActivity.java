@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -54,7 +55,6 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
     }
 
     private void recuperarSenha(String email) {
-
         if (email.isEmpty()) {
             Toast.makeText(this, "Campo email vazio", Toast.LENGTH_SHORT).show();
             return;
@@ -64,17 +64,25 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
             return;
         }
 
-        /* Verificação de Cadastro
-        if (!isUserRegistered(email)) {
-            Toast.makeText(this, "Conta não cadastrada", Toast.LENGTH_LONG).show();
-            return;
-        }*/
+        btnRecuperar.setEnabled(false);
+
+        new CountDownTimer(30000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // Atualizar o texto do botão com o tempo restante
+                btnRecuperar.setText("Aguarde" + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                btnRecuperar.setEnabled(true);
+                btnRecuperar.setText("Recuperar Senha");
+            }
+        }.start();
+
 
         auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-
                         if (task.isSuccessful()) {
                             Toast.makeText(RecuperarSenhaActivity.this, "Instruções encaminhadas para " + email, Toast.LENGTH_LONG).show();
                         } else {
@@ -90,4 +98,5 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

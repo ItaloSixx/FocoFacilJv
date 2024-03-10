@@ -8,8 +8,6 @@
     tools:context=".Activity.PerfilFragment">
 
 
-
-
     <TextView
         android:id="@+id/txtConta5"
         style="@style/txtPoppinsmedium16_1"

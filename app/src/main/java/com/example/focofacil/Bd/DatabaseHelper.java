@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "nome_do_banco_de_dados.db";
+    private static final String DATABASE_NAME = "FocoFacil.db";
     private static final int DATABASE_VERSION = 1;
 
     // Tabela de tarefas

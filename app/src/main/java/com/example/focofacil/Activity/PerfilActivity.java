@@ -28,6 +28,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class PerfilActivity extends AppCompatActivity {
     private TextView txtNome, txtEmail, txtEditarNome, txtEditarSenha, txtEditarEmail, txtCadTest;
@@ -59,8 +62,8 @@ public class PerfilActivity extends AppCompatActivity {
         txtCadTest = findViewById(R.id.cadTarefaTest);
         imgEditar = findViewById(R.id.imgEditar);
 
-        //carrega e mostra o ad
-        //carregarAdIn();
+        //qcarrega e mostra o ad
+        carregarAdIn();
 
         txtCadTest.setOnClickListener(v -> {
             Intent redirecionar = new Intent(PerfilActivity.this, MainMenuActivity.class);
@@ -118,15 +121,15 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     //mostra o ad sempre que o app for minimizado e retornar
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(mInterstitialAd != null){
-            carregarAdIn();
-        }else{
-            showInterstitial();
-        }
-    }
+    //@Override
+    //protected void onResume() {
+      //  super.onResume();
+        //if(mInterstitialAd != null){
+     //       carregarAdIn();
+        //}else{
+          //  showInterstitial();
+        //}
+    //}
 
     private void showInterstitial() {
         if (mInterstitialAd != null) {
@@ -162,7 +165,7 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
 
-    
-    
+
+
 
 }

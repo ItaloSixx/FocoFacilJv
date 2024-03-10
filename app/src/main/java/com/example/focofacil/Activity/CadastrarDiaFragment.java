@@ -1,54 +1,58 @@
 package com.example.focofacil.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.focofacil.Bd.DatabaseHelper;
+
+import com.bumptech.glide.Glide;
+import com.example.focofacil.BroadcastReceiver.NotificationReceiver;
+import com.example.focofacil.BroadcastReceiver.TaskNotificationHelper;
+import com.example.focofacil.Dao.TarefaDAO;
+import com.example.focofacil.Model.TarefaModel;
 import com.example.focofacil.R;
-import com.example.focofacil.adapters.CustomSpinnerAdapter;
-import com.example.focofacil.contracts.TarefaContract;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-public class CadastrarDiaFragment extends Fragment {
+import java.util.Date;
 
-    private Toolbar toolbar;
-    private ViewModelProvider viewModelProvider;
+public class CadastrarDiaFragment extends Fragment {
+    private static final int NOTIFICATION_REQUEST_CODE = 200;
+    private AlarmManager alarmManager;
     FirebaseDatabase database;
-    private ActivityCadastrarDiaViewModel viewModel;
+    CheckBox checkboxRepeticao;
     Button date_in;
     Button time_in;
+    Button buttonSalvar;
+    TextView txtNomeUsuario;
     private EditText editTextAtividade;
     private EditText editTextTituloAtividade;
     private Spinner spinnerRepeticao;
@@ -56,18 +60,16 @@ public class CadastrarDiaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastrar_dia, container, false);
         database = FirebaseDatabase.getInstance();
-        viewModelProvider = new ViewModelProvider(this);
-        viewModel = viewModelProvider.get(ActivityCadastrarDiaViewModel.class);
-        toolbar = view.findViewById(R.id.toolbarToolbar);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(this);
+        Toolbar toolbar = view.findViewById(R.id.toolbarToolbar);
         editTextAtividade = view.findViewById(R.id.editTextAtividade);
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
-
-        spinnerRepeticao = view.findViewById(R.id.spinnerRepeticao);
         Button date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
         Button time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
-
-        Button buttonSalvar = view.findViewById(R.id.buttonSalvar);
-
+        checkboxRepeticao = view.findViewById(R.id.repeatCheckbox);
+        txtNomeUsuario = view.findViewById(R.id.txtNomeUsuario);
+        nomeUsuario();
+        buttonSalvar = view.findViewById(R.id.buttonsalvar);
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +77,7 @@ public class CadastrarDiaFragment extends Fragment {
                 String horaStr = time_in.getText().toString();
 
                 if (!dataStr.isEmpty() && !horaStr.isEmpty()) {
-                    SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat sdfDate = new SimpleDateFormat("EEE dd/MM/yyyy");
                     SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 
                     try {
@@ -102,9 +104,6 @@ public class CadastrarDiaFragment extends Fragment {
                 }
             }
         });
-
-
-
         date_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,131 +117,78 @@ public class CadastrarDiaFragment extends Fragment {
                 showTimeDialog(time_in);
             }
         });
-
-        // Configurar spinner com opções de repetição
-        Spinner spinner = view.findViewById(R.id.spinnerRepeticao);
-        List<String> items = new ArrayList<>();
-        items.add("Nunca");
-        items.add("Diáriamente");
-        items.add("Semanalmente");
-        items.add("Mensalmente");
-        items.add("Personalisado");
-
-        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(requireActivity(), items);
-        spinner.setAdapter(adapter);
-
-        // Configurar calendarView
-
-        // Observar data selecionada e atualizar tela
-
-        viewModel.getDataSelecionada().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
+        // Adicione esta linha para inicializar o checkboxRepeticao
+        checkboxRepeticao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onChanged(Calendar calendar) {
-                // Atualizar a tela com as atividades do dia selecionado
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Marcar indica que a tarefa deve ser repetida diariamente
+                    scheduleDailyNotification();
+                } else {
+                    // Desmarcar indica que a tarefa não deve ser repetida diariamente
+                    cancelNotification();
+                }
             }
         });
-        viewModel.getDataSelecionada().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
-            @Override
-            public void onChanged(Calendar calendar) {
-                // Atualizar a tela com as atividades do dia selecionado
-            }
-        });
-        viewModel.carregarDados();
-
-        // Recuperar preferências compartilhadas
-        SharedPreferences prefs = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
         return view;
     }
 
 
     public void persistirTarefa(int year, int month, int dayOfMonth, int selectedHourOfDay, int selectedMinute) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String idUsuario = user.getUid();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String idUsuario = user.getUid();
 
-        String descricao = editTextAtividade.getText().toString();
-        String titulo = editTextTituloAtividade.getText().toString();
-        int repeticao = spinnerRepeticao.getSelectedItemPosition();
+                String descricao = editTextAtividade.getText().toString();
+                String titulo = editTextTituloAtividade.getText().toString();
+                boolean repeticao = checkboxRepeticao.isChecked(); // Verifica se o CheckBox está marcado
 
-        Map<String, Object> atividade = new HashMap<>();
-        atividade.put("titulo", titulo);
-        atividade.put("descricao", descricao);
-        atividade.put("repeticao", repeticao);
-        atividade.put("dia", dayOfMonth);
-        atividade.put("mes", month + 1); // Lembrando que Janeiro é 0, Fevereiro é 1, e assim por diante
-        atividade.put("ano", year);
-        atividade.put("hora", selectedHourOfDay);
-        atividade.put("minuto", selectedMinute);
-        atividade.put("idUsuario", idUsuario);
+                TarefaModel tarefa = new TarefaModel();
+                tarefa.setIdUsuario(idUsuario);
+                tarefa.setTitulo(titulo);
+                tarefa.setDescricao(descricao);
+                tarefa.setRepeticao(repeticao);
+                tarefa.setDia(dayOfMonth);
+                tarefa.setMes(month + 1);
+                tarefa.setAno(year);
+                tarefa.setHora(selectedHourOfDay);
+                tarefa.setMinuto(selectedMinute);
 
-        // Gerar um novo nó com ID único para a tarefa
-        DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").child(user.getUid()).push();
+                // Salvar no Firebase
+                DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").push();
+                tarefaRef.setValue(tarefa);
 
-        // Definir os valores da tarefa no novo nó
-        tarefaRef.setValue(atividade)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                // Salvar localmente
+                TarefaDAO tarefaDAO = new TarefaDAO(requireContext());
+                long newRowId = tarefaDAO.inserirTarefa(tarefa);
+                Log.d("Persistir Tarefa", "ID da nova linha: " + newRowId);
+
+                // Exibir mensagem após a conclusão da operação na thread principal
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                    public void run() {
+                        if (newRowId != -1) {
                             Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
                             getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
 
+                            // Se o CheckBox estiver marcado, agende a repetição diária da tarefa
+                            if (repeticao) {
+                                long notificationTimeInMillis = calcularTempoNotificacao(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
+                                Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis).toString());
+                                TaskNotificationHelper.scheduleNotification(requireContext(), titulo, notificationTimeInMillis);
+                            }
                         } else {
-                            Toast.makeText(requireContext(), "Tente novamente"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-        // Utilizando uma nova Thread para inserir dados no SQLite
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-                ContentValues values = new ContentValues();
-                values.put(TarefaContract.TarefaEntry.COLUMN_TITULO, titulo);
-                values.put(TarefaContract.TarefaEntry.COLUMN_DESCRICAO, descricao);
-                values.put(TarefaContract.TarefaEntry.COLUMN_REPETICAO, repeticao);
-                values.put(TarefaContract.TarefaEntry.COLUMN_DIA, dayOfMonth);
-                values.put(TarefaContract.TarefaEntry.COLUMN_MES, month + 1);
-                values.put(TarefaContract.TarefaEntry.COLUMN_ANO, year);
-                values.put(TarefaContract.TarefaEntry.COLUMN_HORA, selectedHourOfDay);
-                values.put(TarefaContract.TarefaEntry.COLUMN_MINUTO, selectedMinute);
-                values.put(TarefaContract.TarefaEntry.COLUMN_ID_USUARIO, idUsuario);
-
-                long newRowId = db.insert(TarefaContract.TarefaEntry.TABLE_NAME, null, values);
-
-                if (newRowId != -1) {
-                    // Notificar o usuário sobre o sucesso da inserção
-                    Handler mainHandler = new Handler(Looper.getMainLooper());
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
-                            getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
-                        }
-                    });
-                } else {
-                    // Notificar o usuário sobre o erro na inserção
-                    Handler mainHandler = new Handler(Looper.getMainLooper());
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                db.close();
             }
-        }).start();*/
+        }).start();
     }
-
-
-
-
-
     private void showTimeDialog(final Button date_in) {
         final Calendar calendar=Calendar.getInstance();
 
@@ -259,8 +205,6 @@ public class CadastrarDiaFragment extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         timePickerDialog.show();
     }
-
-
     private void showDateDialog(final Button time_in) {
         final Calendar calendar = Calendar.getInstance();
 
@@ -279,7 +223,7 @@ public class CadastrarDiaFragment extends Fragment {
                     Toast.makeText(requireContext(), "Por favor, selecione uma data válida", Toast.LENGTH_SHORT).show();
                 } else {
                     // Data selecionada é válida, atualizar o campo de texto com a data selecionada
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yyyy");
                     time_in.setText(simpleDateFormat.format(selectedDate.getTime()));
                 }
             }
@@ -290,10 +234,65 @@ public class CadastrarDiaFragment extends Fragment {
         // Exibir o DatePickerDialog
         datePickerDialog.show();
     }
+
+    private void scheduleDailyNotification() {
+        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(requireActivity(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(requireActivity(), NOTIFICATION_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Configurar o horário da notificação (por exemplo, 8:00 da manhã)
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 6);
+        calendar.set(Calendar.MINUTE, 0);
+
+        // Se o horário já passou hoje, agende para amanhã
+        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        // Agendar a notificação para se repetir diariamente
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+    }
+
+    private void cancelNotification() {
+        if (alarmManager != null) {
+            Intent intent = new Intent(requireActivity(), NotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(requireActivity(), NOTIFICATION_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
+    public void nomeUsuario() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            String nome = user.getDisplayName();
+            txtNomeUsuario.setText(nome);
+
+        }
+    }
+
+    private long calcularTempoNotificacao(int year, int month, int dayOfMonth, int selectedHourOfDay, int selectedMinute) {
+        // Obter a data e hora atual
+        Calendar currentTime = Calendar.getInstance();
+        Log.d("Calcular Notificação", "Tempo atual: " + currentTime.getTime().toString());
+
+        // Criar um objeto Calendar para a data e hora da tarefa
+        Calendar taskTime = Calendar.getInstance();
+        taskTime.set(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
+        Log.d("Calcular Notificação", "Tempo da tarefa: " + taskTime.getTime().toString());
+
+        // Calcular a diferença entre a hora atual e a hora da tarefa em milissegundos
+        long diffInMillis = taskTime.getTimeInMillis() - currentTime.getTimeInMillis();
+        Log.d("Calcular Notificação", "Diferença de tempo em milissegundos: " + diffInMillis);
+
+        // Retornar o tempo da notificação (por exemplo, 10 minutos antes da tarefa)
+        long notificationTimeInMillis = taskTime.getTimeInMillis() - (10 * 60 * 1000); // 10 minutos antes da tarefa
+        Log.d("Calcular Notificação", "Tempo da notificação: " + new Date(notificationTimeInMillis).toString());
+        return notificationTimeInMillis;
+    }
+
+
 }
-
-
-
-
-
-

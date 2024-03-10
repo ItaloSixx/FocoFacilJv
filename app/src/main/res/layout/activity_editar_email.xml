@@ -6,6 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".Activity.EditarEmailActivity">
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnprocurar"
+        style="@style/btnSolidRounded_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="344dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingStart="@dimen/_29pxh"
+        android:paddingTop="@dimen/_7pxv"
+        android:paddingEnd="@dimen/_19pxh"
+        android:paddingBottom="@dimen/_7pxv"
+        android:singleLine="true"
+        android:text="Adicionar tarefa"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmailConfirm" />
+
+    <TextView
+        android:id="@+id/txtEmailUser"
+        style="@style/txtPoppinsbold12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Email"
+        android:textColor="#ABABAB"
+        app:layout_constraintBottom_toTopOf="@+id/edtEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="@+id/edtEmail" />
+
     <EditText
         android:id="@+id/edtEmailConfirm"
         android:layout_width="388dp"
@@ -14,10 +52,9 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmailUser2"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+        app:layout_constraintVertical_bias="0.07999998" />
 
     <TextView
         android:id="@+id/txtEmailUser2"
@@ -25,35 +62,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginBottom="548dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Confirme o email"
         android:textColor="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/edtEmailConfirm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtEmailUser"
-        style="@style/txtPoppinsbold12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="640dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Email"
-        android:textColor="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="@+id/edtEmailConfirm" />
 
     <EditText
         android:id="@+id/edtEmail"
@@ -63,10 +79,9 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmailUser"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -74,6 +89,9 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         app:contentInsetEnd="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/close"
         app:title="Email"
         tools:ignore="MissingConstraints">

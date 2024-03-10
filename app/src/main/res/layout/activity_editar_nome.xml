@@ -6,36 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".Activity.EditarNomeActivity">
 
+
     <TextView
-        android:id="@+id/txtNomeUser2"
+        android:id="@+id/txtNomeUser5"
         style="@style/txtPoppinsbold12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="640dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Nome de usuário"
         android:textColor="#ABABAB"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/edtNome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="@+id/edtNome"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/edtNome"
-        android:layout_width="388dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/_388pxv"
+        android:layout_height="@dimen/_40pxv"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeUser2"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -43,6 +43,10 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         app:contentInsetEnd="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/close"
         app:title="Nome de usuário"
         tools:ignore="MissingConstraints">

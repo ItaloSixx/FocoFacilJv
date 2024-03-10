@@ -46,9 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth;
     int RC_SIGN_IN = 11;
 
-    public interface MainActivityListener {
-        void replaceFragment(Fragment fragment);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user != null && user.isEmailVerified()) {
                                 Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
-
                                 Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
                                 startActivity(redirecionar);
                                 finish();

@@ -1,29 +1,15 @@
 package com.example.focofacil.Model;
 
-import androidx.annotation.NonNull;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.UUID;
-
-public class Tarefa {
-    private int id;
+public class TarefaModel {
     private String titulo;
     private String descricao;
-    private int repeticao;
+    private Boolean repeticao;
     private int dia;
     private int mes;
     private int ano;
     private int hora;
     private int minuto;
     private String idUsuario;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitulo() {
         return titulo;
@@ -41,11 +27,11 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public int getRepeticao() {
+    public Boolean getRepeticao() {
         return repeticao;
     }
 
-    public void setRepeticao(int repeticao) {
+    public void setRepeticao(Boolean repeticao) {
         this.repeticao = repeticao;
     }
 
