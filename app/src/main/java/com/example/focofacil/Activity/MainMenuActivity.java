@@ -90,7 +90,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             if (itemId == R.id.home) {
                 replaceFragment(new CadastrarDiaFragment());
             } else if (itemId == R.id.ClipBoard) {
-
+                replaceFragment(new PomodoroFragment());
             } else if (itemId == R.id.Perfil) {
                 replaceFragment(new PerfilFragment());
             }
