@@ -194,7 +194,7 @@ public class CadastrarDiaFragment extends Fragment {
                 });
 
         // Utilizando uma nova Thread para inserir dados no SQLite
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
@@ -236,7 +236,7 @@ public class CadastrarDiaFragment extends Fragment {
 
                 db.close();
             }
-        }).start();
+        }).start();*/
     }
 
 

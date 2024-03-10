@@ -105,17 +105,7 @@
                                 android:layout_marginStart="@dimen/_3pxh"
                                 android:layout_marginTop="@dimen/_20pxv" android:layout_width="@dimen/_12pxh"/>
                         </LinearLayout>
-                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
 
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recyclerViewDiasSemana"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
-                        </LinearLayout>
 
                         <LinearLayout android:gravity="start"
                             android:id="@+id/linearColumnsegundafeira"
@@ -123,6 +113,7 @@
                             android:layout_marginTop="@dimen/_24pxv"
                             android:layout_width="match_parent"
                             android:orientation="vertical" style="@style/groupStylecornerRadius">
+
                             <TextView android:ellipsize="end"
                                 android:id="@+id/txt_segunda_feira"
                                 android:layout_height="wrap_content"
@@ -131,12 +122,19 @@
                                 android:singleLine="true"
                                 android:text="@string/lbl_segunda_feira"
                                 style="@style/txtPoppinsbold20" tools:text="@string/lbl_segunda_feira"/>
+
                             <LinearLayout android:gravity="start"
                                 android:id="@+id/linearColumnsistemasembarc"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_14pxv"
                                 android:layout_width="match_parent"
                                 android:orientation="vertical" style="@style/groupStylecornerRadius_1">
+
+                                <ListView
+                                    android:id="@+id/listTarefa"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
                                 <TextView android:ellipsize="end"
                                     android:id="@+id/txtAssunto"
                                     android:layout_height="wrap_content"

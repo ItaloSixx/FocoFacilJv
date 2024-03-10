@@ -32,6 +32,7 @@ public class DiaSemanaAdapter extends RecyclerView.Adapter<DiaSemanaAdapter.DiaS
         return new DiaSemanaViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull DiaSemanaViewHolder holder, int position) {
         DiaDaSemana dia = listaDeDias.get(position);
@@ -44,6 +45,7 @@ public class DiaSemanaAdapter extends RecyclerView.Adapter<DiaSemanaAdapter.DiaS
         // Supondo que haja apenas uma tarefa por dia para simplificar
         if (!dia.getListaDeTarefas().isEmpty()) {
             Tarefa tarefa = dia.getListaDeTarefas().get(0);
+
             holder.txtTarefaAssunto.setText(tarefa.getAssunto());
             holder.txtTarefaDataHora.setText(sdf.format(tarefa.getDataHora()));
             holder.txtTarefaDescricao.setText(tarefa.getDescricao());
@@ -55,6 +57,12 @@ public class DiaSemanaAdapter extends RecyclerView.Adapter<DiaSemanaAdapter.DiaS
         }
     }
 
+    // Adicione um método para atualizar a lista de dias e notificar o RecyclerView
+    public void setListaDeDias(List<DiaDaSemana> novaLista) {
+        listaDeDias.clear();
+        listaDeDias.addAll(novaLista);
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return listaDeDias != null ? listaDeDias.size() : 0;
@@ -77,5 +85,6 @@ public class DiaSemanaAdapter extends RecyclerView.Adapter<DiaSemanaAdapter.DiaS
             txtTarefaDataHora = itemView.findViewById(R.id.txtTarefaDataHora);
             txtTarefaDescricao = itemView.findViewById(R.id.txtTarefaDescricao);
         }
+
     }
 }

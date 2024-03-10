@@ -26,6 +26,10 @@ public class Tarefa implements Serializable {
         this.dataHora = dataHora;
     }
 
+    public Tarefa(){
+
+    }
+
     public int getId() {
         return id;
     }
