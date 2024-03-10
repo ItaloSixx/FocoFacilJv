@@ -246,7 +246,14 @@ public class HomeFragment extends Fragment {
     private int obterDiaDaSemana(long dia, long mes, long ano) {
         Calendar calendar = Calendar.getInstance();
         calendar.set((int) ano, (int) mes - 1, (int) dia); // Mês começa do zero no Calendar
-        return calendar.get(Calendar.DAY_OF_WEEK);
+        int diaDaSemana = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // Ajustar para retornar um índice baseado em zero (0 para domingo, 1 para segunda, ..., 6 para sábado)
+        int indice = (diaDaSemana + 6) % 7;
+
+        // Ajustar para o índice correto se necessário
+        //return (indice >= 0 && indice < 7) ? indice : 0;
+        return indice;
     }
 
    /* private void setupRecyclerView(View view) {
@@ -259,9 +266,12 @@ public class HomeFragment extends Fragment {
     private DiaDaSemana obterDiaDaSemanaCorrespondente(String nomeDia) {
         for (DiaDaSemana dia : listaDeDias) {
             if (dia.getNomeDia().equalsIgnoreCase(nomeDia)) {
+                Log.d(TAG, "Encontrado Dia: " + nomeDia);
                 return dia;
             }
         }
+
+        Log.d(TAG, "Dia não encontrado: " + nomeDia);
 
         // Se não encontrar, criar um novo e adicionar à lista
         DiaDaSemana novoDia = new DiaDaSemana(nomeDia);
@@ -274,6 +284,9 @@ public class HomeFragment extends Fragment {
         for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
             String nomeDia = obterNomeDiaDaSemana(i); // Método para obter o nome do dia da semana
             DiaDaSemana diaDaSemana = new DiaDaSemana(nomeDia);
+
+            Log.d(TAG, "Dia: " + nomeDia);
+
             listaDeDias.add(diaDaSemana);
         }
 
@@ -320,6 +333,8 @@ public class HomeFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, diaDaSemana);
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
+
+
         //Log.d(TAG, "obterNomeDiaDaSemana : " + sdf.format(calendar.getTime());
         return sdf.format(calendar.getTime());
     }
@@ -464,9 +479,18 @@ public class HomeFragment extends Fragment {
                                     TarefaFirebase tarefa_firebase = new TarefaFirebase(taskTitle, taskDescription, repeticaoString, diaString, mesString, anoString, horaString, minutoString);
 
                                     // Associando a tarefa ao dia da semana correspondente
-                                    int diaDaSemana = obterDiaDaSemana(diaLong - 1, mesLong, anoLong); // Método para obter o dia da semana
-                                    DiaDaSemana diaDaSemanaObj = listaDeDias.get(diaDaSemana);
-                                    diaDaSemanaObj.adicionarTarefa(tarefa_firebase);
+
+                                    int diaDaSemana = obterDiaDaSemana(diaLong, mesLong, anoLong); // Método para obter o dia da semana
+                                    if (diaDaSemana >= 0 && diaDaSemana < listaDeDias.size()) {
+                                        DiaDaSemana diaDaSemanaObj = listaDeDias.get(diaDaSemana);
+                                        diaDaSemanaObj.adicionarTarefa(tarefa_firebase);
+                                    } else {
+                                        Log.e("ERROR", "Índice de diaDaSemana fora dos limites válidos.");
+                                    }
+
+                                    Log.d(TAG, "Posição do Dia da Semana: " + diaDaSemana);
+                                    Log.d(TAG, "Tamanho da Lista de Dias: " + listaDeDias.size());
+
 
                                     passandoDiasDaSemanaNoRecyclerView(view);
 

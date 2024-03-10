@@ -245,10 +245,9 @@
                         <LinearLayout android:gravity="start"
                             android:id="@+id/linearColumnsabado"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_14pxv"
+                            android:layout_marginTop="@dimen/_24pxv"
                             android:layout_width="match_parent"
-                            android:orientation="vertical" style="@style/groupStylecornerRadius_2">
-
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
 
                             <TextView android:ellipsize="end"
                                 android:id="@+id/txt_sabado"
@@ -266,21 +265,21 @@
                                 android:id="@+id/recyclerViewSabado"
                                 android:layout_marginTop="8dp"
                                 android:scrollbars="vertical"/>
+
                         </LinearLayout>
 
                         <LinearLayout android:gravity="start"
                             android:id="@+id/linearColumndomingo"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_13pxv"
+                            android:layout_marginTop="@dimen/_24pxv"
                             android:layout_width="match_parent"
-                            android:orientation="vertical" style="@style/groupStylecornerRadius_2">
-
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
 
                             <TextView android:ellipsize="end"
                                 android:id="@+id/txt_domingo"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/_10pxh"
-                                android:layout_marginTop="@dimen/_37pxv"
+                                android:layout_marginTop="@dimen/_30pxv"
                                 android:layout_width="wrap_content"
                                 android:singleLine="true"
                                 android:text="@string/lbl_domingo"
@@ -294,6 +293,7 @@
                                 android:scrollbars="vertical"/>
 
                         </LinearLayout>
+
                     </LinearLayout>
                 </ScrollView>
 

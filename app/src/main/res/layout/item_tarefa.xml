@@ -76,8 +76,7 @@
                 android:paddingTop="@dimen/_4pxv"
                 android:paddingBottom="@dimen/_2pxv"
                 android:singleLine="true"
-                android:text=""
-                tools:text="Horário" />
+                android:text="Horário"/>
 
             <TextView
                 android:id="@+id/txtDataHora"
