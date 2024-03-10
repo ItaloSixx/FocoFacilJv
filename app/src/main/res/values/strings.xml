@@ -39,7 +39,6 @@
     <string name="lbl_aula">Aula</string>
     <string name="lbl_nova_senha">Nova senha</string>
     <string name="lbl_horas">Horas</string>
-    <string name="tarefa_descricao">Descrição</string>
     <string name="lbl_dormir">Dormir</string>
     <string name="msg_confira_outros">Confira outros horários</string>
     <string name="lbl_conta">Conta</string>
@@ -70,7 +69,6 @@
     <string name="close_nav">Fechar Navigation Drawer</string>
     <string name="default_web_client_id">579533834454-qt9ae8ddld3476lquv2bsp0k1bgmnv8j.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="infoCalendario">Clique Para Selecionar a Data:</string>
     <string name="infoSpinner">Clique Para Selecionar a Rotina:</string>

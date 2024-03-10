@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,7 +27,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
 import com.example.focofacil.BroadcastReceiver.NotificationReceiver;
 import com.example.focofacil.BroadcastReceiver.TaskNotificationHelper;
 import com.example.focofacil.Dao.TarefaDAO;
@@ -55,7 +52,6 @@ public class CadastrarDiaFragment extends Fragment {
     TextView txtNomeUsuario;
     private EditText editTextAtividade;
     private EditText editTextTituloAtividade;
-    private Spinner spinnerRepeticao;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastrar_dia, container, false);
@@ -65,11 +61,11 @@ public class CadastrarDiaFragment extends Fragment {
         editTextAtividade = view.findViewById(R.id.editTextAtividade);
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
         Button date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
-        Button time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
+        Button time_in = view.findViewById(R.id.btnHorario);
         checkboxRepeticao = view.findViewById(R.id.repeatCheckbox);
-        txtNomeUsuario = view.findViewById(R.id.txtNomeUsuario);
+        txtNomeUsuario = view.findViewById(R.id.txtNome1);
         nomeUsuario();
-        buttonSalvar = view.findViewById(R.id.buttonsalvar);
+        buttonSalvar = view.findViewById(R.id.btnEdit);
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

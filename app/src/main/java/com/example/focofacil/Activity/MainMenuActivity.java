@@ -79,8 +79,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         mostrarPerfil();
 
         //substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
-        replaceFragment(new HomeFragment());
-        //replaceFragment(new PerfilFragment());
+        replaceFragment(new PerfilFragment());
         //ad
         carregarAdIn();
 
@@ -91,6 +90,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                 replaceFragment(new HomeFragment());
             } else if (itemId == R.id.ClipBoard) {
                 replaceFragment(new CadastrarDiaFragment());
+                //replaceFragment(new PomodoroFragment());
             } else if (itemId == R.id.Perfil) {
                 replaceFragment(new PerfilFragment());
             }
@@ -129,13 +129,14 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         if (itemId == R.id.nav_perfil) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new PerfilFragment()).commit();
         } else if (itemId == R.id.nav_settings) {
-            //getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new SettingsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ConfigFragment()).commit();
         } else if (itemId == R.id.nav_logout) {
-            FirebaseAuth.getInstance().signOut();
             Toast.makeText(this, "Deslogado!", Toast.LENGTH_SHORT).show();
             Intent redirecionar = new Intent(MainMenuActivity.this, LoginActivity.class);
             startActivity(redirecionar);
             finishAffinity();
+            FirebaseAuth.getInstance().signOut();
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
