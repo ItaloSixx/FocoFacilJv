@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.focofacil.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,14 +17,14 @@ public class EditarTarefaFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "Titulo";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    TextView txtNomeUsuario, txtDia, txtData;
+    TextView txtNomeUsuario, txtTarefaDia, txtTarefaMes, txtTarefaAno, txtData;
     EditText edtTitulo, edtDescricao;
     Button btnEdit, btnHorario;
 
@@ -32,14 +33,15 @@ public class EditarTarefaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_editar_tarefa, container, false);
 
         //txtNomeUsuario = view.findViewById(R.id.txtNome1);
-        txtDia = view.findViewById(R.id.txtDia);
-        txtData = view.findViewById(R.id.txtDatapequeno);
+        txtTarefaDia = view.findViewById(R.id.txtTarefaDia);
+        txtTarefaMes = view.findViewById(R.id.txtTarefaMes);
+        txtTarefaAno = view.findViewById(R.id.txtTarefaAno);
         edtTitulo = view.findViewById(R.id.edtTitulo);
         edtDescricao = view.findViewById(R.id.edtDescricao);
         btnHorario = view.findViewById(R.id.btnHorario);
         btnEdit = view.findViewById(R.id.btnEdit);
 
-        mostrarPerfil();
+        //mostrarPerfil();
 
         return view;
     }
@@ -62,6 +64,7 @@ public class EditarTarefaFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            Toast.makeText(requireContext(), mParam1, Toast.LENGTH_SHORT).show();
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }

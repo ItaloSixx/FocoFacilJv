@@ -82,6 +82,12 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
                 bundle.putString("Ano", tarefaList.get(holder.getAdapterPosition()).getAno());
                 editarTarefaFragment.setArguments(bundle);
 
+                Log.e("EditarTarefa", "Título: "+ tarefaList.get(holder.getAdapterPosition()).getTitulo());
+                Log.e("EditarTarefa", "Descricao: "+ tarefaList.get(holder.getAdapterPosition()).getDescricao());
+                Log.e("EditarTarefa", "Dia: "+ tarefaList.get(holder.getAdapterPosition()).getDia());
+                Log.e("EditarTarefa", "Mes: "+ tarefaList.get(holder.getAdapterPosition()).getMes());
+                Log.e("EditarTarefa", "Ano: "+ tarefaList.get(holder.getAdapterPosition()).getAno());
+
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 // Substitua R.id.fragment_container pelo ID do contêiner real na sua atividade
@@ -93,7 +99,6 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
             }
         });
 
-        //Button btnApagar = holder.itemView.findViewById(R.id.btnApagar);
         holder.btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,48 +197,3 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
     }
 
 }
-/*public TarefaFirebaseAdapter(@NonNull Context context, int resource, @NonNull List<TarefaFirebase> objects) {
-        super(context, resource, objects);
-        }
-
-
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tarefa, parent, false);
-        }
-
-        TarefaFirebase tarefa = getItem(position);
-
-        if (tarefa != null) {
-            TextView txtTarefaTituloSegunda = convertView.findViewById(R.id.txtTarefaTituloSegunda);
-            TextView txtTarefaDescricaoSegunda = convertView.findViewById(R.id.txtTarefaDescricaoSegunda);
-            TextView txtDataHora = convertView.findViewById(R.id.txtDataHora);
-
-            if (txtTarefaTituloSegunda != null) {
-                txtTarefaTituloSegunda.setText(tarefa.getTitulo());
-
-            } else{
-                Log.d("TAG", "txtTarefaTituloSegunda é NULO");
-            }
-
-            if (txtTarefaDescricaoSegunda != null) {
-                txtTarefaDescricaoSegunda.setText(tarefa.getDescricao());
-            } else{
-                Log.d("TAG", "txtTarefaDescricaoSegunda é NULO");
-            }
-
-            if (txtDataHora != null) {
-                txtDataHora.setText("Data: " + tarefa.getDia() + "/" + tarefa.getMes() + "/" + tarefa.getAno() + " - " + tarefa.getHora() + ":" + tarefa.getMinuto());
-            } else{
-                Log.d("TAG", "txtDataHora é NULO");
-            }
-        }
-
-        return convertView;
-        }
-
-}
-*/

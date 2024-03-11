@@ -330,7 +330,7 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
 
