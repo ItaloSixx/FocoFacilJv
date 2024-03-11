@@ -5,82 +5,103 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/timerTextView"
+        android:id="@+id/txtViewConta2"
+        style="@style/txtPoppinsbold12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="25:00"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/frameLayout2"
-        app:layout_constraintStart_toStartOf="@+id/frameLayout2"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout2" />
+        android:ellipsize="none"
+        android:gravity="center"
+        android:maxLines="3"
+        android:text="Você consegue!"
+        android:textColor="#878585"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/timerTextView"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="257dp"
-        android:text="Start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/pauseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/startButton"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="257dp"
-        android:text="Pause"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/resetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pauseButton"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="161dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="143dp"
-        android:text="Reset"
+        android:layout_width="@dimen/_80pxv"
+        android:layout_height="@dimen/_80pxv"
+        android:layout_gravity="center"
+        android:background="@drawable/botaoredondo"
+        android:src="@drawable/play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.18" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout2"
-        android:layout_width="@dimen/_251pxh"
-        android:layout_height="@dimen/_251pxh"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/progressbarbackground"
-            android:progressDrawable="@drawable/ativeprogressbarbackground"
-            android:indeterminate="false"
-            android:max="10"
-            android:progress="10"
-            android:rotation="90"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="113dp"
-            tools:layout_editor_absoluteY="103dp" />
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
+    <ImageButton
+        android:id="@+id/resetButton"
+        android:layout_width="@dimen/_80pxv"
+        android:layout_height="@dimen/_80pxv"
+        android:layout_gravity="center"
+        android:background="@drawable/botaoredondo"
+        android:src="@drawable/stop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.18" />
+
+    <ImageButton
+        android:id="@+id/pauseButton"
+        android:layout_width="@dimen/_80pxv"
+        android:layout_height="@dimen/_80pxv"
+        android:layout_gravity="center"
+        android:background="@drawable/botaoredondo"
+        android:src="@drawable/pause"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/resetButton"
+        app:layout_constraintStart_toEndOf="@+id/startButton"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.322" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="326dp"
+        android:layout_height="331dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintVertical_bias="0.161"
+        app:srcCompat="@drawable/vermelho" />
+
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="193dp"
+        android:layout_height="94dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/timerbackground"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="25:00"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.511" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
