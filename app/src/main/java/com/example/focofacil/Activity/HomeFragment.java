@@ -287,9 +287,21 @@ public class HomeFragment extends Fragment {
         floatAdd.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            // Use uma animação personalizada para uma transição suave
+            //fragmentTransaction.setCustomAnimations(
+                    //R.anim.enter_from_right, // Animação para entrar no fragmento
+                    //R.anim.exit_to_left,    // Animação para sair do fragmento
+                    //R.anim.enter_from_left,  // Animação para retornar ao fragmento (opcional)
+                    //R.anim.exit_to_right     // Animação para sair para o fragmento anterior (opcional)
+           // );
+
+            // Substitua o fragmento no container
             fragmentTransaction.replace(R.id.fragment_container, new CadastrarDiaFragment());
+            fragmentTransaction.addToBackStack(null); // Adiciona à pilha de retrocesso se desejado
             fragmentTransaction.commit();
         });
+
 
         mostrarPerfil();
 
