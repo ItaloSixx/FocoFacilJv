@@ -7,6 +7,8 @@
 - [Solução Adotada](#solução-adotada)
 - [Principais Recursos](#principais-recursos)
 - [Requisitos Funcionais](#requisitos-funcionais)
+- [Resultado Final](#resultado-final)
+
 
 ## Introdução
 <a id="introdução"></a>
