@@ -2,7 +2,12 @@ package com.example.focofacil.Activity;
 
 import androidx.room.ColumnInfo;
 
-public class TarefaFirebase {
+import java.io.Serializable;
+
+public class TarefaFirebase implements Serializable {
+    @ColumnInfo(name = "idTarefa")
+
+    private String idTarefa;
     @ColumnInfo(name = "titulo")
     private String titulo;
     @ColumnInfo(name = "descricao")
@@ -21,6 +26,7 @@ public class TarefaFirebase {
     private String minuto;
     private String dataHora;
 
+
     public TarefaFirebase(String titulo, String descricao, String repeticao, String dia, String mes, String ano, String hora, String minuto) {
         this.titulo = titulo;
         this.descricao = descricao;
@@ -34,6 +40,15 @@ public class TarefaFirebase {
     public TarefaFirebase(){
 
     }
+
+    public String getIdTarefa() {
+        return idTarefa;
+    }
+
+    public void setIdTarefa(String idTarefa) {
+        this.idTarefa = idTarefa;
+    }
+
     public String getTitulo() {
         return titulo;
     }

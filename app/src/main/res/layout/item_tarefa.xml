@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerCard"
-        app:cardElevation="8dp"
+        app:cardElevation="4dp"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true">
 
@@ -85,6 +85,37 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtHoras"
                 tools:ignore="Autofill,MissingConstraints" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingStart="@dimen/_2pxh"
+                android:paddingEnd="@dimen/_2pxh"
+                android:paddingTop="@dimen/_4pxv"
+                android:paddingBottom="@dimen/_5pxv"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnApagar"
+                    style="@style/btnSolidRounded_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_35pxv"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_7pxv"
+                    android:paddingBottom="@dimen/_7pxv"
+                    android:singleLine="true"
+                    android:text="Excluir"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+                    app:layout_constraintVertical_bias="0.792" />
+
+            </LinearLayout>
         </LinearLayout>
 
 

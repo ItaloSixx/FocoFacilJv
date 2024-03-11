@@ -2,10 +2,16 @@ package com.example.focofacil.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,24 +22,35 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.focofacil.DiaDaSemana;
+import com.example.focofacil.DiaSemanaAdapter;
 
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
+import com.example.focofacil.Utils.MenuCam;
 import com.example.focofacil.adapters.TarefaFirebaseAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Clock;
 import java.util.ArrayList;
 
 
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,17 +58,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
-public class HomeFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link HomeFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class HomeFragment extends Fragment implements TarefaFirebaseAdapter.TarefaClickListener{
     private RecyclerView recyclerViewDiasSemana;
     private ListAdapter adapter;
     private ArrayList<String> taref;
+
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -59,7 +82,15 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment HomeFragment.
+     */
+    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -95,7 +126,6 @@ public class HomeFragment extends Fragment {
 
 
         // Limpar os TextViews
-        //txtDescricao.setText("");
         // Verificar se TextViews foram encontrados
         if (txtAssunto != null && txtDataHora != null) {
             // Limpar os TextViews
@@ -172,7 +202,6 @@ public class HomeFragment extends Fragment {
         int indice = (diaDaSemana + 6) % 7;
 
         // Ajustar para o índice correto se necessário
-        //return (indice >= 0 && indice < 7) ? indice : 0;
         return indice;
     }
 
@@ -184,7 +213,6 @@ public class HomeFragment extends Fragment {
                 return dia;
             }
         }
-
         Log.d(TAG, "Dia não encontrado: " + nomeDia);
 
         // Se não encontrar, criar um novo e adicionar à lista
@@ -205,6 +233,7 @@ public class HomeFragment extends Fragment {
         }
 
     }
+
 
     private void passandoDiasDaSemanaNoRecyclerView(View view){
         // Configurar o RecyclerView para cada dia da semana
@@ -248,20 +277,22 @@ public class HomeFragment extends Fragment {
         calendar.set(Calendar.DAY_OF_WEEK, diaDaSemana);
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
 
-
-        //Log.d(TAG, "obterNomeDiaDaSemana : " + sdf.format(calendar.getTime());
         return sdf.format(calendar.getTime());
     }
 
+    //@Override
+    @Override
+    public void onTarefaClick(TarefaFirebase tarefa) {
+        // Quando o usuário clicar em uma tarefa, iniciar a EditarTarefaFragment
+        Fragment editarTarefaFragment = EditarTarefaFragment.newInstance(tarefa);
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, editarTarefaFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
-    private ListView listTarefa;
-
-    private RecyclerView recyclerViewSegunda;
-
-    private List<TarefaFirebase> tarefaList;
-    private TarefaFirebaseAdapter tarefaAdapter;
-    private TarefaFirebase androidTarefa;
     TextView txtNome;
+    FloatingActionButton floatAdd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -270,6 +301,25 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         txtNome = view.findViewById(R.id.txtNome12);
+        floatAdd = view.findViewById(R.id.floatingBtnFloatingactionbutton);
+
+        floatAdd.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            // Use uma animação personalizada para uma transição suave
+            //fragmentTransaction.setCustomAnimations(
+                    //R.anim.enter_from_right, // Animação para entrar no fragmento
+                    //R.anim.exit_to_left,    // Animação para sair do fragmento
+                    //R.anim.enter_from_left,  // Animação para retornar ao fragmento (opcional)
+                    //R.anim.exit_to_right     // Animação para sair para o fragmento anterior (opcional)
+           // );
+
+            // Substitua o fragmento no container
+            fragmentTransaction.replace(R.id.fragment_container, new CadastrarDiaFragment());
+            fragmentTransaction.addToBackStack(null); // Adiciona à pilha de retrocesso se desejado
+            fragmentTransaction.commit();
+        });
 
 
         mostrarPerfil();
@@ -277,18 +327,16 @@ public class HomeFragment extends Fragment {
         listaDeDias = new ArrayList<>();
         configurarDiasDaSemana(view);
 
-
         Log.e("TarefaFirebase", "Iniciando leitura de tarefa");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
-
-
-
 
         if (user != null) {
             FirebaseUser finalUser = user;
@@ -318,14 +366,17 @@ public class HomeFragment extends Fragment {
 
                                     // Esta tarefa pertence ao usuário logado
                                     // Faça o que você precisa com a tarefa aqui
+                                    String idTarefa = snapshot.child("idTarefa").getValue(String.class);
                                     String taskTitle = snapshot.child("titulo").getValue(String.class);
                                     String taskDescription = snapshot.child("descricao").getValue(String.class);
 
                                     Long diaLong = snapshot.child("dia").getValue() != null ? snapshot.child("dia").getValue(Long.class) : 0L;
+                                    Log.d("TAG", "ID da Tarefa: " + idTarefa);
+                                    Log.d("TAG", "Título da Tarefa: " + taskTitle);
                                     Log.d("TAG", "Dia da Tarefa: " + diaLong);
 
 
-                                    // Long repeticaoLong = snapshot.child("repeticao").getValue() != null ? snapshot.child("repeticao").getValue(Long.class) : 0L;
+                                   // Long repeticaoLong = snapshot.child("repeticao").getValue() != null ? snapshot.child("repeticao").getValue(Long.class) : 0L;
                                     Long repeticaoLong = (snapshot.child("repeticao").getValue() instanceof Long) ? (Long) snapshot.child("repeticao").getValue() : 0L;
 
 
@@ -355,6 +406,7 @@ public class HomeFragment extends Fragment {
 
 
                                     TarefaFirebase tarefa_firebase = new TarefaFirebase(taskTitle, taskDescription, repeticaoString, diaString, mesString, anoString, horaString, minutoString);
+                                    tarefa_firebase.setIdTarefa(idTarefa);
 
                                     // Associando a tarefa ao dia da semana correspondente
 
@@ -384,6 +436,7 @@ public class HomeFragment extends Fragment {
                                 }
                             }
 
+
                         }
 
                         @Override
@@ -406,10 +459,9 @@ public class HomeFragment extends Fragment {
 
     public void mostrarPerfil() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null){
-            if(user.getDisplayName() != null) {
-                txtNome.setText(user.getDisplayName());
-            }
+        if(user != null){
+            String nome = user.getDisplayName();
+            txtNome.setText(nome);
         }
     }
 
