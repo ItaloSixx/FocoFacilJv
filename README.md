@@ -56,7 +56,7 @@ Nosso sistema é uma solução para a gestão eficaz de tarefas, projetado para 
 ## Recursos Técnicos Utilizados
 <a id="recursos-técnicos-utilizados"></a>
 
-[Documento de requisitos completo] (/media/REQUISITOS-DOC-FOCOFACIL.pdf)
+[Documento de requisitos completo](/media/REQUISITOS-DOC-FOCOFACIL.pdf)
 
 - Android Studio Java
 - Git e Github
@@ -79,19 +79,20 @@ Nosso sistema é uma solução para a gestão eficaz de tarefas, projetado para 
 
 <div style="display: flex">
   <img src="/media/FocoFacil1.jpeg" width="200px" height="420px" />    
-  <img src="/media/FocoFacil2.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil3.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil4.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil5.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil6.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil7.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil8.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil9.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil10.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil11.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil12.jpeg" width="200px" height="360px"  />    
-  <img src="/media/FocoFacil13.jpeg" width="200px" height="360px"  />    
+  <img src="/media/FocoFacil2.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil3.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil4.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil5.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil6.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil7.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil8.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil9.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil10.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil11.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil12.jpeg" width="200px" height="420px" />    
+  <img src="/media/FocoFacil13.jpeg" width="200px" height="420px" />    
 </div>
+
 
 
 
