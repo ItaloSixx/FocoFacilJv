@@ -28,23 +28,24 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearColumnsistemasembarc"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.485" />
+
 
     <LinearLayout
         android:id="@+id/linearColumn10deoutubro"
         style="@style/groupStylecyan_900cornerRadius"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160pxv"
-        android:gravity="start"
-        android:orientation="vertical"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:gravity="start"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192">
+        app:layout_constraintVertical_bias="0.084">
 
         <LinearLayout
             android:id="@+id/linearRowdatadevencime"
@@ -79,8 +80,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.9"
                         android:ellipsize="end"
+                        android:gravity="start"
                         android:singleLine="true"
-                        android:text="Dia" />
+                        android:text="DATA" />
 
                     <View
                         android:id="@+id/viewEllipseThree"
@@ -92,17 +94,6 @@
                         android:background="@drawable/rectangle_bg_lime_600_radius_6" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtDataVenc"
-                    style="@style/txtPoppinsmedium11_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2pxv"
-                    android:layout_marginEnd="@dimen/_10pxh"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="@string/msg_data_de_vencime"
-                    tools:text="@string/msg_data_de_vencime" />
 
             </LinearLayout>
 
@@ -135,46 +126,48 @@
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:weightSum="2"
-        android:paddingStart="20dp"
-        android:layout_weight="1.5">
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:paddingStart="20dp"
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.3"
-                android:padding="5dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/txtTarefaDia"
                     style="@style/txtPoppinssemibold14_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
                     android:maxLines="1"
-                    android:text=""/>
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
                 <TextView
                     style="@style/txtPoppinssemibold14_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
                     android:maxLines="1"
-                    android:text=" / "/>
+                    android:text=" / "
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
@@ -185,6 +178,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="5dp">
+
                 <TextView
                     android:id="@+id/txtTarefaMes"
                     style="@style/txtPoppinssemibold14_1"
@@ -192,25 +186,27 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:text=""
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
                 <TextView
                     style="@style/txtPoppinssemibold14_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
                     android:maxLines="1"
-                    android:text=" / "/>
+                    android:text=" / "
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
@@ -219,20 +215,22 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.3"
                 android:gravity="center"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/txtTarefaAno"
                     style="@style/txtPoppinssemibold14_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:maxLines="1"
-                    android:text=""/>
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtGroupEleven"
@@ -249,7 +247,7 @@
             android:paddingTop="@dimen/_3pxv"
             android:paddingBottom="@dimen/_2pxv"
             android:singleLine="true"
-            android:text="Continue avançando" />
+            android:text="Aqui você pode editar sua tarefa! :)" />
 
     </LinearLayout>
 
@@ -258,17 +256,16 @@
         style="@style/groupStylecornerRadius_1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_180pxv"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.643"
-        android:background="@color/white">
+        app:layout_constraintVertical_bias="0.774">
 
         <EditText
             android:id="@+id/edtTitulo"
@@ -319,15 +316,40 @@
             android:drawablePadding="@dimen/_20pxh"
             android:fontFamily="@font/poppins"
             android:gravity="center_vertical"
+            android:hint="Horário"
             android:paddingLeft="@dimen/_4pxh"
             android:paddingEnd="@dimen/_10pxh"
             android:paddingBottom="@dimen/_7pxv"
-            android:hint="Horário"
             android:textAllCaps="false"
             android:textColor="@color/ABABAB" />
 
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnEdtCalendarDialog"
+        style="@style/btnSolidRounded_1"
+        android:layout_width="@dimen/_250pxv"
+        android:layout_height="@dimen/_55pxv"
+        android:layout_gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="9dp"
+        android:drawableRight="@drawable/calender"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/_29pxh"
+        android:paddingTop="@dimen/_7pxv"
+        android:paddingEnd="@dimen/_19pxh"
+        android:paddingBottom="@dimen/_7pxv"
+        android:singleLine="true"
+        android:text="Hoje"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearColumnsistemasembarc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTarefa"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtTarefa"
@@ -337,15 +359,15 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="0.56"
         android:ellipsize="end"
+        android:paddingStart="20dp"
         android:singleLine="true"
         android:text="Tarefa"
-        android:paddingStart="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearColumnsistemasembarc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/linearColumnsistemasembarc"
         app:layout_constraintTop_toBottomOf="@+id/linearColumn10deoutubro"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarToolbar"
