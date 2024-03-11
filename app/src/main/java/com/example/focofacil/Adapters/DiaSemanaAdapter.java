@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.focofacil.DiaDaSemana;
+import com.example.focofacil.Model.DiaDaSemana;
 import com.example.focofacil.R;
 
 import java.text.SimpleDateFormat;

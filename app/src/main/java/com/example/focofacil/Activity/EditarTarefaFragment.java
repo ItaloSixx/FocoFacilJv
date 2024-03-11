@@ -5,10 +5,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -23,8 +20,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.focofacil.R;
-import com.example.focofacil.Tarefa;
-import com.example.focofacil.adapters.TarefaFirebaseAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

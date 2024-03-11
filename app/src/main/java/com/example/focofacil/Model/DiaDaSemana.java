@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Model;
 
 import com.example.focofacil.Activity.TarefaFirebase;
 

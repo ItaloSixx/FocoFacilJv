@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.focofacil.DiaDaSemana;
+import com.example.focofacil.Model.DiaDaSemana;
 import com.example.focofacil.R;
-import com.example.focofacil.Tarefa;
+import com.example.focofacil.Model.Tarefa;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
