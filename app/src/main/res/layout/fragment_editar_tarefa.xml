@@ -15,8 +15,7 @@
         style="@style/btnSolidRounded_1"
         android:layout_width="@dimen/_170pxv"
         android:layout_height="@dimen/_40pxv"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="30dp"
         android:ellipsize="end"
         android:gravity="center"
         android:paddingTop="@dimen/_7pxv"
@@ -26,10 +25,10 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearColumnsistemasembarc"
-        app:layout_constraintVertical_bias="0.792" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/linearColumn10deoutubro"
@@ -268,7 +267,8 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.643">
+        app:layout_constraintVertical_bias="0.643"
+        android:background="@color/white">
 
         <EditText
             android:id="@+id/edtTitulo"
@@ -306,25 +306,25 @@
             android:textColorHint="@color/gray_500" />
 
         <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnHorario"
-        style="@style/etPoppinsmedium16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_22pxh"
-        android:layout_marginTop="@dimen/_10pxv"
-        android:layout_marginEnd="@dimen/_19pxh"
-        android:layout_marginBottom="@dimen/_19pxv"
-        android:background="@android:color/transparent"
-        android:drawableRight="@drawable/relogio"
-        android:drawablePadding="@dimen/_20pxh"
-        android:fontFamily="@font/poppins"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/_4pxh"
-        android:paddingEnd="@dimen/_10pxh"
-        android:paddingBottom="@dimen/_7pxv"
-        android:hint="Horário"
-        android:textAllCaps="false"
-        android:textColor="@color/ABABAB" />
+            android:id="@+id/btnHorario"
+            style="@style/etPoppinsmedium16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22pxh"
+            android:layout_marginTop="@dimen/_10pxv"
+            android:layout_marginEnd="@dimen/_19pxh"
+            android:layout_marginBottom="@dimen/_19pxv"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/relogio"
+            android:drawablePadding="@dimen/_20pxh"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/_4pxh"
+            android:paddingEnd="@dimen/_10pxh"
+            android:paddingBottom="@dimen/_7pxv"
+            android:hint="Horário"
+            android:textAllCaps="false"
+            android:textColor="@color/ABABAB" />
 
     </LinearLayout>
 

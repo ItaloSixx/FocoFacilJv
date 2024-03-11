@@ -15,7 +15,7 @@
         android:gravity="center_horizontal">
 
         <LinearLayout
-            android:layout_width="@dimen/_411pxv"
+            android:layout_width="@dimen/_320pxv"
             android:layout_height="wrap_content"
             android:layout_weight="0.84"
             android:gravity="start"
@@ -47,7 +47,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonOpenCalendarDialog"
         style="@style/btnSolidRounded_1"
-        android:layout_width="@dimen/_350pxv"
+        android:layout_width="@dimen/_320pxv"
         android:layout_height="@dimen/_55pxv"
         android:layout_below="@id/toolbarToolbar"
         android:layout_gravity="center"
@@ -79,7 +79,7 @@
     <LinearLayout
         android:id="@+id/linearColumngrouptwentynine"
         style="@style/groupStylecornerRadius_1"
-        android:layout_width="@dimen/_350pxv"
+        android:layout_width="@dimen/_320pxv"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtAdicionarclass"
         android:layout_gravity="center_horizontal"
@@ -141,24 +141,12 @@
             android:textColor="@color/ABABAB" />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/repeatCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearColumngrouptwentynine"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_15pxh"
-        android:button="@drawable/loop_repeat"
-        android:buttonTint="@color/check_box_color_selector"
-        android:paddingStart="@dimen/_12pxh"
-        android:textColor="@android:color/white" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSalvar"
         style="@style/btnSolidRounded_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/repeatCheckbox"
+        android:layout_below="@id/linearColumngrouptwentynine"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_15pxh"
         android:ellipsize="end"

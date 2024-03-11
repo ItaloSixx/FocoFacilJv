@@ -60,7 +60,7 @@ public class CadastrarDiaFragment extends Fragment {
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
         Button date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
         Button time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
-        checkboxRepeticao = view.findViewById(R.id.repeatCheckbox);
+        //checkboxRepeticao = view.findViewById(R.id.repeatCheckbox);
         txtNomeUsuario = view.findViewById(R.id.txtNomeUsuario);
         nomeUsuario();
 

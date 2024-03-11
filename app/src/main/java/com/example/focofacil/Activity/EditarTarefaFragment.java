@@ -1,5 +1,6 @@
 package com.example.focofacil.Activity;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,12 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.focofacil.R;
@@ -21,6 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class EditarTarefaFragment extends Fragment {
 
@@ -69,6 +75,27 @@ public class EditarTarefaFragment extends Fragment {
             txtTarefaDia.setText(tarefa.getDia());
             txtTarefaMes.setText(tarefa.getMes());
             txtTarefaAno.setText(tarefa.getAno());
+            btnHorario.setText(tarefa.getHora() + ":" + tarefa.getMinuto());
+            btnHorario.setOnClickListener(v -> {
+                    String horaStr = btnHorario.getText().toString();
+
+                    if (!horaStr.isEmpty()) {
+                        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+
+                        try {
+                            Calendar horaSelecionada = Calendar.getInstance();
+                            horaSelecionada.setTime(sdfTime.parse(horaStr));
+
+                            int hora = horaSelecionada.get(Calendar.HOUR_OF_DAY);
+                            int minuto = horaSelecionada.get(Calendar.MINUTE);
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Por favor, insira uma hora válida", Toast.LENGTH_SHORT).show();
+                    }
+            });
 
         }
 
@@ -86,13 +113,33 @@ public class EditarTarefaFragment extends Fragment {
         return view;
     }
 
+
     // Método para editar a tarefa
     private void editarTarefa() {
+
+
         // Aqui você implementa a lógica para editar a tarefa
         // Por exemplo, você pode obter os valores dos campos de texto (edtTitulo e edtDescricao) e atualizar a tarefa no banco de dados
         // Após a edição, você pode exibir uma mensagem para o usuário informando que a tarefa foi editada com sucesso
         Toast.makeText(requireContext(), "Tarefa editada com sucesso", Toast.LENGTH_SHORT).show();
     }
+
+    private void showTimeDialog(final Button date_in) {
+        final Calendar calendar=Calendar.getInstance();
+        TimePickerDialog.OnTimeSetListener timeSetListener=new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                calendar.set(Calendar.MINUTE,minute);
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm");
+                date_in.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        };
+        TimePickerDialog timePickerDialog = new TimePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+        timePickerDialog.show();
+    }
+
+
 
     public EditarTarefaFragment() {
         // Required empty public constructor
