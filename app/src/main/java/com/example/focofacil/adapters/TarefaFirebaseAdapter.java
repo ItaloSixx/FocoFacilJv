@@ -70,18 +70,12 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
         this.tarefaList = tarefaList;
     }
 
-
-
-
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tarefa, parent, false);
         return new MyViewHolder(view);
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -153,7 +147,6 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
 
     }
 
-
     public static void confirmarExclusao(TarefaFirebase tarefa, Context context) {
         // Inflar o layout do diálogo de confirmação
         View dialogView = LayoutInflater.from(context).inflate(R.layout.confirmar_exclusao, null);
@@ -212,48 +205,3 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
     }
 
 }
-/*public TarefaFirebaseAdapter(@NonNull Context context, int resource, @NonNull List<TarefaFirebase> objects) {
-        super(context, resource, objects);
-        }
-
-
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tarefa, parent, false);
-        }
-
-        TarefaFirebase tarefa = getItem(position);
-
-        if (tarefa != null) {
-            TextView txtTarefaTituloSegunda = convertView.findViewById(R.id.txtTarefaTituloSegunda);
-            TextView txtTarefaDescricaoSegunda = convertView.findViewById(R.id.txtTarefaDescricaoSegunda);
-            TextView txtDataHora = convertView.findViewById(R.id.txtDataHora);
-
-            if (txtTarefaTituloSegunda != null) {
-                txtTarefaTituloSegunda.setText(tarefa.getTitulo());
-
-            } else{
-                Log.d("TAG", "txtTarefaTituloSegunda é NULO");
-            }
-
-            if (txtTarefaDescricaoSegunda != null) {
-                txtTarefaDescricaoSegunda.setText(tarefa.getDescricao());
-            } else{
-                Log.d("TAG", "txtTarefaDescricaoSegunda é NULO");
-            }
-
-            if (txtDataHora != null) {
-                txtDataHora.setText("Data: " + tarefa.getDia() + "/" + tarefa.getMes() + "/" + tarefa.getAno() + " - " + tarefa.getHora() + ":" + tarefa.getMinuto());
-            } else{
-                Log.d("TAG", "txtDataHora é NULO");
-            }
-        }
-
-        return convertView;
-        }
-
-}
-*/

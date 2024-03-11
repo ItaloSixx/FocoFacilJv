@@ -10,12 +10,13 @@
     tools:context=".Activity.EditarTarefaFragment">
 
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEdit"
         style="@style/btnSolidRounded_1"
         android:layout_width="@dimen/_170pxv"
         android:layout_height="@dimen/_40pxv"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="50dp"
         android:ellipsize="end"
         android:gravity="center"
         android:paddingTop="@dimen/_7pxv"
@@ -27,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumnsistemasembarc"
         app:layout_constraintVertical_bias="0.792" />
 
     <LinearLayout
@@ -153,7 +154,6 @@
                     style="@style/txtPoppinssemibold14_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:maxLines="1"
@@ -322,28 +322,12 @@
         android:paddingLeft="@dimen/_4pxh"
         android:paddingEnd="@dimen/_10pxh"
         android:paddingBottom="@dimen/_7pxv"
-        android:text="Horário"
+        android:hint="Horário"
         android:textAllCaps="false"
         android:textColor="@color/ABABAB" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtDatapequeno"
-        style="@style/txtPoppinsmedium11_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.44"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/msg_10_de_outubro"
-        app:layout_constraintBottom_toTopOf="@+id/linearColumnsistemasembarc"
-        app:layout_constraintEnd_toEndOf="@+id/linearColumnsistemasembarc"
-        app:layout_constraintHorizontal_bias="0.976"
-        app:layout_constraintStart_toEndOf="@+id/txtTarefa"
-        app:layout_constraintTop_toBottomOf="@+id/linearColumn10deoutubro"
-        app:layout_constraintVertical_bias="1.0"
-        tools:text="@string/msg_10_de_outubro" />
 
     <TextView
         android:id="@+id/txtTarefa"
