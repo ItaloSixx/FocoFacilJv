@@ -42,7 +42,7 @@ public class ConfigFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_config, container, false);
         switchDiario = view.findViewById(R.id.switchDiario);
         switchSemanal = view.findViewById(R.id.switchSemanal);
-        txtNome = view.findViewById(R.id.txtNome1);
+        txtNome = view.findViewById(R.id.txtNome12);
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         switchDiario.setChecked(sharedPreferences.getBoolean(SWITCH_DIARIO_STATE, false));
         switchSemanal.setChecked(sharedPreferences.getBoolean(SWITCH_SEMANAL_STATE, false));

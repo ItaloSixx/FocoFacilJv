@@ -119,28 +119,31 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //fazer login email e senha
     private void fazerLogin(String email, String senha) {
         auth.signInWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if(task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user != null && user.isEmailVerified()) {
+                                // Tela de carregamento
+                                final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
+                                loadingDialog.startLoadingDialog();
                                 Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
-                                Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
+                                Intent redirecionar = new Intent(LoginActivity.this, MainMenuActivity.class);
                                 startActivity(redirecionar);
                                 finish();
-                            }else{
+                            } else {
                                 Toast.makeText(LoginActivity.this, "Por favor verifique o seu email", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
+                        } else {
                             Toast.makeText(LoginActivity.this, "Falha ao logar" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
 
     private void googleSingIn(){
         Intent redirecionar = client.getSignInIntent();
@@ -166,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null && (user.isEmailVerified() || logadoGoogle(user))) {
-            Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
+            Intent redirecionar = new Intent(LoginActivity.this, MainMenuActivity.class);
             startActivity(redirecionar);
         }
     }
@@ -187,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                                 map.put("fotoPerfil", user.getPhotoUrl().toString());
                             }
                             database.getReference().child("User").child(user.getUid()).setValue(map);
-                            Intent redirecionar = new Intent(getApplicationContext(), PerfilActivity.class);
+                            Intent redirecionar = new Intent(getApplicationContext(), MainMenuActivity.class);
                             startActivity(redirecionar);
                             finish();
                         }else{

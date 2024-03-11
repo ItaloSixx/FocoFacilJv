@@ -37,14 +37,17 @@
                                 android:singleLine="true"
                                 android:text="@string/lbl_ol"
                                 style="@style/txtPoppinsbold16" tools:text="@string/lbl_ol"/>
-                            <TextView android:ellipsize="end"
-                                android:id="@+id/txtNome1"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_10pxh"
-                                android:layout_marginTop="@dimen/_10pxv"
+
+                            <TextView
+                                android:id="@+id/txtNome12"
+                                style="@style/txtPoppinsbold24_1"
                                 android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10pxv"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:ellipsize="end"
                                 android:singleLine="true"
-                                style="@style/txtPoppinsbold24_1"/>
+                                android:text="Usuario" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -135,12 +138,13 @@
                                 android:singleLine="true"
                                 android:text="@string/lbl_segunda_feira"
                                 style="@style/txtPoppinsbold20" tools:text="@string/lbl_segunda_feira"/>
+
                             <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerViewSegunda"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/recyclerViewSegunda"
                                 android:layout_marginTop="8dp"
-                                android:scrollbars="vertical"/>
+                                android:scrollbars="vertical" />
 
 
                         </LinearLayout>
@@ -297,20 +301,25 @@
                     </LinearLayout>
                 </ScrollView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@android:color/transparent"/>
+
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:backgroundTint="@color/blue_100"
                 android:id="@+id/floatingBtnFloatingactionbutton"
-                android:layout_gravity="top|end"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_616pxv"
-                android:layout_marginEnd="@dimen/_14pxh"
-                android:layout_marginStart="@dimen/_14pxh"
-                android:layout_marginTop="@dimen/_616pxv"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/_580pxv"
+                android:layout_marginEnd="@dimen/_14pxh"
+                android:layout_marginBottom="@dimen/_29pxv"
+                android:backgroundTint="@color/corprimaria"
                 app:fabCustomSize="@dimen/_45pxh"
-                app:srcCompat="@drawable/img_plus" app:tint="@color/bluegray_100"/>
+                app:srcCompat="@drawable/img_plus"
+                app:tint="@color/bluegray_100" />
         </FrameLayout>
 
 </layout >

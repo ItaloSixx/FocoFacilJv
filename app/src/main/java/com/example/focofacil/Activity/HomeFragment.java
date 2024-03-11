@@ -50,11 +50,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewDiasSemana;
     private ListAdapter adapter;
@@ -79,14 +75,7 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -347,12 +336,15 @@ public class HomeFragment extends Fragment {
     private List<TarefaFirebase> tarefaList;
     private TarefaFirebaseAdapter tarefaAdapter;
     private TarefaFirebase androidTarefa;
+    TextView txtNome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        txtNome = view.findViewById(R.id.txtNome12);
 
         //setupRecyclerView(view);
 
@@ -363,7 +355,7 @@ public class HomeFragment extends Fragment {
         // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
         //listaDeDias = new ArrayList<>();
 
-
+        mostrarPerfil();
 
 
         // Configurar o RecyclerView
@@ -535,6 +527,14 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------------------------
 
         return view;
+    }
+
+    public void mostrarPerfil() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            String nome = user.getDisplayName();
+            txtNome.setText(nome);
+        }
     }
 
 }

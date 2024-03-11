@@ -79,7 +79,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         mostrarPerfil();
 
         //substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
-        replaceFragment(new PerfilFragment());
+        replaceFragment(new HomeFragment());
         //ad
         carregarAdIn();
 
@@ -89,7 +89,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             if (itemId == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (itemId == R.id.ClipBoard) {
-                replaceFragment(new CadastrarDiaFragment());
+                replaceFragment(new PomodoroFragment());
                 //replaceFragment(new PomodoroFragment());
             } else if (itemId == R.id.Perfil) {
                 replaceFragment(new PerfilFragment());
