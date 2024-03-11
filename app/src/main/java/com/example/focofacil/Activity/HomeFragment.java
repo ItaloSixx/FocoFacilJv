@@ -2,6 +2,7 @@ package com.example.focofacil.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.focofacil.Tarefa;
 import com.example.focofacil.adapters.TarefaFirebaseAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -55,19 +57,12 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewDiasSemana;
     private ListAdapter adapter;
     private ArrayList<String> taref;
-
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -76,7 +71,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -98,52 +92,6 @@ public class HomeFragment extends Fragment {
 
 
     }
-
-    /*private void setupDiasDaSemana(View view) {
-        // Obter o dia atual da semana
-        Calendar calendar = Calendar.getInstance();
-        int diaAtual = calendar.get(Calendar.DAY_OF_WEEK);
-
-        // Iterar pelos dias da semana
-        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
-            // Configurar o dia da semana
-            DiaDaSemana dia = new DiaDaSemana(obterNomeDia(i), obterListaDeTarefas());
-
-            // Configurar o TextView correspondente ao dia
-            int textViewId = getResources().getIdentifier("txt_" + dia.getNomeDia(), "id", getActivity().getPackageName());
-            //TextView textView = view.findViewById(textViewId);
-
-            if (textViewId != 0) {
-                Log.e("TextView", "TextView name: " + dia.getNomeDia());
-                TextView textView = view.findViewById(textViewId);
-
-                // Calcular a data correspondente ao dia da semana
-                Calendar diaSelecionado = Calendar.getInstance();
-                diaSelecionado.set(Calendar.DAY_OF_WEEK, i);
-
-                // Adicionar essa data como extra para a DetalhesDiaActivity
-                dia.setDataSelecionada(diaSelecionado.getTime());
-
-                if (listaDeDias == null) {
-                    listaDeDias = new ArrayList<>();
-                }
-
-                listaDeDias.add(dia);
-
-                // Exibir o nome do dia e suas tarefas no TextView
-                //textView.setText(dia.getNomeDia());
-
-                // Configurar o OnClickListener para o TextView correspondente ao dia
-                configurarOnClickListener(textView, dia);
-
-                // Exibir as informações de cada tarefa nos TextViews específicos
-                exibirInformacoesTarefas(dia, view);
-            } else {
-                // Se o TextView não foi encontrado,uma mensagem de log é exibida
-                Log.e("TextView", "TextView not found for day: " + dia.getNomeDia());
-            }
-        }
-    }*/
 
     private void exibirInformacoesTarefas(DiaDaSemana dia, View view) {
 
@@ -222,12 +170,6 @@ public class HomeFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, detalhesDiaFragment).addToBackStack(null).commit();
 
-                // Substituir o fragmento atual pelo DetalhesDiaFragment
-                //getParentFragmentManager().beginTransaction()
-                //      .replace(R.id.fragment_container, detalhesDiaFragment)
-                //    .addToBackStack(null)
-                // .commit();
-
             }
         });
     }
@@ -245,12 +187,6 @@ public class HomeFragment extends Fragment {
         return indice;
     }
 
-   /* private void setupRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDiasSemana);
-        DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-    }*/
 
     private DiaDaSemana obterDiaDaSemanaCorrespondente(String nomeDia) {
         for (DiaDaSemana dia : listaDeDias) {
@@ -337,6 +273,7 @@ public class HomeFragment extends Fragment {
     private TarefaFirebaseAdapter tarefaAdapter;
     private TarefaFirebase androidTarefa;
     TextView txtNome;
+    FloatingActionButton floatAdd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -345,24 +282,16 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         txtNome = view.findViewById(R.id.txtNome12);
+        floatAdd = view.findViewById(R.id.floatingBtnFloatingactionbutton);
 
-        //setupRecyclerView(view);
-
-        // Configurar o adapter para o RecyclerView
-        //DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
-        //recyclerViewDiasSemana.setAdapter(adapter);
-
-        // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
-        //listaDeDias = new ArrayList<>();
+        floatAdd.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new CadastrarDiaFragment());
+            fragmentTransaction.commit();
+        });
 
         mostrarPerfil();
-
-
-        // Configurar o RecyclerView
-        //setupRecyclerView(view);
-
-        // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
-        //setupDiasDaSemana(view);
 
         listaDeDias = new ArrayList<>();
         configurarDiasDaSemana(view);
@@ -370,34 +299,10 @@ public class HomeFragment extends Fragment {
 
         Log.e("TarefaFirebase", "Iniciando leitura de tarefa");
 
-        //---------------------------------------------------------------------------------
-        /*recyclerViewSegunda = view.findViewById(R.id.recyclerViewSegunda);
-        recyclerViewSegunda.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewTerca = view.findViewById(R.id.recyclerViewTerca);
-        recyclerViewTerca.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewQuarta = view.findViewById(R.id.recyclerViewQuarta);
-        recyclerViewQuarta.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewQuinta = view.findViewById(R.id.recyclerViewQuinta);
-        recyclerViewQuinta.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewSexta = view.findViewById(R.id.recyclerViewSexta);
-        recyclerViewSexta.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewSabado = view.findViewById(R.id.recyclerViewSabado);
-        recyclerViewSabado.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewDomingo = view.findViewById(R.id.recyclerViewDomingo);
-        recyclerViewDomingo.setLayoutManager(new LinearLayoutManager(getContext()));*/
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        user = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
 
@@ -498,17 +403,6 @@ public class HomeFragment extends Fragment {
                                 }
                             }
 
-
-
-                            //tarefaAdapter = new TarefaFirebaseAdapter(getContext(), listaDeTarefasFirebase);
-                            //recyclerViewSegunda.setAdapter(tarefaAdapter);
-
-                            //listTarefa = view.findViewById(R.id.listTarefa);
-                            //TarefaFirebaseAdapter adaptador = new TarefaFirebaseAdapter(getContext(), listaDeTarefasFirebase);
-                            //listTarefa.setAdapter((ListAdapter) adaptador);
-
-                            //ArrayAdapter<TarefaFirebase> adaptador = new ArrayAdapter<TarefaFirebase>(this, android.R.layout.simple_list_item_1, android.R.id.text1, listaDeTarefasFirebase);
-                            //listTarefa.setAdapter(adaptador);
                         }
 
                         @Override

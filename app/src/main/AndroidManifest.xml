@@ -42,7 +42,13 @@
         tools:targetApi="34">
         <activity
             android:name=".Activity.SplashActivity"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.NavActivity"
             android:exported="false" />
@@ -61,9 +67,6 @@
             android:name=".Activity.EditarEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.PerfilActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.VerificarEmailActivity"
             android:exported="false" />
         <activity
@@ -72,13 +75,9 @@
 
         <activity
             android:name=".Activity.LoginActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.NoBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.CadastrarActivity"
@@ -90,7 +89,13 @@
             android:theme="@style/Theme.NoBar" />
         <activity
             android:name=".Activity.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
+
+        <activity
+            android:name=".Activity.CadastrarDiaFragment"
+            android:exported="false" />
+
+
 
         <receiver android:name=".BroadcastReceiver.NotificationReceiver"/>
 

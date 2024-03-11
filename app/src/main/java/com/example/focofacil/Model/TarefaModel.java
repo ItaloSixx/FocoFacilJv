@@ -10,6 +10,15 @@ public class TarefaModel {
     private int hora;
     private int minuto;
     private String idUsuario;
+    private String idTarefa;
+
+    public String getIdTarefa() {
+        return idTarefa;
+    }
+
+    public void setIdTarefa(String idTarefa) {
+        this.idTarefa = idTarefa;
+    }
 
     public String getTitulo() {
         return titulo;

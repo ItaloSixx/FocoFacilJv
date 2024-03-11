@@ -32,7 +32,7 @@
                 style="@style/txtPoppinsbold16_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="start"
                 android:paddingStart="@dimen/_4pxh"
                 android:paddingEnd="@dimen/_4pxh"
                 android:paddingTop="@dimen/_5pxv"
@@ -48,7 +48,7 @@
                 style="@style/etPoppinsmedium12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="start"
                 android:ellipsize="end"
                 android:hint=""
                 android:text=""
@@ -66,25 +66,12 @@
                 tools:ignore="Autofill,MissingConstraints" />
 
             <TextView
-                android:id="@+id/txtHorario"
-                style="@style/txtPoppinsmedium11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="@dimen/_4pxh"
-                android:paddingEnd="@dimen/_4pxh"
-                android:paddingTop="@dimen/_4pxv"
-                android:paddingBottom="@dimen/_2pxv"
-                android:singleLine="true"
-                android:text="Horário"/>
-
-            <TextView
                 android:id="@+id/txtDataHora"
                 style="@style/etPoppinsmedium12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:gravity="center"
+                android:gravity="start"
                 android:hint=""
                 android:inputType="text"
                 android:paddingStart="@dimen/_4pxh"

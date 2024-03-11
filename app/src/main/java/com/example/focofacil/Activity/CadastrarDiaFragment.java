@@ -135,8 +135,12 @@ public class CadastrarDiaFragment extends Fragment {
                 tarefa.setHora(selectedHourOfDay);
                 tarefa.setMinuto(selectedMinute);
                 // Salvar no Firebase
+                // Salvar no Firebase com chave gerada automaticamente
                 DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").push();
+                String idTarefa = tarefaRef.getKey(); // Obter a chave gerada automaticamente
+                tarefa.setIdTarefa(idTarefa); // Definir a chave gerada como o ID da tarefa
                 tarefaRef.setValue(tarefa);
+
                 // Salvar localmente
                 TarefaDAO tarefaDAO = new TarefaDAO(requireContext());
                 long newRowId = tarefaDAO.inserirTarefa(tarefa);
