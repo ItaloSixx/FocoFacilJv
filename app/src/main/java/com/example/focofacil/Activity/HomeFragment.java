@@ -63,7 +63,7 @@ import java.util.Locale;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements TarefaFirebaseAdapter.TarefaClickListener{
     private RecyclerView recyclerViewDiasSemana;
     private ListAdapter adapter;
     private ArrayList<String> taref;
@@ -234,6 +234,7 @@ public class HomeFragment extends Fragment {
 
     }
 
+
     private void passandoDiasDaSemanaNoRecyclerView(View view){
         // Configurar o RecyclerView para cada dia da semana
         configurarRecyclerView(view, Calendar.SUNDAY, R.id.recyclerViewDomingo);
@@ -279,14 +280,17 @@ public class HomeFragment extends Fragment {
         return sdf.format(calendar.getTime());
     }
 
+    //@Override
+    @Override
+    public void onTarefaClick(TarefaFirebase tarefa) {
+        // Quando o usuário clicar em uma tarefa, iniciar a EditarTarefaFragment
+        Fragment editarTarefaFragment = EditarTarefaFragment.newInstance(tarefa);
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, editarTarefaFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
-    private ListView listTarefa;
-
-    private RecyclerView recyclerViewSegunda;
-
-    private List<TarefaFirebase> tarefaList;
-    private TarefaFirebaseAdapter tarefaAdapter;
-    private TarefaFirebase androidTarefa;
     TextView txtNome;
     FloatingActionButton floatAdd;
 
@@ -330,7 +334,7 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
 

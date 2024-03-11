@@ -2,7 +2,9 @@ package com.example.focofacil.Activity;
 
 import androidx.room.ColumnInfo;
 
-public class TarefaFirebase {
+import java.io.Serializable;
+
+public class TarefaFirebase implements Serializable {
     @ColumnInfo(name = "idTarefa")
 
     private String idTarefa;

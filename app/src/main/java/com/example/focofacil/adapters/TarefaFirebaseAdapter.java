@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,11 +39,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAdapter.MyViewHolder> {
+    private TarefaClickListener tarefaClickListener;
+    private FragmentManager fragmentManager;
+
     private Context context;
     private List<TarefaFirebase> tarefaList;
+
+    public TarefaFirebaseAdapter(Context context, ArrayList<TarefaFirebase> tarefaList, TarefaClickListener tarefaClickListener) {
+        this.context = context;
+        this.tarefaList = tarefaList;
+        this.tarefaClickListener = tarefaClickListener;
+    }
+    public TarefaFirebaseAdapter(Context context, List<TarefaFirebase> tarefaList, FragmentManager fragmentManager) {
+        this.context = context;
+        this.tarefaList = tarefaList;
+        this.fragmentManager = fragmentManager;
+    }
 
     public void setSearchList(List<TarefaFirebase> tarefaFirebaseList) {
         this.tarefaList = tarefaFirebaseList;
@@ -54,6 +70,10 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
         this.tarefaList = tarefaList;
     }
 
+
+
+
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,35 +81,31 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
         return new MyViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.txtTarefaTitulo.setText(tarefaList.get(holder.getAdapterPosition()).getTitulo());
-        holder.txtTarefaDescricao.setText(tarefaList.get(holder.getAdapterPosition()).getDescricao());
-        holder.txtDataHora.setText(tarefaList.get(holder.getAdapterPosition()).getDataHora());
+        TarefaFirebase tarefa = tarefaList.get(position);
+
+        holder.txtTarefaTitulo.setText(tarefa.getTitulo());
+        holder.txtTarefaDescricao.setText(tarefa.getDescricao());
+        holder.txtDataHora.setText(tarefa.getDataHora());
 
         holder.recyclerCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Criar uma instância do Fragment que você deseja abrir
-                EditarTarefaFragment editarTarefaFragment = new EditarTarefaFragment();
+                // Ao clicar na tarefa, abrir o fragmento de edição
+                // Criar uma instância de EditarTarefaFragment e passar a tarefa como argumento
+                EditarTarefaFragment editarTarefaFragment = EditarTarefaFragment.newInstance(tarefa);
 
-                // Passar os dados necessários para o Fragment (opcional)
-                Bundle bundle = new Bundle();
-                bundle.putString("Titulo", tarefaList.get(holder.getAdapterPosition()).getTitulo());
-                bundle.putString("Descricao", tarefaList.get(holder.getAdapterPosition()).getDescricao());
-                bundle.putString("Dia", tarefaList.get(holder.getAdapterPosition()).getDia());
-                bundle.putString("Mes", tarefaList.get(holder.getAdapterPosition()).getMes());
-                bundle.putString("Ano", tarefaList.get(holder.getAdapterPosition()).getAno());
-                editarTarefaFragment.setArguments(bundle);
+                // Iniciar uma transação de fragmento
+                FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                // Substitua R.id.fragment_container pelo ID do contêiner real na sua atividade
-                fragmentTransaction.replace(R.id.fragment_container, new EditarTarefaFragment());
-
-                fragmentTransaction.commit();
-
-
+                // Substituir o fragmento atual pelo fragmento de edição
+                transaction.replace(R.id.fragment_container, editarTarefaFragment);
+                transaction.addToBackStack(null); // Opcional: adiciona a transação à pilha de retrocesso
+                transaction.commit();
             }
         });
 
@@ -102,6 +118,9 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
         });
 
     }
+    public interface TarefaClickListener {
+        void onTarefaClick(TarefaFirebase tarefa);
+    }
 
     @Override
     public int getItemCount() {
@@ -109,7 +128,7 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        EditText editTarefaTitlo, editTarefaDescricao, editHorario, editData;
+        EditText editTarefaTitulo, editTarefaDescricao, editHorario, editData;
         TextView txtTarefaTitulo, txtTarefaDescricao, txtDataHora, txtTarefaDia, txtTarefaMes, txtTarefaAno;
         CardView recyclerCard;
         Button btnApagar;
@@ -122,7 +141,7 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
             txtDataHora = itemView.findViewById(R.id.txtDataHora);
             recyclerCard = itemView.findViewById(R.id.recyclerCard);
 
-            editTarefaTitlo = itemView.findViewById(R.id.edtTitulo);
+            editTarefaTitulo = itemView.findViewById(R.id.edtTitulo);
             editTarefaDescricao = itemView.findViewById(R.id.edtDescricao);
             txtTarefaDia = itemView.findViewById(R.id.txtTarefaDia);
             txtTarefaMes = itemView.findViewById(R.id.txtTarefaMes);
@@ -133,6 +152,7 @@ public class TarefaFirebaseAdapter extends RecyclerView.Adapter<TarefaFirebaseAd
         }
 
     }
+
 
     public static void confirmarExclusao(TarefaFirebase tarefa, Context context) {
         // Inflar o layout do diálogo de confirmação
