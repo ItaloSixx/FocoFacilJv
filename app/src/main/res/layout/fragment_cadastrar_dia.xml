@@ -2,13 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/_642pxv"
+    android:background="#FFFFFF"
     android:orientation="vertical">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:gravity="center_horizontal">
 
         <LinearLayout
@@ -43,10 +46,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonOpenCalendarDialog"
-        android:layout_below = "@id/toolbarToolbar"
         style="@style/btnSolidRounded_1"
         android:layout_width="@dimen/_350pxv"
         android:layout_height="@dimen/_55pxv"
+        android:layout_below="@id/toolbarToolbar"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_12pxh"
+        android:layout_marginBottom="@dimen/_15pxh"
         android:drawableRight="@drawable/calender"
         android:ellipsize="end"
         android:gravity="center|start"
@@ -54,22 +60,19 @@
         android:paddingTop="@dimen/_7pxv"
         android:paddingEnd="@dimen/_19pxh"
         android:paddingBottom="@dimen/_7pxv"
-        android:layout_gravity="center"
         android:singleLine="true"
-        android:layout_marginTop="@dimen/_12pxh"
-        android:layout_marginBottom="@dimen/_15pxh"
         android:text="Hoje"
         android:textAllCaps="false"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/txtAdicionarclass"
-        android:layout_below= "@id/buttonOpenCalendarDialog"
         style="@style/txtPoppinsbold15"
         android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/_15pxh"
         android:layout_height="wrap_content"
+        android:layout_below="@id/buttonOpenCalendarDialog"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_15pxh"
         android:singleLine="true"
         android:text="Descreva a tarefa" />
 
@@ -77,8 +80,8 @@
         android:id="@+id/linearColumngrouptwentynine"
         style="@style/groupStylecornerRadius_1"
         android:layout_width="@dimen/_350pxv"
-        android:layout_below= "@id/txtAdicionarclass"
         android:layout_height="wrap_content"
+        android:layout_below="@id/txtAdicionarclass"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/_15pxh"
         android:orientation="vertical">
@@ -143,9 +146,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearColumngrouptwentynine"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/_15pxh"
         android:button="@drawable/loop_repeat"
-        android:layout_gravity="center"
         android:buttonTint="@color/check_box_color_selector"
         android:paddingStart="@dimen/_12pxh"
         android:textColor="@android:color/white" />
@@ -155,16 +158,16 @@
         style="@style/btnSolidRounded_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/repeatCheckbox"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_15pxh"
         android:ellipsize="end"
         android:gravity="center"
-        android:layout_marginTop="@dimen/_15pxh"
-        android:layout_below= "@id/repeatCheckbox"
         android:paddingStart="@dimen/_29pxh"
         android:paddingTop="@dimen/_7pxv"
         android:paddingEnd="@dimen/_19pxh"
         android:paddingBottom="@dimen/_7pxv"
         android:singleLine="true"
-        android:layout_gravity="center"
         android:text="Adicionar tarefa"
         android:textAllCaps="false" />
 

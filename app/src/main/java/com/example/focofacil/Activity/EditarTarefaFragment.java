@@ -39,7 +39,7 @@ public class EditarTarefaFragment extends Fragment {
         btnHorario = view.findViewById(R.id.btnHorario);
         btnEdit = view.findViewById(R.id.btnEdit);
 
-        //mostrarPerfil();
+        mostrarPerfil();
 
         return view;
     }

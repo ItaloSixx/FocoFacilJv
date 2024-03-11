@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.example.focofacil.Utils.MenuCam;
 import com.example.focofacil.adapters.TarefaFirebaseAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -69,11 +71,6 @@ public class HomeFragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -283,13 +280,45 @@ public class HomeFragment extends Fragment {
     }
 
 
+    private ListView listTarefa;
+
+    private RecyclerView recyclerViewSegunda;
+
+    private List<TarefaFirebase> tarefaList;
+    private TarefaFirebaseAdapter tarefaAdapter;
+    private TarefaFirebase androidTarefa;
+    TextView txtNome;
+    FloatingActionButton floatAdd;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        txtNome = view.findViewById(R.id.txtNome12);
+        floatAdd = view.findViewById(R.id.floatingBtnFloatingactionbutton);
 
+        floatAdd.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            // Use uma animação personalizada para uma transição suave
+            //fragmentTransaction.setCustomAnimations(
+                    //R.anim.enter_from_right, // Animação para entrar no fragmento
+                    //R.anim.exit_to_left,    // Animação para sair do fragmento
+                    //R.anim.enter_from_left,  // Animação para retornar ao fragmento (opcional)
+                    //R.anim.exit_to_right     // Animação para sair para o fragmento anterior (opcional)
+           // );
+
+            // Substitua o fragmento no container
+            fragmentTransaction.replace(R.id.fragment_container, new CadastrarDiaFragment());
+            fragmentTransaction.addToBackStack(null); // Adiciona à pilha de retrocesso se desejado
+            fragmentTransaction.commit();
+        });
+
+
+        mostrarPerfil();
 
         listaDeDias = new ArrayList<>();
         configurarDiasDaSemana(view);
@@ -301,7 +330,7 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        user = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
 
@@ -422,6 +451,14 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------------------------
 
         return view;
+    }
+
+    public void mostrarPerfil() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            String nome = user.getDisplayName();
+            txtNome.setText(nome);
+        }
     }
 
 }

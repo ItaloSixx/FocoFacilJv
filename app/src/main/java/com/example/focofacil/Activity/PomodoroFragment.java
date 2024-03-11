@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,34 +18,30 @@ import com.example.focofacil.R;
 
 public class PomodoroFragment extends Fragment {
 
-    // Declaração de variáveis
     private TextView timerTextView;
-    private Button startButton;
-    private Button pauseButton;
-    private Button resetButton;
-    private ProgressBar progressBar;
+    private ImageButton startButton;
+    private ImageButton pauseButton;
+    private ImageButton resetButton;
 
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning = false;
-    private long timeLeftInMillis = 25 * 60 * 1000; // Tempo de foco inicial
-    private long workTimeInMillis = 25 * 60 * 1000; // Tempo de foco
-    private long breakTimeInMillis = 5 * 60 * 1000; // Tempo de pausa
+    private long timeLeftInMillis;
+    private long workTimeInMillis = 25 * 60 * 1000; //25min
+    private long breakTimeInMillis = 5 * 60 * 1000; //5min
     private int cyclesCompleted = 0;
-    private int progress = 0; // Progresso da barra de progresso
+
+    private long timeLeftOnPause = 0; // tempo restante quando o timer é pausado
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inicialização dos elementos de interface do usuário
         View view = inflater.inflate(R.layout.fragment_pomodoro, container, false);
 
         timerTextView = view.findViewById(R.id.timerTextView);
         startButton = view.findViewById(R.id.startButton);
         pauseButton = view.findViewById(R.id.pauseButton);
         resetButton = view.findViewById(R.id.resetButton);
-        progressBar = view.findViewById(R.id.progressBar);
 
-        // Configuração dos listeners dos botões
         startButton.setOnClickListener(v -> startTimer());
         pauseButton.setOnClickListener(v -> pauseTimer());
         resetButton.setOnClickListener(v -> resetTimer());
@@ -55,56 +52,63 @@ public class PomodoroFragment extends Fragment {
     }
 
     private void startTimer() {
-        // Lógica do timer
-        if (cyclesCompleted == 4) {
-            timeLeftInMillis = 15 * 60 * 1000; // Tempo de pausa estendido
-        } else if (cyclesCompleted % 2 == 0) {
-            timeLeftInMillis = workTimeInMillis; // Tempo de foco
-        } else {
-            timeLeftInMillis = breakTimeInMillis; // Tempo de pausa
+        if (!isTimerRunning) {
+            //timer pausado -> retome a partir do tempo restante
+            if (timeLeftOnPause > 0) {
+                timeLeftInMillis = timeLeftOnPause;
+            } else {
+                if (cyclesCompleted == 4) {
+                    return;
+                } else if (cyclesCompleted % 2 == 0) {
+                    timeLeftInMillis = workTimeInMillis; // 25 minutos de foco
+                } else {
+                    timeLeftInMillis = breakTimeInMillis; // 5 minutos de pausa
+                }
+            }
+
+            countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    timeLeftInMillis = millisUntilFinished;
+                    updateCountdownText();
+                }
+
+                @Override
+                public void onFinish() {
+                    isTimerRunning = false;
+                    cyclesCompleted++;
+                    updateCountdownText();
+                    startTimer(); // Inicia automaticamente o próximo ciclo
+                }
+            }.start();
+
+            isTimerRunning = true;
+            updateCountdownText();
         }
-
-        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeLeftInMillis = millisUntilFinished;
-                updateCountdownText();
-                updateProgressBar(); // Atualizar ProgressBar a cada tick
-            }
-
-            @Override
-            public void onFinish() {
-                isTimerRunning = false;
-                updateCountdownText();
-                cyclesCompleted++;
-                startTimer(); // Iniciar próximo ciclo
-            }
-        }.start();
-
-        isTimerRunning = true;
-        updateCountdownText();
     }
 
+
     private void pauseTimer() {
-        // Lógica de pausa do timer
-        if (countDownTimer != null) {
+        if (isTimerRunning) {
             countDownTimer.cancel();
+            timeLeftOnPause = timeLeftInMillis; // Armazene o tempo restante
             isTimerRunning = false;
             updateCountdownText();
-            updateProgressBar(); // Atualizar ProgressBar ao pausar
         }
     }
 
     private void resetTimer() {
-        // Lógica de reinício do timer
+        if (isTimerRunning) {
+            countDownTimer.cancel();
+            isTimerRunning = false;
+        }
         timeLeftInMillis = workTimeInMillis;
+        timeLeftOnPause = 0; // Resetar o tempo restante na pausa
         cyclesCompleted = 0;
         updateCountdownText();
-        updateProgressBar(); // Atualizar ProgressBar ao reiniciar
     }
 
     private void updateCountdownText() {
-        // Lógica de atualização do texto do timer
         int minutes = (int) (timeLeftInMillis / 1000) / 60;
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
 
@@ -120,15 +124,5 @@ public class PomodoroFragment extends Fragment {
             startButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void updateProgressBar() {
-        // Lógica de atualização da barra de progresso
-        if (cyclesCompleted % 2 == 0) {
-            progress = (int) (((float) (workTimeInMillis - timeLeftInMillis) / workTimeInMillis) * 100);
-        } else {
-            progress = (int) (((float) (breakTimeInMillis - timeLeftInMillis) / breakTimeInMillis) * 100);
-        }
-        progressBar.setProgress(progress);
     }
 }
