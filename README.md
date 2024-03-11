@@ -78,7 +78,7 @@ Nosso sistema é uma solução para a gestão eficaz de tarefas, projetado para 
 <a id="resultado-final"></a>
 
 <div style="display: flex">
-  <img src="/media/FocoFacil1.jpeg" width="200px" height="400px" />    
+  <img src="/media/FocoFacil1.jpeg" width="200px" height="420px" />    
   <img src="/media/FocoFacil2.jpeg" width="200px" height="360px"  />    
   <img src="/media/FocoFacil3.jpeg" width="200px" height="360px"  />    
   <img src="/media/FocoFacil4.jpeg" width="200px" height="360px"  />    
