@@ -1,4 +1,4 @@
-package com.example.focofacil.adapters;
+package com.example.focofacil.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import com.example.focofacil.Activity.CadastrarDiaFragment;
 
 import java.util.List;
 

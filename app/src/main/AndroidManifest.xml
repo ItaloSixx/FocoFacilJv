@@ -89,6 +89,9 @@
             android:exported="true" />
 
         <receiver android:name=".BroadcastReceiver.NotificationReceiver"/>
+        <receiver android:name=".BroadcastReceiver.WeeklyReceiver" />
+        <receiver android:name=".BroadcastReceiver.DailyReceiver" />
+        <receiver android:name=".BroadcastReceiver.AlarmReceiver" />
 
     </application>
 

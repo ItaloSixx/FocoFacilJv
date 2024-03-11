@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,16 +29,12 @@ public class ConfigFragment extends Fragment {
     Switch switchSemanal, switchDiario;
     TextView txtNome;
     private static final String SHARED_PREFS = "sharedPrefs";
-
     // Identificador único para as notificações diárias e semanais
-    private static final int DAILY_NOTIFICATION_ID = 1;
-    private static final int WEEKLY_NOTIFICATION_ID = 2;
-
+    private static final int DAILY_NOTIFICATION_ID = 2;
+    private static final int WEEKLY_NOTIFICATION_ID = 3;
     private static final String SWITCH_DIARIO_STATE = "switchDiarioState";
     private static final String SWITCH_SEMANAL_STATE = "switchSemanalState";
-
     public ConfigFragment() {
-        // Required empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +45,11 @@ public class ConfigFragment extends Fragment {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         switchDiario.setChecked(sharedPreferences.getBoolean(SWITCH_DIARIO_STATE, false));
         switchSemanal.setChecked(sharedPreferences.getBoolean(SWITCH_SEMANAL_STATE, false));
+
+        ImageButton finish = view.findViewById(R.id.finishbutton);
+        finish.setOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
         mostrarPerfil();
         switchDiario.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -65,7 +69,6 @@ public class ConfigFragment extends Fragment {
                 Toast.makeText(requireContext(), "As notificações Semanais Estão Desativadas", Toast.LENGTH_SHORT).show();
             }
         });
-
         return view;
     }
     public void mostrarPerfil() {

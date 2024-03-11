@@ -66,38 +66,35 @@ public class CadastrarDiaFragment extends Fragment {
 
 
         Button buttonSalvar = view.findViewById(R.id.buttonSalvar);
-        buttonSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String dataStr = date_in.getText().toString();
-                String horaStr = time_in.getText().toString();
+        buttonSalvar.setOnClickListener(v -> {
+            String dataStr = date_in.getText().toString();
+            String horaStr = time_in.getText().toString();
 
-                if (!dataStr.isEmpty() && !horaStr.isEmpty()) {
-                    SimpleDateFormat sdfDate = new SimpleDateFormat("EEE dd/MM/yyyy");
-                    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+            if (!dataStr.isEmpty() && !horaStr.isEmpty()) {
+                SimpleDateFormat sdfDate = new SimpleDateFormat("EEE dd/MM/yyyy");
+                SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 
-                    try {
-                        // Parse da data e hora
-                        Calendar dataSelecionada = Calendar.getInstance();
-                        dataSelecionada.setTime(sdfDate.parse(dataStr));
+                try {
+                    // Parse da data e hora
+                    Calendar dataSelecionada = Calendar.getInstance();
+                    dataSelecionada.setTime(sdfDate.parse(dataStr));
 
-                        Calendar horaSelecionada = Calendar.getInstance();
-                        horaSelecionada.setTime(sdfTime.parse(horaStr));
+                    Calendar horaSelecionada = Calendar.getInstance();
+                    horaSelecionada.setTime(sdfTime.parse(horaStr));
 
-                        int ano = dataSelecionada.get(Calendar.YEAR);
-                        int mes = dataSelecionada.get(Calendar.MONTH);
-                        int dia = dataSelecionada.get(Calendar.DAY_OF_MONTH);
-                        int hora = horaSelecionada.get(Calendar.HOUR_OF_DAY);
-                        int minuto = horaSelecionada.get(Calendar.MINUTE);
+                    int ano = dataSelecionada.get(Calendar.YEAR);
+                    int mes = dataSelecionada.get(Calendar.MONTH);
+                    int dia = dataSelecionada.get(Calendar.DAY_OF_MONTH);
+                    int hora = horaSelecionada.get(Calendar.HOUR_OF_DAY);
+                    int minuto = horaSelecionada.get(Calendar.MINUTE);
 
-                        // Chamar a função persistirTarefa() com os valores de data e hora
-                        persistirTarefa(ano, mes, dia, hora, minuto);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Por favor, insira uma data e hora válidas", Toast.LENGTH_SHORT).show();
+                    // Chamar a função persistirTarefa() com os valores de data e hora
+                    persistirTarefa(ano, mes, dia, hora, minuto);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+            } else {
+                Toast.makeText(requireContext(), "Por favor, insira uma data e hora válidas", Toast.LENGTH_SHORT).show();
             }
         });
         date_in.setOnClickListener(new View.OnClickListener() {
@@ -154,19 +151,17 @@ public class CadastrarDiaFragment extends Fragment {
                             long notificationTimeInMillis = calcularTempoNotificacao(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
                             Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis));
                             printNotificationTime(notificationTimeInMillis);
-                            // Ajuste para repetir a tarefa todos os dias
+                            // Agendar a notificação para o horário especificado pela primeira vez
                             schedulesecNotification(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
+                            // Criar um Calendar para a data da notificação
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
-                            while (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-                                Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis));
-                                schedulesecNotification(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), selectedHourOfDay, selectedMinute);
-                                calendar.add(Calendar.DAY_OF_MONTH, 1); // Adiciona um dia
-                            }
+                            // Loop para agendar a notificação diariamente para o próximo ano
                             while (calendar.getTimeInMillis() <= System.currentTimeMillis() + TimeUnit.DAYS.toMillis(365)) {
                                 Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis));
+                                calendar.add(Calendar.DAY_OF_MONTH, 1); // Adiciona um dia
+                                // Agendar a notificação para o próximo dia
                                 schedulesecNotification(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), selectedHourOfDay, selectedMinute);
-                                calendar.add(Calendar.DAY_OF_MONTH, 1);
                             }
                         }
                         else {
@@ -178,7 +173,6 @@ public class CadastrarDiaFragment extends Fragment {
                         Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         }).start();
     }
@@ -237,7 +231,6 @@ public class CadastrarDiaFragment extends Fragment {
         if(user != null){
             String nome = user.getDisplayName();
             txtNomeUsuario.setText(nome);
-
         }
     }
     public long calcularTempoNotificacao(int year, int month, int dayOfMonth, int selectedHourOfDay, int selectedMinute) {
