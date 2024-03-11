@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/fragment_editar_tarefa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PerfilFragment">
+    style="@style/groupStylewhite_A701"
+    tools:context=".Activity.EditarTarefaFragment">
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEdit"
@@ -29,10 +33,12 @@
     <LinearLayout
         android:id="@+id/linearColumn10deoutubro"
         style="@style/groupStylecyan_900cornerRadius"
-        android:layout_width="@dimen/_350pxv"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_160pxv"
         android:gravity="start"
         android:orientation="vertical"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -128,18 +134,106 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtData"
-            style="@style/txtPoppinssemibold14_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_22pxh"
-            android:layout_marginTop="@dimen/_1pxv"
-            android:layout_marginEnd="@dimen/_22pxh"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@string/msg_10_de_outubro"
-            tools:text="@string/msg_10_de_outubro" />
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:weightSum="2"
+        android:paddingStart="20dp"
+        android:layout_weight="1.5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+                android:padding="5dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txtTarefaDia"
+                    style="@style/txtPoppinssemibold14_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:text=""/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/txtPoppinssemibold14_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:text=" / "/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/txtTarefaMes"
+                    style="@style/txtPoppinssemibold14_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/txtPoppinssemibold14_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:text=" / "/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+                android:gravity="center"
+                android:padding="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txtTarefaAno"
+                    style="@style/txtPoppinssemibold14_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:maxLines="1"
+                    android:text=""/>
+
+            </LinearLayout>
+
+    </LinearLayout>
 
         <TextView
             android:id="@+id/txtGroupEleven"
@@ -163,10 +257,12 @@
     <LinearLayout
         android:id="@+id/linearColumnsistemasembarc"
         style="@style/groupStylecornerRadius_1"
-        android:layout_width="@dimen/_350pxv"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_180pxv"
         android:gravity="center_vertical"
         android:orientation="vertical"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -259,6 +355,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Tarefa"
+        android:paddingStart="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearColumnsistemasembarc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.009"
@@ -266,7 +363,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearColumn10deoutubro"
         app:layout_constraintVertical_bias="1.0" />
 
-    <androidx.appcompat.widget.Toolbar
+    <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -307,7 +404,7 @@
             android:singleLine="true"
             android:text="Usuario" />
     </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

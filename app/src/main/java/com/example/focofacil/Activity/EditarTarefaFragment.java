@@ -31,7 +31,7 @@ public class EditarTarefaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editar_tarefa, container, false);
 
-        txtNomeUsuario = view.findViewById(R.id.txtNome1);
+        //txtNomeUsuario = view.findViewById(R.id.txtNome1);
         txtDia = view.findViewById(R.id.txtDia);
         txtData = view.findViewById(R.id.txtDatapequeno);
         edtTitulo = view.findViewById(R.id.edtTitulo);
@@ -39,7 +39,7 @@ public class EditarTarefaFragment extends Fragment {
         btnHorario = view.findViewById(R.id.btnHorario);
         btnEdit = view.findViewById(R.id.btnEdit);
 
-        mostrarPerfil();
+        //mostrarPerfil();
 
         return view;
     }

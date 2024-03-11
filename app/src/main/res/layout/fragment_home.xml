@@ -38,14 +38,13 @@
                                 android:text="@string/lbl_ol"
                                 style="@style/txtPoppinsbold16" tools:text="@string/lbl_ol"/>
                             <TextView android:ellipsize="end"
-                                android:id="@+id/txtItaloJeferson"
+                                android:id="@+id/txtNome1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/_10pxh"
                                 android:layout_marginTop="@dimen/_10pxv"
                                 android:layout_width="match_parent"
                                 android:singleLine="true"
-                                android:text="@string/lbl_italo_jeferson"
-                                style="@style/txtPoppinsbold24_1" tools:text="@string/lbl_italo_jeferson"/>
+                                style="@style/txtPoppinsbold24_1"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -272,6 +271,7 @@
                             android:id="@+id/linearColumndomingo"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_24pxv"
+                            android:layout_marginBottom="@dimen/_150pxv"
                             android:layout_width="match_parent"
                             android:orientation="vertical" style="@style/groupStylecornerRadius">
 
