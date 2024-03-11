@@ -36,6 +36,8 @@ Nosso sistema é uma solução para a gestão eficaz de tarefas, projetado para 
 ## Requisitos Funcionais
 <a id="requisitos-funcionais"></a>
 
+[Documento de requisitos completo](/media/REQUISITOS-DOC-FOCOFACIL.pdf)
+
 ```markdown
 [RF001] Cadastro com nome, email e senha.
 [RF002] Envio de email de confirmação após o cadastro.
@@ -57,8 +59,6 @@ Nosso sistema é uma solução para a gestão eficaz de tarefas, projetado para 
 ```
 ## Recursos Técnicos Utilizados
 <a id="recursos-técnicos-utilizados"></a>
-
-[Documento de requisitos completo](/media/REQUISITOS-DOC-FOCOFACIL.pdf)
 
 - Android Studio Java
 - Git e Github
