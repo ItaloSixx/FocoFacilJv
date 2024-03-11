@@ -154,16 +154,16 @@ public class CadastrarActivity extends AppCompatActivity {
     }
 
     public void cadastrarUsuario(User user) {
-        //tela carregamento
-        final LoadingDialog loadingDialog = new LoadingDialog(this);
-        loadingDialog.startLoadingDialog();
-
+        //tela carregament
         ConfigureBd.FirebaseAutenticar();
         auth.createUserWithEmailAndPassword(user.getEmail(), user.getSenhaHashed())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // Tela de carregamento
+                            final LoadingDialog loadingDialog = new LoadingDialog(CadastrarActivity.this);
+                            loadingDialog.startLoadingDialog();
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             //definir nome do usuario
                             if (firebaseUser != null) {

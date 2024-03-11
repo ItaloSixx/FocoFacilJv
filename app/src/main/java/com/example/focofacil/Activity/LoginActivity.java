@@ -78,7 +78,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             String email = edtEmail.getText().toString();
             String senha = edtSenha.getText().toString();
-            fazerLogin(email, senha);
+            if(!email.isEmpty() && !senha.isEmpty()){
+                fazerLogin(email, senha);
+            }else{
+                Toast.makeText(this, "Preencha ambos os campos", Toast.LENGTH_SHORT).show();
+            }
         });
 
         txtEsqueceuSenha.setOnClickListener(v -> {

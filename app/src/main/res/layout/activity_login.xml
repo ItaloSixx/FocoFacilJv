@@ -61,22 +61,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.504" />
 
+
     <ImageView
         android:id="@+id/imageEmail"
         android:layout_width="@dimen/_17pxh"
         android:layout_height="@dimen/_21pxh"
+        android:layout_marginEnd="8dp"
         android:scaleType="fitXY"
         android:src="@drawable/img_email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432"
+        app:layout_constraintBottom_toBottomOf="@+id/edtEmail"
+        app:layout_constraintEnd_toStartOf="@+id/edtEmail"
+        app:layout_constraintTop_toTopOf="@+id/edtEmail"
+        app:layout_constraintVertical_bias="0.458"
         tools:ignore="ContentDescription"
         tools:src="@drawable/img_email" />
-
-
 
     <TextView
         android:id="@+id/txtEsqueceuSenha"
@@ -206,11 +204,11 @@
         android:id="@+id/imageSenha"
         android:layout_width="@dimen/_17pxh"
         android:layout_height="@dimen/_21pxh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtSenha"
+        app:layout_constraintEnd_toStartOf="@+id/edtSenha"
+        app:layout_constraintTop_toTopOf="@+id/edtSenha"
+        app:layout_constraintVertical_bias="0.416"
         app:srcCompat="@drawable/img_password" />
 
     <ImageView
