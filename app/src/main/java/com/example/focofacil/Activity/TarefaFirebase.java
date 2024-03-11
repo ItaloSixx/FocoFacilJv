@@ -26,6 +26,7 @@ public class TarefaFirebase implements Serializable {
     private String minuto;
     private String dataHora;
 
+
     public TarefaFirebase(String titulo, String descricao, String repeticao, String dia, String mes, String ano, String hora, String minuto) {
         this.titulo = titulo;
         this.descricao = descricao;
