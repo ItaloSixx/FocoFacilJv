@@ -35,40 +35,23 @@ Nosso sistema é uma solução para a gestão eficaz de tarefas, projetado para 
 <a id="requisitos-funcionais"></a>
 
 ```markdown
-1. **Cadastro de Conta:**
-   - [RF001] Cadastro com nome, email e senha.
-   - [RF002] Envio de email de confirmação após o cadastro.
-
-2. **Edição de Conta:**
-   - [RF003] Edição das informações da conta.
-
-3. **Alteração de Foto de Perfil:**
-   - [RF004] Alteração da foto de perfil pela câmera ou galeria.
-
-4. **Login:**
-   - [RF005] Login com email e senha.
-   - [RF006] Login com conta do Google.
-   - [RF007] Restrição de login para contas verificadas.
-
-5. **Redefinição de Senha:**
-   - [RF008] Solicitação de redefinição de senha via email.
-
-6. **Gerenciamento de Tarefas:**
-   - [RF009] Cadastro de tarefas com detalhes.
-   - [RF010] Edição de tarefas existentes.
-   - [RF011] Exclusão de tarefas existentes.
-   - [RF012] Consulta de tarefas por dia da semana.
-
-7. **Notificações:**
-   - [RF013] Notificação 5 minutos antes do início de uma tarefa.
-   - [RF014] Notificação diária às 6h para lembrar das tarefas do dia.
-   - [RF015] Notificação semanal para programação.
-
-8. **Método Pomodoro:**
-   - [RF016] Implementação do método Pomodoro com alarme.
-
-9. **Sincronização de Dados:**
-   - [RF017] Sincronização automática dos dados locais com o banco de dados.
+[RF001] Cadastro com nome, email e senha.
+[RF002] Envio de email de confirmação após o cadastro.
+[RF003] Edição das informações da conta.
+[RF004] Alteração da foto de perfil pela câmera ou galeria.
+[RF005] Login com email e senha.
+[RF006] Login com conta do Google.
+[RF007] Restrição de login para contas verificadas.
+[RF008] Solicitação de redefinição de senha via email.
+[RF009] Cadastro de tarefas com detalhes.
+[RF010] Edição de tarefas existentes.
+[RF011] Exclusão de tarefas existentes.
+[RF012] Consulta de tarefas por dia da semana.
+[RF013] Notificação 5 minutos antes do início de uma tarefa.
+[RF014] Notificação diária às 6h para lembrar das tarefas do dia.
+[RF015] Notificação semanal para programação.
+[RF016] Implementação do método Pomodoro com alarme.
+[RF017] Sincronização automática dos dados locais com o banco de dados.
 ```
 ## Recursos Técnicos Utilizados
 <a id="recursos-técnicos-utilizados"></a>
