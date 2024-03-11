@@ -39,7 +39,7 @@
                 android:text="@string/lbl_ol" />
 
             <TextView
-                android:id="@+id/txtNome1"
+                android:id="@+id/txtNome12"
                 style="@style/txtPoppinsbold24_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

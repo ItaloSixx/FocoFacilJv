@@ -43,7 +43,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     TextView txtNome, txtEmail;
     ImageView fotoPerfil;
     Button btnPerfil;
-    AdMob adMob;
     private InterstitialAd mInterstitialAd;
 
 
@@ -80,7 +79,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         mostrarPerfil();
 
         //substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
-        replaceFragment(new PerfilFragment());
+        replaceFragment(new HomeFragment());
         //ad
         carregarAdIn();
 
@@ -88,9 +87,10 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
-                replaceFragment(new CadastrarDiaFragment());
+                replaceFragment(new HomeFragment());
             } else if (itemId == R.id.ClipBoard) {
                 replaceFragment(new PomodoroFragment());
+                //replaceFragment(new PomodoroFragment());
             } else if (itemId == R.id.Perfil) {
                 replaceFragment(new PerfilFragment());
             }

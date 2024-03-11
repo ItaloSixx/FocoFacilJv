@@ -87,7 +87,6 @@ public class EditarEmailActivity extends AppCompatActivity {
         final FirebaseUser finalUser = FirebaseAuth.getInstance().getCurrentUser();
         btnprocurar = findViewById(R.id.btnprocurar);
         btnprocurar.setOnClickListener(v -> {
-            Toast.makeText(EditarEmailActivity.this, "SDSADASDASD", Toast.LENGTH_SHORT).show();
             if (finalUser != null) {
                 finalUser.reload().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

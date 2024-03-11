@@ -3,6 +3,7 @@ package com.example.focofacil.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -118,32 +119,31 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //fazer login email e senha
     private void fazerLogin(String email, String senha) {
-        //dialog carregamento
-        final LoadingDialog loadingDialog = new LoadingDialog(this);
-        loadingDialog.startLoadingDialog();
-
         auth.signInWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if(task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user != null && user.isEmailVerified()) {
+                                // Tela de carregamento
+                                final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
+                                loadingDialog.startLoadingDialog();
                                 Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
                                 Intent redirecionar = new Intent(LoginActivity.this, MainMenuActivity.class);
                                 startActivity(redirecionar);
                                 finish();
-                            }else{
+                            } else {
                                 Toast.makeText(LoginActivity.this, "Por favor verifique o seu email", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
+                        } else {
                             Toast.makeText(LoginActivity.this, "Falha ao logar" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
 
     private void googleSingIn(){
         Intent redirecionar = client.getSignInIntent();
@@ -175,10 +175,6 @@ public class LoginActivity extends AppCompatActivity {
     }
     //login com google
     private void firebaseAuthGoogle(String idToken) {
-        //dialog carregamento
-        final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
-        loadingDialog.startLoadingDialog();
-
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

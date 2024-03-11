@@ -22,7 +22,7 @@
             android:layout_marginEnd="@dimen/_15pxv"
             android:layout_marginBottom="@dimen/_35pxv"
             android:background="@drawable/menu"
-            android:overScrollMode="always"
+            android:overScrollMode="ifContentScrolls"
             android:paddingTop="@dimen/_20pxv"
             app:itemIconSize="@dimen/_30pxv"
             app:itemIconTint="@color/bottom_nav_item_colors"
