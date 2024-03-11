@@ -1,22 +1,33 @@
 package com.example.focofacil.Activity;
+import static androidx.core.app.ActivityCompat.finishAffinity;
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.focofacil.BroadcastReceiver.DailyReceiver;
 import com.example.focofacil.BroadcastReceiver.NotificationReceiver;
 import com.example.focofacil.BroadcastReceiver.WeeklyReceiver;
 import com.example.focofacil.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.Calendar;
@@ -25,6 +36,7 @@ public class ConfigFragment extends Fragment {
 
     Switch switchSemanal, switchDiario;
     TextView txtNome;
+    Button btnExcluir;
     private static final String SHARED_PREFS = "sharedPrefs";
     // Identificador único para as notificações diárias e semanais
     private static final int DAILY_NOTIFICATION_ID = 2;
@@ -39,14 +51,11 @@ public class ConfigFragment extends Fragment {
         switchDiario = view.findViewById(R.id.switchDiario);
         switchSemanal = view.findViewById(R.id.switchSemanal);
         txtNome = view.findViewById(R.id.txtNome12);
+        btnExcluir = view.findViewById(R.id.btnExcluir);
+
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         switchDiario.setChecked(sharedPreferences.getBoolean(SWITCH_DIARIO_STATE, false));
         switchSemanal.setChecked(sharedPreferences.getBoolean(SWITCH_SEMANAL_STATE, false));
-
-        ImageButton finish = view.findViewById(R.id.finishbutton);
-        finish.setOnClickListener(v -> {
-            getActivity().onBackPressed();
-        });
         mostrarPerfil();
         switchDiario.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -66,6 +75,9 @@ public class ConfigFragment extends Fragment {
                 Toast.makeText(requireContext(), "As notificações Semanais Estão Desativadas", Toast.LENGTH_SHORT).show();
             }
         });
+
+        btnExcluir.setOnClickListener(v -> excluirConta());
+
         return view;
     }
     public void mostrarPerfil() {
@@ -151,4 +163,49 @@ public class ConfigFragment extends Fragment {
         editor.putBoolean(SWITCH_SEMANAL_STATE, switchSemanal.isChecked());
         editor.apply();
     }
+
+    private void excluirConta() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Confirmação");
+        builder.setMessage("Tem certeza que deseja excluir sua conta? Esta ação é irreversível.");
+
+        // Adiciona botões "Sim" e "Cancelar" ao diálogo
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // O usuário confirmou a exclusão da conta, proceda com a exclusão
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("TAG", "Conta deletada.");
+                                // Redireciona para a tela de login após excluir a conta
+                                Intent redirecionar = new Intent(getContext(), LoginActivity.class);
+                                redirecionar.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(redirecionar);
+                                finishAffinity(getActivity());
+                            } else {
+                                Log.e("TAG", "Falha ao excluir conta.");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // O usuário cancelou a exclusão da conta, não faça nada
+                dialog.dismiss();
+            }
+        });
+
+        // Cria e exibe o diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

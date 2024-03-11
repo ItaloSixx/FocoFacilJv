@@ -11,6 +11,7 @@
         android:id="@+id/toolbarToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50pxh"
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,27 +157,19 @@
         app:layout_constraintTop_toBottomOf="@+id/txtNotSem"
         app:layout_constraintVertical_bias="0.002" />
 
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtConfiguraes"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar" />
-
-
-    <ImageButton
-        android:id="@+id/finishbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_arrow_back_ios_24"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnExcluir"
+        android:layout_width="@dimen/_250pxv"
+        android:layout_height="@dimen/_40pxv"
+        android:background="@drawable/botaoredondo2"
+        android:text="Excluir Conta"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/txtConfiguraes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarToolbar"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        app:layout_constraintVertical_bias="0.48000002" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.focofacil.Activity;
 
+import static androidx.core.app.ActivityCompat.finishAffinity;
 import static androidx.fragment.app.FragmentManager.TAG;
 
 import android.annotation.SuppressLint;
@@ -70,6 +71,7 @@ public class PerfilFragment extends Fragment {
     TextView txtNomePerfil, txtEmailPerfil, txtSenhaPerfil, txtNomeDestaque;
     ImageView imgPerfil, imgEditar;
     FirebaseDatabase database;
+    Button btnExcluir;
 
 
     public PerfilFragment() {
@@ -276,4 +278,5 @@ public class PerfilFragment extends Fragment {
             MenuCam.solicitarPermissao(this);
         }
     }
+
 }

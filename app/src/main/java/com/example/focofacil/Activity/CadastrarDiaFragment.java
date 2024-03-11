@@ -30,7 +30,6 @@ import com.example.focofacil.BroadcastReceiver.NotificationReceiver;
 import com.example.focofacil.Dao.TarefaDAO;
 import com.example.focofacil.Model.TarefaModel;
 import com.example.focofacil.R;
-import com.example.focofacil.Service.MeuServico;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

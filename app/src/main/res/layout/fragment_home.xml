@@ -108,18 +108,6 @@
                                 android:layout_marginStart="@dimen/_3pxh"
                                 android:layout_marginTop="@dimen/_20pxv" android:layout_width="@dimen/_12pxh"/>
 
-                            <TextView
-                                android:id="@+id/txtAssunto"
-                                style="@style/txtPoppinsbold16_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_22pxh"
-                                android:layout_marginTop="@dimen/_16pxv"
-                                android:layout_marginEnd="@dimen/_22pxh"
-                                android:ellipsize="end"
-                                android:singleLine="true"
-                                android:text="@string/msg_sistemas_embarc"
-                                tools:text="@string/msg_sistemas_embarc" />
                         </LinearLayout>
 
 
