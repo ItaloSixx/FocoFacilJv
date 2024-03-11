@@ -29,6 +29,23 @@
             app:itemTextColor="@color/bottom_nav_item_colors"
             app:menu="@menu/bottom_menu" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_140pxh"
+            android:layout_marginEnd="@dimen/_20pxh"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/round_add_24"
+            app:backgroundTint="@color/cyan_700"
+            app:elevation="@dimen/_6pxv" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <LinearLayout
@@ -44,11 +61,6 @@
             app:contentInsetEnd="0dp"
             app:title="FocoFacil"
             tools:ignore="MissingConstraints" />
-
-        <FrameLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
         <Space
             android:layout_width="match_parent"

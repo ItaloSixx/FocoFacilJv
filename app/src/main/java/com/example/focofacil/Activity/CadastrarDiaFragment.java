@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,7 +46,6 @@ public class CadastrarDiaFragment extends Fragment {
     private static final int NOTIFICATION_REQUEST_CODE = 200;
     private AlarmManager alarmManager;
     FirebaseDatabase database;
-    CheckBox checkboxRepeticao;
     TextView txtNomeUsuario;
     private EditText editTextAtividade;
     private EditText editTextTituloAtividade;
@@ -60,20 +60,26 @@ public class CadastrarDiaFragment extends Fragment {
         editTextTituloAtividade = view.findViewById(R.id.editTexttituloAtividade);
         Button date_in = view.findViewById(R.id.buttonOpenCalendarDialog);
         Button time_in = view.findViewById(R.id.buttonOpenTimePickerDialog);
-        checkboxRepeticao = view.findViewById(R.id.repeatCheckbox);
         txtNomeUsuario = view.findViewById(R.id.txtNomeUsuario);
         nomeUsuario();
-
-
         Button buttonSalvar = view.findViewById(R.id.buttonSalvar);
         buttonSalvar.setOnClickListener(v -> {
             String dataStr = date_in.getText().toString();
             String horaStr = time_in.getText().toString();
 
-            if (!dataStr.isEmpty() && !horaStr.isEmpty()) {
+            // Verifica se a data está vazia
+            if (dataStr.isEmpty()) {
+                // Se a data estiver vazia, preenche com a data atual
+                SimpleDateFormat sdfDate = new SimpleDateFormat("EEE dd/MM/yyyy");
+                Calendar dataAtual = Calendar.getInstance();
+                dataStr = sdfDate.format(dataAtual.getTime());
+                date_in.setText(dataStr);
+            }
+
+            // Verifica se a hora também está vazia
+            if (!horaStr.isEmpty()) {
                 SimpleDateFormat sdfDate = new SimpleDateFormat("EEE dd/MM/yyyy");
                 SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-
                 try {
                     // Parse da data e hora
                     Calendar dataSelecionada = Calendar.getInstance();
@@ -90,96 +96,71 @@ public class CadastrarDiaFragment extends Fragment {
 
                     // Chamar a função persistirTarefa() com os valores de data e hora
                     persistirTarefa(ano, mes, dia, hora, minuto);
+
+                    // Redirecionar para a HomeFragment após salvar com sucesso
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.frame_layout, new HomeFragment())
+                            .addToBackStack(null)
+                            .commit();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             } else {
-                Toast.makeText(requireContext(), "Por favor, insira uma data e hora válidas", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Por favor, insira uma hora válida", Toast.LENGTH_SHORT).show();
             }
         });
-        date_in.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog(date_in);
-            }
-        });
-        time_in.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimeDialog(time_in);
-            }
-        });
+
+
+        date_in.setOnClickListener(v -> showDateDialog(date_in));
+        time_in.setOnClickListener(v -> showTimeDialog(time_in));
      return view;
     }
     public void persistirTarefa(int year, int month, int dayOfMonth, int selectedHourOfDay, int selectedMinute) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                assert user != null;
-                String idUsuario = user.getUid();
-                String descricao = editTextAtividade.getText().toString();
-                String titulo = editTextTituloAtividade.getText().toString();
-                boolean repeticao = checkboxRepeticao.isChecked(); // Verifica se o CheckBox está marcado
-                TarefaModel tarefa = new TarefaModel();
-                tarefa.setIdUsuario(idUsuario);
-                tarefa.setTitulo(titulo);
-                tarefa.setDescricao(descricao);
-                tarefa.setRepeticao(repeticao);
-                tarefa.setDia(dayOfMonth);
-                tarefa.setMes(month + 1);
-                tarefa.setAno(year);
-                tarefa.setHora(selectedHourOfDay);
-                tarefa.setMinuto(selectedMinute);
-                // Salvar no Firebase
-                // Salvar no Firebase com chave gerada automaticamente
-                DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").push();
-                String idTarefa = tarefaRef.getKey(); // Obter a chave gerada automaticamente
-                tarefa.setIdTarefa(idTarefa); // Definir a chave gerada como o ID da tarefa
-                tarefaRef.setValue(tarefa);
+        new Thread(() -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            assert user != null;
+            String idUsuario = user.getUid();
+            String descricao = editTextAtividade.getText().toString();
+            String titulo = editTextTituloAtividade.getText().toString();
 
-                // Salvar localmente
-                TarefaDAO tarefaDAO = new TarefaDAO(requireContext());
-                long newRowId = tarefaDAO.inserirTarefa(tarefa);
-                Log.d("Persistir Tarefa", "ID da nova linha: " + newRowId);
+            TarefaModel tarefa = new TarefaModel();
+            tarefa.setIdUsuario(idUsuario);
+            tarefa.setTitulo(titulo);
+            tarefa.setDescricao(descricao);
+            tarefa.setDia(dayOfMonth);
+            tarefa.setMes(month + 1);
+            tarefa.setAno(year);
+            tarefa.setHora(selectedHourOfDay);
+            tarefa.setMinuto(selectedMinute);
 
-                // Exibir mensagem após a conclusão da operação na thread principal
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    if (newRowId != -1) {
-                        Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
-                        getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
+            // Salvar no Firebase
+            // Salvar no Firebase com chave gerada automaticamente
+            DatabaseReference tarefaRef = FirebaseDatabase.getInstance().getReference("Tarefas").push();
+            String idTarefa = tarefaRef.getKey(); // Obter a chave gerada automaticamente
+            tarefa.setIdTarefa(idTarefa); // Definir a chave gerada como o ID da tarefa
+            tarefaRef.setValue(tarefa);
 
-                        // Se o CheckBox estiver marcado, agende a repetição diária da tarefa
-                        if (repeticao) {
-                            startBackgroundService();
-                            long notificationTimeInMillis = calcularTempoNotificacao(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
-                            Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis));
-                            printNotificationTime(notificationTimeInMillis);
-                            // Agendar a notificação para o horário especificado pela primeira vez
-                            schedulesecNotification(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
-                            // Criar um Calendar para a data da notificação
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
-                            // Loop para agendar a notificação diariamente para o próximo ano
-                            while (calendar.getTimeInMillis() <= System.currentTimeMillis() + TimeUnit.DAYS.toMillis(365)) {
-                                Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis));
-                                calendar.add(Calendar.DAY_OF_MONTH, 1); // Adiciona um dia
-                                // Agendar a notificação para o próximo dia
-                                schedulesecNotification(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), selectedHourOfDay, selectedMinute);
-                            }
-                        }
-                        else {
-                            long notificationTimeInMillis = calcularTempoNotificacao(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
-                            Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis).toString());
-                            schedulesecNotification(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
-                        }
-                    } else {
-                        Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+            // Salvar localmente
+            TarefaDAO tarefaDAO = new TarefaDAO(requireContext());
+            long newRowId = tarefaDAO.inserirTarefa(tarefa);
+            Log.d("Persistir Tarefa", "ID da nova linha: " + newRowId);
+
+            // Exibir mensagem após a conclusão da operação na thread principal
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (newRowId != -1) {
+                    Toast.makeText(requireContext(), "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show();
+                    getParentFragmentManager().beginTransaction().remove(CadastrarDiaFragment.this).commit();
+
+                    long notificationTimeInMillis = calcularTempoNotificacao(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
+                    Log.d("Persistir Tarefa", "Agendando notificação para: " + new Date(notificationTimeInMillis).toString());
+                    schedulesecNotification(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
+                } else {
+                    Toast.makeText(requireContext(), "Erro ao adicionar tarefa", Toast.LENGTH_SHORT).show();
+                }
+            });
         }).start();
     }
+
 
     private void showTimeDialog(final Button date_in) {
         final Calendar calendar=Calendar.getInstance();
@@ -197,32 +178,51 @@ public class CadastrarDiaFragment extends Fragment {
     }
     private void showDateDialog(final Button time_in) {
         final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        Context context = new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                context,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDayOfMonth) {
+                        // Calendar para a data selecionada
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.set(Calendar.YEAR, selectedYear);
+                        selectedDate.set(Calendar.MONTH, selectedMonth);
+                        selectedDate.set(Calendar.DAY_OF_MONTH, selectedDayOfMonth);
+
+                        // Verifica se a data selecionada é anterior à data atual
+                        if (selectedDate.before(Calendar.getInstance())) {
+                            // Data selecionada é anterior à data atual, exibir mensagem de erro
+                            Toast.makeText(requireContext(), "Por favor, selecione uma data válida", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Data selecionada é válida, atualizar o campo de texto com a data selecionada
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yyyy");
+                            time_in.setText(simpleDateFormat.format(selectedDate.getTime()));
+                        }
+                    }
+                },
+                year, month, dayOfMonth
+        );
+
+        // Definir o comportamento para quando o botão de "Cancelar" for clicado
+        datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Criar um objeto Calendar para a data selecionada
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.set(Calendar.YEAR, year);
-                selectedDate.set(Calendar.MONTH, month);
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                // Verificar se a data selecionada é anterior à data atual
-                if (selectedDate.before(Calendar.getInstance())) {
-                    // Data selecionada é anterior à data atual, exibir mensagem de erro
-                    Toast.makeText(requireContext(), "Por favor, selecione uma data válida", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    // Data selecionada é válida, atualizar o campo de texto com a data selecionada
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yyyy");
-                    time_in.setText(simpleDateFormat.format(selectedDate.getTime()));
-                }
+            public void onCancel(DialogInterface dialog) {
+                // Definir a data atual como a data selecionada
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yyyy");
+                time_in.setText(simpleDateFormat.format(calendar.getTime()));
             }
-        };
-        // Criar o DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(new ContextThemeWrapper(requireContext(), android.R.style.Theme_DeviceDefault_Dialog), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        // Exibir o DatePickerDialog
+        });
+
         datePickerDialog.show();
     }
+
+
     private void cancelNotification() {
         if (alarmManager != null) {
             Intent intent = new Intent(requireActivity(), NotificationReceiver.class);
@@ -256,29 +256,12 @@ public class CadastrarDiaFragment extends Fragment {
         Log.d("Calcular Notificação", "Tempo da notificação: " + new Date(notificationTimeInMillis).toString());
         return notificationTimeInMillis;
     }
-    private void startBackgroundService() {
-        Intent serviceIntent = new Intent(requireContext(), MeuServico.class);
-        requireContext().startService(serviceIntent);
-    }
-
-    private void printNotificationTime(long notificationTimeInMillis) {
-        // Criar um objeto Calendar e definir o tempo com base em notificationTimeInMillis
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(notificationTimeInMillis);
-
-        // Formatar a data e hora para uma representação legível
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
-        String readableTime = dateFormat.format(calendar.getTime());
-
-        // Exibir a data e hora legível
-        Log.d("NotificationTime", "Notification time: " + readableTime);
-    }
 
     private void schedulesecNotification(int year, int month, int dayOfMonth, int selectedHourOfDay, int selectedMinute) {
         Intent notificationIntent = new Intent(requireContext(), NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Calcular o tempo de notificação 5 minutos antes da hora selecionada para a tarefa
+        // Calcula o tempo de notificação 5 minutos antes da hora selecionada para a tarefa
         Calendar notificationTime = Calendar.getInstance();
         notificationTime.set(year, month, dayOfMonth, selectedHourOfDay, selectedMinute);
         notificationTime.add(Calendar.MINUTE, -5); // Subtrai 5 minutos

@@ -2,12 +2,10 @@ package com.example.focofacil.Activity;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,33 +16,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.focofacil.DiaDaSemana;
-import com.example.focofacil.DiaSemanaAdapter;
 
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
 import com.example.focofacil.adapters.TarefaFirebaseAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.Clock;
 import java.util.ArrayList;
 
 
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -273,7 +262,6 @@ public class HomeFragment extends Fragment {
     private TarefaFirebaseAdapter tarefaAdapter;
     private TarefaFirebase androidTarefa;
     TextView txtNome;
-    FloatingActionButton floatAdd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -282,25 +270,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         txtNome = view.findViewById(R.id.txtNome12);
-        floatAdd = view.findViewById(R.id.floatingBtnFloatingactionbutton);
-
-        floatAdd.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            // Use uma animação personalizada para uma transição suave
-            //fragmentTransaction.setCustomAnimations(
-                    //R.anim.enter_from_right, // Animação para entrar no fragmento
-                    //R.anim.exit_to_left,    // Animação para sair do fragmento
-                    //R.anim.enter_from_left,  // Animação para retornar ao fragmento (opcional)
-                    //R.anim.exit_to_right     // Animação para sair para o fragmento anterior (opcional)
-           // );
-
-            // Substitua o fragmento no container
-            fragmentTransaction.replace(R.id.fragment_container, new CadastrarDiaFragment());
-            fragmentTransaction.addToBackStack(null); // Adiciona à pilha de retrocesso se desejado
-            fragmentTransaction.commit();
-        });
 
 
         mostrarPerfil();
@@ -356,7 +325,7 @@ public class HomeFragment extends Fragment {
                                     Log.d("TAG", "Dia da Tarefa: " + diaLong);
 
 
-                                   // Long repeticaoLong = snapshot.child("repeticao").getValue() != null ? snapshot.child("repeticao").getValue(Long.class) : 0L;
+                                    // Long repeticaoLong = snapshot.child("repeticao").getValue() != null ? snapshot.child("repeticao").getValue(Long.class) : 0L;
                                     Long repeticaoLong = (snapshot.child("repeticao").getValue() instanceof Long) ? (Long) snapshot.child("repeticao").getValue() : 0L;
 
 
@@ -437,9 +406,10 @@ public class HomeFragment extends Fragment {
 
     public void mostrarPerfil() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
-            String nome = user.getDisplayName();
-            txtNome.setText(nome);
+        if(user!=null){
+            if(user.getDisplayName() != null) {
+                txtNome.setText(user.getDisplayName());
+            }
         }
     }
 

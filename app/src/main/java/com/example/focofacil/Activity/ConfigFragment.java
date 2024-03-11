@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +19,6 @@ import com.example.focofacil.BroadcastReceiver.WeeklyReceiver;
 import com.example.focofacil.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Calendar;
 
 public class ConfigFragment extends Fragment {
@@ -93,12 +90,10 @@ public class ConfigFragment extends Fragment {
 
         // Intent para o BroadcastReceiver que irá lidar com a notificação semanal
         Intent intent = new Intent(requireContext(), WeeklyReceiver.class);
-        // Passar a mensagem da notificação como um extra para a Intent
-        intent.putExtra("notification_message", "Começou a Semana e suas Tarefas o Aguarda.");
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(requireContext(), WEEKLY_NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Calcular o tempo para a notificação semanal (por exemplo, todas as segundas-feiras às 9:00 AM)
+        // Calcular o tempo para a notificação semanal (por exemplo, todas as segundas-feiras às 6:00 AM)
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);

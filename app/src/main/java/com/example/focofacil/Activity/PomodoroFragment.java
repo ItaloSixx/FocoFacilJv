@@ -33,7 +33,6 @@ public class PomodoroFragment extends Fragment {
     private ImageButton startButton;
     private ImageButton pauseButton;
     private ImageButton resetButton;
-
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning = false;
     private MediaPlayer mediaPlayer;

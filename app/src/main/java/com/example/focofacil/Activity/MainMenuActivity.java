@@ -36,7 +36,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
@@ -44,7 +44,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     ImageView fotoPerfil;
     Button btnPerfil;
     private InterstitialAd mInterstitialAd;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,26 +77,33 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
         mostrarPerfil();
 
-        //substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
+        // Substitui o fragmento atual, sempre vai começar nesse quando chamar a MainMenuActivity
         replaceFragment(new HomeFragment());
-        //ad
+
+        // Carregar o Ad
         carregarAdIn();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (itemId == R.id.ClipBoard) {
                 replaceFragment(new PomodoroFragment());
-                //replaceFragment(new PomodoroFragment());
             } else if (itemId == R.id.Perfil) {
                 replaceFragment(new PerfilFragment());
             }
             return true;
         });
 
+        FloatingActionButton floatAdd = findViewById(R.id.floatingActionButton);
+        floatAdd.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+            fragmentTransaction.replace(R.id.frame_layout, new CadastrarDiaFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -109,16 +115,16 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
     public void mostrarPerfil() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
+        if (user != null) {
             String nome = user.getDisplayName();
             String email = user.getEmail();
             txtNome.setText(nome);
             txtEmail.setText(email);
 
             Uri fotoUrl = user.getPhotoUrl();
-            if(fotoUrl != null){
+            if (fotoUrl != null) {
                 Glide.with(this).load(fotoUrl).fitCenter().into(fotoPerfil);
-            }else{
+            } else {
                 fotoPerfil.setImageResource(R.drawable.fotopadrao);
             }
         }
@@ -136,7 +142,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             startActivity(redirecionar);
             finishAffinity();
             FirebaseAuth.getInstance().signOut();
-
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -183,5 +188,4 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                     }
                 });
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.focofacil;
+package com.example.focofacil.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,10 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.focofacil.Activity.TarefaFirebase;
 import com.example.focofacil.DiaDaSemana;
 import com.example.focofacil.R;
-import com.example.focofacil.Tarefa;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
