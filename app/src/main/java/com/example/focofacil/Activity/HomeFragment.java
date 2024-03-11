@@ -2,6 +2,10 @@ package com.example.focofacil.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +25,7 @@ import com.example.focofacil.DiaSemanaAdapter;
 
 import com.example.focofacil.R;
 import com.example.focofacil.Tarefa;
+import com.example.focofacil.Utils.MenuCam;
 import com.example.focofacil.adapters.TarefaFirebaseAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +44,7 @@ import java.util.ArrayList;
 
 
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -110,52 +116,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    /*private void setupDiasDaSemana(View view) {
-        // Obter o dia atual da semana
-        Calendar calendar = Calendar.getInstance();
-        int diaAtual = calendar.get(Calendar.DAY_OF_WEEK);
-
-        // Iterar pelos dias da semana
-        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
-            // Configurar o dia da semana
-            DiaDaSemana dia = new DiaDaSemana(obterNomeDia(i), obterListaDeTarefas());
-
-            // Configurar o TextView correspondente ao dia
-            int textViewId = getResources().getIdentifier("txt_" + dia.getNomeDia(), "id", getActivity().getPackageName());
-            //TextView textView = view.findViewById(textViewId);
-
-            if (textViewId != 0) {
-                Log.e("TextView", "TextView name: " + dia.getNomeDia());
-                TextView textView = view.findViewById(textViewId);
-
-                // Calcular a data correspondente ao dia da semana
-                Calendar diaSelecionado = Calendar.getInstance();
-                diaSelecionado.set(Calendar.DAY_OF_WEEK, i);
-
-                // Adicionar essa data como extra para a DetalhesDiaActivity
-                dia.setDataSelecionada(diaSelecionado.getTime());
-
-                if (listaDeDias == null) {
-                    listaDeDias = new ArrayList<>();
-                }
-
-                listaDeDias.add(dia);
-
-                // Exibir o nome do dia e suas tarefas no TextView
-                //textView.setText(dia.getNomeDia());
-
-                // Configurar o OnClickListener para o TextView correspondente ao dia
-                configurarOnClickListener(textView, dia);
-
-                // Exibir as informações de cada tarefa nos TextViews específicos
-                exibirInformacoesTarefas(dia, view);
-            } else {
-                // Se o TextView não foi encontrado,uma mensagem de log é exibida
-                Log.e("TextView", "TextView not found for day: " + dia.getNomeDia());
-            }
-        }
-    }*/
-
     private void exibirInformacoesTarefas(DiaDaSemana dia, View view) {
 
 
@@ -169,7 +129,6 @@ public class HomeFragment extends Fragment {
 
 
         // Limpar os TextViews
-        //txtDescricao.setText("");
         // Verificar se TextViews foram encontrados
         if (txtAssunto != null && txtDataHora != null) {
             // Limpar os TextViews
@@ -233,12 +192,6 @@ public class HomeFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, detalhesDiaFragment).addToBackStack(null).commit();
 
-                // Substituir o fragmento atual pelo DetalhesDiaFragment
-                //getParentFragmentManager().beginTransaction()
-                //      .replace(R.id.fragment_container, detalhesDiaFragment)
-                //    .addToBackStack(null)
-                // .commit();
-
             }
         });
     }
@@ -252,16 +205,9 @@ public class HomeFragment extends Fragment {
         int indice = (diaDaSemana + 6) % 7;
 
         // Ajustar para o índice correto se necessário
-        //return (indice >= 0 && indice < 7) ? indice : 0;
         return indice;
     }
 
-   /* private void setupRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDiasSemana);
-        DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-    }*/
 
     private DiaDaSemana obterDiaDaSemanaCorrespondente(String nomeDia) {
         for (DiaDaSemana dia : listaDeDias) {
@@ -270,7 +216,6 @@ public class HomeFragment extends Fragment {
                 return dia;
             }
         }
-
         Log.d(TAG, "Dia não encontrado: " + nomeDia);
 
         // Se não encontrar, criar um novo e adicionar à lista
@@ -334,19 +279,9 @@ public class HomeFragment extends Fragment {
         calendar.set(Calendar.DAY_OF_WEEK, diaDaSemana);
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
 
-
-        //Log.d(TAG, "obterNomeDiaDaSemana : " + sdf.format(calendar.getTime());
         return sdf.format(calendar.getTime());
     }
 
-
-    private ListView listTarefa;
-
-    private RecyclerView recyclerViewSegunda;
-
-    private List<TarefaFirebase> tarefaList;
-    private TarefaFirebaseAdapter tarefaAdapter;
-    private TarefaFirebase androidTarefa;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -354,51 +289,12 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //setupRecyclerView(view);
 
-        // Configurar o adapter para o RecyclerView
-        //DiaSemanaAdapter adapter = new DiaSemanaAdapter(getContext(), listaDeDias);
-        //recyclerViewDiasSemana.setAdapter(adapter);
-
-        // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
-        //listaDeDias = new ArrayList<>();
-
-
-
-
-        // Configurar o RecyclerView
-        //setupRecyclerView(view);
-
-        // Criar instâncias de DiaDaSemana e adicioná-las à listaDeDias
-        //setupDiasDaSemana(view);
 
         listaDeDias = new ArrayList<>();
         configurarDiasDaSemana(view);
 
-
         Log.e("TarefaFirebase", "Iniciando leitura de tarefa");
-
-        //---------------------------------------------------------------------------------
-        /*recyclerViewSegunda = view.findViewById(R.id.recyclerViewSegunda);
-        recyclerViewSegunda.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewTerca = view.findViewById(R.id.recyclerViewTerca);
-        recyclerViewTerca.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewQuarta = view.findViewById(R.id.recyclerViewQuarta);
-        recyclerViewQuarta.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewQuinta = view.findViewById(R.id.recyclerViewQuinta);
-        recyclerViewQuinta.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewSexta = view.findViewById(R.id.recyclerViewSexta);
-        recyclerViewSexta.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewSabado = view.findViewById(R.id.recyclerViewSabado);
-        recyclerViewSabado.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        recyclerViewDomingo = view.findViewById(R.id.recyclerViewDomingo);
-        recyclerViewDomingo.setLayoutManager(new LinearLayoutManager(getContext()));*/
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -408,9 +304,6 @@ public class HomeFragment extends Fragment {
         user = mAuth.getCurrentUser();
 
         List<TarefaFirebase> listaDeTarefasFirebase = new ArrayList<>();
-
-
-
 
         if (user != null) {
             FirebaseUser finalUser = user;
@@ -440,10 +333,13 @@ public class HomeFragment extends Fragment {
 
                                     // Esta tarefa pertence ao usuário logado
                                     // Faça o que você precisa com a tarefa aqui
+                                    String idTarefa = snapshot.child("idTarefa").getValue(String.class);
                                     String taskTitle = snapshot.child("titulo").getValue(String.class);
                                     String taskDescription = snapshot.child("descricao").getValue(String.class);
 
                                     Long diaLong = snapshot.child("dia").getValue() != null ? snapshot.child("dia").getValue(Long.class) : 0L;
+                                    Log.d("TAG", "ID da Tarefa: " + idTarefa);
+                                    Log.d("TAG", "Título da Tarefa: " + taskTitle);
                                     Log.d("TAG", "Dia da Tarefa: " + diaLong);
 
 
@@ -477,6 +373,7 @@ public class HomeFragment extends Fragment {
 
 
                                     TarefaFirebase tarefa_firebase = new TarefaFirebase(taskTitle, taskDescription, repeticaoString, diaString, mesString, anoString, horaString, minutoString);
+                                    tarefa_firebase.setIdTarefa(idTarefa);
 
                                     // Associando a tarefa ao dia da semana correspondente
 
@@ -507,16 +404,6 @@ public class HomeFragment extends Fragment {
                             }
 
 
-
-                            //tarefaAdapter = new TarefaFirebaseAdapter(getContext(), listaDeTarefasFirebase);
-                            //recyclerViewSegunda.setAdapter(tarefaAdapter);
-
-                            //listTarefa = view.findViewById(R.id.listTarefa);
-                            //TarefaFirebaseAdapter adaptador = new TarefaFirebaseAdapter(getContext(), listaDeTarefasFirebase);
-                            //listTarefa.setAdapter((ListAdapter) adaptador);
-
-                            //ArrayAdapter<TarefaFirebase> adaptador = new ArrayAdapter<TarefaFirebase>(this, android.R.layout.simple_list_item_1, android.R.id.text1, listaDeTarefasFirebase);
-                            //listTarefa.setAdapter(adaptador);
                         }
 
                         @Override

@@ -3,6 +3,9 @@ package com.example.focofacil.Activity;
 import androidx.room.ColumnInfo;
 
 public class TarefaFirebase {
+    @ColumnInfo(name = "idTarefa")
+
+    private String idTarefa;
     @ColumnInfo(name = "titulo")
     private String titulo;
     @ColumnInfo(name = "descricao")
@@ -34,6 +37,15 @@ public class TarefaFirebase {
     public TarefaFirebase(){
 
     }
+
+    public String getIdTarefa() {
+        return idTarefa;
+    }
+
+    public void setIdTarefa(String idTarefa) {
+        this.idTarefa = idTarefa;
+    }
+
     public String getTitulo() {
         return titulo;
     }

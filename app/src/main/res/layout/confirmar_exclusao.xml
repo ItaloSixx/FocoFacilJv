@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:id="@+id/dialog_confirm_excluir"
+    android:radius="20dp">
+
+    <TextView
+        android:id="@+id/text_dialog_confirm_excluir"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/corprimaria"
+        android:text="Você tem certeza que deseja excluir essa tarefa?"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/confirm_excluir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sim, tenho certza!"
+        android:textColor="@color/corprimaria"
+        android:background="#007bff"/>
+
+    <Button
+        android:id="@+id/cancelar_excluir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Não, Cancelar"
+        android:textColor="@color/ABABAB"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>
