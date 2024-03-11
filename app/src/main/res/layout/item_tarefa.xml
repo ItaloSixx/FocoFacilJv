@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerCard"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="5.5"
+
+            android:paddingStart="@dimen/_4pxh"
+            android:paddingEnd="@dimen/_4pxh"
+            android:paddingTop="@dimen/_5pxv"
+            android:paddingBottom="@dimen/_5pxv"
+            android:background="@drawable/card_border">
+
+            <TextView
+                android:id="@+id/txtTarefaTitulo"
+                style="@style/txtPoppinsbold16_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingStart="@dimen/_4pxh"
+                android:paddingEnd="@dimen/_4pxh"
+                android:paddingTop="@dimen/_5pxv"
+                android:paddingBottom="@dimen/_5pxv"
+                android:maxLines="0"
+                android:singleLine="true"
+                android:text="@string/lbl_protocolos_web"
+                tools:text="" />
+
+
+            <TextView
+                android:id="@+id/txtTarefaDescricao"
+                style="@style/etPoppinsmedium12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:hint=""
+                android:text=""
+                android:inputType="text"
+                android:paddingStart="@dimen/_4pxh"
+                android:paddingEnd="@dimen/_4pxh"
+                android:paddingTop="@dimen/_4pxv"
+                android:paddingBottom="@dimen/_4pxv"
+                android:singleLine="true"
+                android:textColorHint="@color/black_900"
+                app:layout_constraintBottom_toTopOf="@+id/txtHoras"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtTarefaTituloSegunda"
+                tools:ignore="Autofill,MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtHorario"
+                style="@style/txtPoppinsmedium11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingStart="@dimen/_4pxh"
+                android:paddingEnd="@dimen/_4pxh"
+                android:paddingTop="@dimen/_4pxv"
+                android:paddingBottom="@dimen/_2pxv"
+                android:singleLine="true"
+                android:text="Horário"/>
+
+            <TextView
+                android:id="@+id/txtDataHora"
+                style="@style/etPoppinsmedium12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint=""
+                android:inputType="text"
+                android:paddingStart="@dimen/_4pxh"
+                android:paddingEnd="@dimen/_4pxh"
+                android:paddingBottom="@dimen/_2pxv"
+                android:paddingTop="@dimen/_2pxv"
+                android:singleLine="true"
+                android:textColorHint="@color/black_900"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtHoras"
+                tools:ignore="Autofill,MissingConstraints" />
+        </LinearLayout>
+
+
+
+
+
+</androidx.cardview.widget.CardView>
+</LinearLayout>

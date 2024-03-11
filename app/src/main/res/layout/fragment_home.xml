@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.HomeFragment">
+
+        <FrameLayout android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/_29pxh"
+            android:layout_marginStart="@dimen/_30pxh"
+            android:layout_marginTop="@dimen/_24pxv" >
+            <LinearLayout android:id="@+id/linearColumngroup142"
+                android:layout_gravity="start"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" android:orientation="vertical">
+                <androidx.appcompat.widget.Toolbar
+                    android:gravity="center_horizontal"
+                    android:id="@+id/toolbarToolbar"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_1pxh"
+                    android:layout_width="match_parent" app:contentInsetStart="0dp">
+                    <LinearLayout android:id="@+id/linearRowol"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent" android:orientation="horizontal">
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumnol"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.84"
+                            android:layout_width="0dp" android:orientation="vertical">
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txtOl"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_ol"
+                                style="@style/txtPoppinsbold16" tools:text="@string/lbl_ol"/>
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txtNome1"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_marginTop="@dimen/_10pxv"
+                                android:layout_width="match_parent"
+                                android:singleLine="true"
+                                style="@style/txtPoppinsbold24_1"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+                <ScrollView android:clipToPadding="false"
+                    android:fillViewport="true"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/scrollViewScrollview"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_1pxh"
+                    android:layout_marginTop="@dimen/_37pxv"
+                    android:layout_weight="1" android:layout_width="match_parent">
+                    <LinearLayout android:gravity="start"
+                        android:id="@+id/linearColumncronogramadoone"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent" android:orientation="vertical">
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearRowcronogramadoone"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal" style="@style/groupStylecyan_900cornerRadius">
+                            <FrameLayout
+                                android:id="@+id/frameStackcronogramadoone"
+                                android:layout_height="@dimen/_62pxv"
+                                android:layout_marginBottom="@dimen/_47pxv"
+                                android:layout_marginStart="@dimen/_13pxh"
+                                android:layout_marginTop="@dimen/_30pxv" android:layout_width="@dimen/_222pxh">
+                                <TextView android:gravity="top|start"
+                                    android:id="@+id/txtCronograma"
+                                    android:layout_gravity="start"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:text="@string/msg_cronograma_semana"
+                                    style="@style/txtPoppinsbold24_2" tools:text="Cronograma da Semana"/>
+                                <View
+                                    android:background="@drawable/rectangle_bg_lime_600_radius_6"
+                                    android:id="@+id/viewEllipseThree"
+                                    android:layout_gravity="end"
+                                    android:layout_height="@dimen/_12pxh"
+                                    android:layout_marginBottom="@dimen/_24pxv"
+                                    android:layout_marginEnd="@dimen/_18pxh"
+                                    android:layout_marginStart="@dimen/_18pxh"
+                                    android:layout_marginTop="@dimen/_24pxv" android:layout_width="@dimen/_12pxh"/>
+                            </FrameLayout>
+                            <View
+                                android:background="@drawable/rectangle_bg_green_400_radius_11"
+                                android:id="@+id/viewEllipseOne"
+                                android:layout_height="@dimen/_22pxh"
+                                android:layout_marginBottom="@dimen/_50pxv"
+                                android:layout_marginStart="@dimen/_4pxh"
+                                android:layout_marginTop="@dimen/_68pxv" android:layout_width="@dimen/_22pxh"/>
+                            <View
+                                android:background="@drawable/rectangle_bg_blue_a100_radius_6"
+                                android:id="@+id/viewEllipseTwo"
+                                android:layout_height="@dimen/_12pxh"
+                                android:layout_marginBottom="@dimen/_108pxv"
+                                android:layout_marginEnd="@dimen/_38pxh"
+                                android:layout_marginStart="@dimen/_3pxh"
+                                android:layout_marginTop="@dimen/_20pxv" android:layout_width="@dimen/_12pxh"/>
+
+                            <TextView
+                                android:id="@+id/txtAssunto"
+                                style="@style/txtPoppinsbold16_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_22pxh"
+                                android:layout_marginTop="@dimen/_16pxv"
+                                android:layout_marginEnd="@dimen/_22pxh"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@string/msg_sistemas_embarc"
+                                tools:text="@string/msg_sistemas_embarc" />
+                        </LinearLayout>
+
+
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumnsegundafeira"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_24pxv"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
+
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_segunda_feira"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_width="match_parent"
+                                android:singleLine="true"
+                                android:text="@string/lbl_segunda_feira"
+                                style="@style/txtPoppinsbold20" tools:text="@string/lbl_segunda_feira"/>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewSegunda"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+
+
+                        </LinearLayout>
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumnterafeira"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_32pxv"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_terca_feira"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_ter_a_feira"
+                                style="@style/txtPoppinsbold20_1" tools:text="@string/lbl_ter_a_feira"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewTerca"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+
+
+                        </LinearLayout>
+                        <LinearLayout android:gravity="start"
+                        android:id="@+id/linearColumnquarta"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_24pxv"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical" style="@style/groupStylecornerRadius">
+
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_quarta_feira"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_marginTop="@dimen/_30pxv"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_quarta_feira"
+                                style="@style/txtPoppinsbold20_2" tools:text="@string/lbl_quarta_feira"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewQuarta"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumnquintafeira"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_30pxv"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_quinta_feira"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_quinta_feira"
+                                style="@style/txtPoppinsbold20_3" tools:text="@string/lbl_quinta_feira"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewQuinta"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+
+                        </LinearLayout>
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumnsextafeira"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_24pxv"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
+
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_sexta_feira"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_marginTop="@dimen/_30pxv"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_sexta_feira"
+                                style="@style/txtPoppinsbold20_4" tools:text="@string/lbl_sexta_feira"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewSexta"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+
+                        </LinearLayout>
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumnsabado"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_24pxv"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
+
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_sabado"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_marginTop="@dimen/_30pxv"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_s_bado"
+                                style="@style/txtPoppinsbold20_5" tools:text="@string/lbl_s_bado"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewSabado"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout android:gravity="start"
+                            android:id="@+id/linearColumndomingo"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_24pxv"
+                            android:layout_marginBottom="@dimen/_150pxv"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical" style="@style/groupStylecornerRadius">
+
+                            <TextView android:ellipsize="end"
+                                android:id="@+id/txt_domingo"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10pxh"
+                                android:layout_marginTop="@dimen/_30pxv"
+                                android:layout_width="wrap_content"
+                                android:singleLine="true"
+                                android:text="@string/lbl_domingo"
+                                style="@style/txtPoppinsbold20_6" tools:text="@string/lbl_domingo"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/recyclerViewDomingo"
+                                android:layout_marginTop="8dp"
+                                android:scrollbars="vertical"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:backgroundTint="@color/blue_100"
+                android:id="@+id/floatingBtnFloatingactionbutton"
+                android:layout_gravity="top|end"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_616pxv"
+                android:layout_marginEnd="@dimen/_14pxh"
+                android:layout_marginStart="@dimen/_14pxh"
+                android:layout_marginTop="@dimen/_616pxv"
+                android:layout_width="wrap_content"
+                app:fabCustomSize="@dimen/_45pxh"
+                app:srcCompat="@drawable/img_plus" app:tint="@color/bluegray_100"/>
+        </FrameLayout>
+
+</layout >

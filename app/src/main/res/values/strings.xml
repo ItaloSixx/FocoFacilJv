@@ -13,7 +13,7 @@
     <string name="lbl_horas_da_aula">Horas da aula</string>
     <string name="msg_data_de_vencime">Data de Vencimento</string>
     <string name="lbl_email2">Email:</string>
-    <string name="msg_cronograma_do_1">Cronograma do 1º semestre 2024</string>
+    <string name="msg_cronograma_semana">Cronograma da Semana</string>
     <string name="lbl_10_20_12_00">	10:20 - 12:00</string>
     <string name="msg_login_com_googl">Login com Google</string>
     <string name="msg_italojefer_gmai">Italojefer@gmail.com</string>
@@ -75,4 +75,7 @@
     <string name="infoHora">Clique Para Selecionar o Horário:</string>
     <string name="horaDialog">Horário</string>
     <string name="ok">Ok</string>
+    <string name="title_home_fragment">Home Fragment</string>
+    <string name="title_detalhes_dia_fragment">Detalhes Dia Fragment</string>
+
 </resources>

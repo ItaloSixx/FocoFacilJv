@@ -3,6 +3,7 @@ package com.example.focofacil.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -120,10 +121,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //fazer login email e senha
     private void fazerLogin(String email, String senha) {
-        //dialog carregamento
-        final LoadingDialog loadingDialog = new LoadingDialog(this);
-        loadingDialog.startLoadingDialog();
-
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -132,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user != null && user.isEmailVerified()) {
                                 Toast.makeText(LoginActivity.this, "Logado", Toast.LENGTH_SHORT).show();
-                                Intent redirecionar = new Intent(LoginActivity.this, MainMenuActivity.class);
+                                Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
                                 startActivity(redirecionar);
                                 finish();
                             }else{
@@ -169,16 +166,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null && (user.isEmailVerified() || logadoGoogle(user))) {
-            Intent redirecionar = new Intent(LoginActivity.this, MainMenuActivity.class);
+            Intent redirecionar = new Intent(LoginActivity.this, PerfilActivity.class);
             startActivity(redirecionar);
         }
     }
     //login com google
     private void firebaseAuthGoogle(String idToken) {
-        //dialog carregamento
-        final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
-        loadingDialog.startLoadingDialog();
-
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -194,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                                 map.put("fotoPerfil", user.getPhotoUrl().toString());
                             }
                             database.getReference().child("User").child(user.getUid()).setValue(map);
-                            Intent redirecionar = new Intent(getApplicationContext(), MainMenuActivity.class);
+                            Intent redirecionar = new Intent(getApplicationContext(), PerfilActivity.class);
                             startActivity(redirecionar);
                             finish();
                         }else{

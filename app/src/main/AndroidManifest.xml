@@ -41,6 +41,9 @@
         android:theme="@style/Theme.NoBar"
         tools:targetApi="34">
         <activity
+            android:name=".Activity.SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.NavActivity"
             android:exported="false" />
 
@@ -66,6 +69,7 @@
         <activity
             android:name=".Activity.RecuperarSenhaActivity"
             android:exported="false" />
+
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true"
